@@ -35,6 +35,7 @@
     setupAccordion();
     setupPlanCardInteractions();
     setupFloatingMenu();
+    setupCoverageForm();
     setupBackToTop();
     setupYear();
     setupRevealOnce();
@@ -365,6 +366,29 @@
     root.querySelector(".promo-popup__close").addEventListener("click", closePopup);
     root.addEventListener("click", function (e) {
       if (e.target === root) closePopup();
+    });
+  }
+
+  /* ---------- Formulário "Consulte cobertura no seu endereço" ---------- */
+  function setupCoverageForm() {
+    var form = document.getElementById("coverage-form");
+    if (!form) return;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var rua = form.querySelector("#cf-rua").value.trim();
+      var whatsapp = form.querySelector("#cf-whatsapp").value.trim();
+      var bairro = form.querySelector("#cf-bairro").value.trim();
+      var nome = form.querySelector("#cf-nome").value.trim();
+
+      var mensagem =
+        "Olá! Quero consultar cobertura da AlmeidasNet.\n" +
+        "Nome: " + nome + "\n" +
+        "Rua/Av: " + rua + "\n" +
+        "Bairro: " + bairro + "\n" +
+        "Meu WhatsApp: " + whatsapp;
+
+      window.open(waLink(mensagem), "_blank", "noopener");
     });
   }
 

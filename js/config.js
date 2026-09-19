@@ -34,7 +34,7 @@ window.ALMEIDASNET_CONFIG = {
   telefoneLink: "tel:+557130195811",
 
   redesSociais: {
-    instagram: "#", // INSERIR LINK
+    instagram: "https://www.instagram.com/almeidas_net/",
     facebook: "#",  // INSERIR LINK
     youtube: "#",   // INSERIR LINK
   },
