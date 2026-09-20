@@ -1,37 +1,45 @@
 /**
- * CONFIGURAÇÃO CENTRAL — ALMEIDASNET
+ * CONFIGURAÇÃO CENTRAL — ALMEIDAS.NET
  * -----------------------------------
- * Edite apenas este arquivo para atualizar links, textos, fotos do
- * carrossel, o popup de indicação e os planos exibidos no site.
+ * Edite apenas este arquivo para atualizar links, textos, banners do
+ * carrossel, o popup de indicação, planos, entretenimento e depoimentos.
  * Nenhum outro arquivo precisa ser alterado para essas mudanças.
  *
- * IMAGENS DO CARROSSEL (heroSlides.imagem):
- *   - Tamanho: 1920 x 1080px (paisagem, 16:9) — veja o placeholder
- *     em images/hero/slide-1.jpg para a referência exata
- *   - Formato: JPG ou WebP, até ~350KB por imagem
- *   - Evite informação importante no terço esquerdo: é onde o título
- *     e o botão ficam por cima (com um degradê escuro de apoio)
- *   - Troque os arquivos em images/hero/ mantendo o mesmo nome
+ * BANNERS DO CARROSSEL (heroSlides)
+ *   Os banners são desenhados em código (anel animado, ícones flutuantes
+ *   e texto), então já ficam prontos sem nenhuma imagem.
+ *   Quer uma foto de pessoa no banner (como no site da Nex)? Coloque um
+ *   PNG com fundo transparente, recortado, em images/hero/ e preencha
+ *   "foto" no slide (ex.: foto: "images/hero/pessoa-1.png").
+ *   Tamanho ideal: 900 x 1100px, PNG transparente, até ~400KB.
  *
- * IMAGENS DO POPUP "INDIQUE E GANHE" (popupIndiqueGanhe.slides.imagem):
- *   - Tamanho: 900 x 900px (quadrado) — veja images/promo/promo-1.jpg
- *   - Formato: JPG ou PNG, até ~500KB
- *   - A imagem é o próprio criativo (texto/CTA já desenhados nela);
- *     o clique na imagem abre o link configurado em "link"
+ * POPUP "INDIQUE E GANHE" (popupIndiqueGanhe.slides)
+ *   Também é desenhado em código. Se preferir uma arte pronta, preencha
+ *   "imagem" (900 x 900px, JPG/PNG até ~500KB) e ela substitui o desenho.
  *
- * ÍCONES DE APP DOS PLANOS (planos > apps > icone):
- *   - Tamanho: 48 x 48px, PNG com fundo transparente — veja
- *     images/apps/icone-app.png (placeholder genérico)
- *   - Troque o caminho em "icone" quando tiver o ícone real
+ * ÍCONES DE APP DOS PLANOS (planos > apps > icone)
+ *   48 x 48px, PNG com fundo transparente. Troque o caminho em "icone"
+ *   e preencha "nome" quando tiver o ícone real.
+ *
+ * ÍCONES DISPONÍVEIS para "arte", "chips" e "icone":
+ *   wifi, bolt, gamepad, play, chat, video, headset, shield, check,
+ *   phone, file, gauge, users, music, ball, book, smile, film, star
  */
 
 window.ALMEIDASNET_CONFIG = {
-  // Link do WhatsApp (use o formato https://wa.me/55DDDNUMERO)
-  whatsapp: "https://wa.me/5571301958110",
-  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet.",
+  marca: "Almeidas.Net",
 
-  telefone: "(71) 3019-5811",
-  telefoneLink: "tel:+557130195811",
+  // WhatsApp (formato https://wa.me/55DDDNUMERO) e como o número aparece no site
+  whatsapp: "https://wa.me/5571993812371",
+  whatsappExibicao: "(71) 99381-2371",
+  whatsappMensagemPadrao: "Olá! Quero contratar um plano da Almeidas.Net.",
+
+  // Botão de telefone flutuante e textos "ligue para"
+  telefone: "(71) 99381-2371",
+  telefoneLink: "tel:+5571993812371",
+
+  endereco: "Tv. Domingos Silva, 35, Itapuã, Salvador - BA",
+  enderecoMapa: "https://www.google.com/maps/search/?api=1&query=Tv.+Domingos+Silva,+35,+Itapu%C3%A3,+Salvador+-+BA",
 
   redesSociais: {
     instagram: "https://www.instagram.com/almeidas_net/",
@@ -43,56 +51,80 @@ window.ALMEIDASNET_CONFIG = {
   appIphone: "https://apps.apple.com/br/app/almeidasnet/id6774625446",
   appAndroid: "https://play.google.com/store/apps/details?id=br.com.almeidasnet.ixc",
 
-  testeDeVelocidade: "#", // INSERIR LINK
+  testeDeVelocidade: "https://www.speedtest.net/",
   segundaViaFatura: "https://ixc.almeidasnet.com.br",
 
   /* ------------------------------------------------------------------
-     CARROSSEL (Hero) — troque "imagem" pela foto real e edite os textos
+     CARROSSEL (Hero)
+     arte: wifi | velocidade | gamepad | headset (desenho do painel verde)
+     numero: "auto" usa a maior velocidade dos planos abaixo (arte "velocidade")
+     chips: ícones que flutuam em volta do painel
      ------------------------------------------------------------------ */
   heroSlides: [
     {
-      imagem: "images/hero/slide-1.jpg",
-      alt: "Internet fibra óptica AlmeidasNet",
-      kicker: "100% fibra óptica",
-      titulo: "Internet rápida para acompanhar o seu ritmo",
-      texto: "Fibra óptica de alta velocidade para sua casa, trabalho e entretenimento.",
-      botaoTexto: "Conheça nossos planos",
-      botaoLink: "#planos",
+      arte: "wifi",
+      tituloDestaque: "A internet",
+      titulo: ["que transforma", "a sua rotina"],
+      texto: "Fibra óptica de alta velocidade para a sua casa, o trabalho e a diversão.",
+      botaoTexto: "Assine já!",
+      botaoLink: "whatsapp:Olá! Quero assinar a Almeidas.Net.",
+      mostrarTelefone: true,
+      chips: ["play", "gamepad", "chat", "video"],
+      foto: "",
+      alt: "Internet fibra óptica Almeidas.Net",
     },
     {
-      imagem: "images/hero/slide-2.jpg",
-      alt: "Conexão estável AlmeidasNet",
-      kicker: "Estabilidade o dia inteiro",
-      titulo: "Conexão estável para todos os momentos",
-      texto: "Mais estabilidade para streaming, chamadas, estudos, trabalho e jogos online.",
-      botaoTexto: "Ver planos",
-      botaoLink: "#planos",
+      arte: "velocidade",
+      numero: "auto",
+      unidade: "mega",
+      tituloDestaque: "Instalação",
+      titulo: ["grátis e muita", "velocidade"],
+      texto: "Assine agora e conecte a casa inteira, sem pagar pela instalação.",
+      botaoTexto: "Quero assinar",
+      botaoLink: "whatsapp:Olá! Quero assinar com instalação grátis.",
+      mostrarTelefone: false,
+      chips: ["video", "music", "chat", "wifi"],
+      foto: "",
+      alt: "Instalação grátis Almeidas.Net",
     },
     {
-      imagem: "images/hero/slide-3.jpg",
-      alt: "Internet para jogos online AlmeidasNet",
-      kicker: "Feita para o seu jogo",
-      titulo: "Seu jogo merece uma conexão de verdade",
-      texto: "Baixa latência e estabilidade para você jogar sem preocupação.",
+      arte: "gamepad",
+      tituloDestaque: "Feito para",
+      titulo: ["você dominar", "os jogos"],
+      texto: "Conexão estável e baixa latência para jogar online sem lag, do casual ao competitivo.",
       botaoTexto: "Conheça os planos",
       botaoLink: "#planos",
+      mostrarTelefone: false,
+      chips: ["bolt", "star", "headset", "play"],
+      foto: "",
+      alt: "Internet para jogos online Almeidas.Net",
     },
     {
-      imagem: "images/hero/slide-4.jpg",
-      alt: "AlmeidasNet Telecom",
-      kicker: "AlmeidasNet",
-      titulo: "Conectando você ao que importa",
-      texto: "Atendimento próximo, tecnologia de ponta e uma equipe pronta para te ajudar.",
-      botaoTexto: "Fale conosco",
-      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet.",
+      arte: "headset",
+      tituloDestaque: "Atendimento",
+      titulo: ["humanizado de", "verdade"],
+      texto: "Time próximo, pronto para resolver pelo WhatsApp, telefone ou pelo app.",
+      botaoTexto: "Fale com a gente",
+      botaoLink: "whatsapp:Olá! Quero falar com a Almeidas.Net.",
+      mostrarTelefone: true,
+      chips: ["chat", "shield", "phone", "check"],
+      foto: "",
+      alt: "Atendimento humanizado Almeidas.Net",
     },
+  ],
+
+  // Faixa verde logo abaixo do carrossel
+  beneficiosFaixa: [
+    { icone: "shield", texto: "Garantia de entrega da banda contratada" },
+    { icone: "headset", texto: "Atendimento humanizado" },
+    { icone: "check", texto: "Instalação GRÁTIS" },
   ],
 
   /* ------------------------------------------------------------------
      PLANOS — cada plano tem 3 linhas (incluso / grátis / apps premium
-     com seletor), um botão "+ Adicionar no combo" e o preço. Preencha
-     os arrays "apps" com nome + ícone real quando tiver; até lá, os
-     nomes aparecem como texto e o ícone usa o placeholder genérico.
+     com seletor), um botão "+ Adicionar no combo" e o preço.
+     ATENÇÃO: valores, velocidades e apps abaixo são EXEMPLOS. Ajuste
+     para os seus planos reais.
      ------------------------------------------------------------------ */
   planos: [
     {
@@ -238,44 +270,103 @@ window.ALMEIDASNET_CONFIG = {
   ],
 
   /* ------------------------------------------------------------------
-     MENU RÁPIDO FLUTUANTE — itens do painel que abre ao clicar no botão
-     de lista, no canto inferior direito. "link" aceita: âncora da
-     própria página ("#planos"), URL externa, ou "whatsapp:mensagem".
+     GAMER — textos e números (confirme os números antes de publicar)
+     ------------------------------------------------------------------ */
+  gamer: {
+    ativo: true,
+    titulo: "Feito para dominar o jogo",
+    texto: "Conexão rápida e estável, com baixa latência, ideal para partidas online sem interrupções. Jogue no seu melhor nível, sem lag.",
+    botao: "Ver planos",
+    numeros: [
+      { valor: "< 10ms", legenda: "Latência local" },
+      { valor: "1 Giga", legenda: "Velocidade máxima" },
+      { valor: "24/7", legenda: "Estabilidade" },
+    ],
+  },
+
+  /* ------------------------------------------------------------------
+     ENTRETENIMENTO — faixa que se arrasta com o mouse/dedo.
+     Cada card: titulo, texto, icone, e opcionalmente "imagem" (capa
+     600 x 720px) e "link" (âncora, URL ou "whatsapp:mensagem").
+     ------------------------------------------------------------------ */
+  entretenimento: {
+    titulo: "Na Almeidas.Net você encontra serviços de entretenimento",
+    texto: "Velocidade de sobra para aproveitar tudo o que você gosta, sem travar.",
+    cards: [
+      { titulo: "Filmes e séries", texto: "Maratone sem interrupções, mesmo com a casa toda conectada.", icone: "film", imagem: "", link: "#planos" },
+      { titulo: "Esportes", texto: "Transmissões ao vivo sem travar nos lances decisivos.", icone: "ball", imagem: "", link: "#planos" },
+      { titulo: "Conteúdo infantil", texto: "Desenhos e jogos educativos com navegação fluida.", icone: "smile", imagem: "", link: "#planos" },
+      { titulo: "Música", texto: "Playlists e podcasts sem travar, em qualquer cômodo.", icone: "music", imagem: "", link: "#planos" },
+      { titulo: "Games", texto: "Baixa latência para jogar online com estabilidade.", icone: "gamepad", imagem: "", link: "#planos" },
+      { titulo: "Educação", texto: "Aulas online e cursos sem interrupções, a qualquer hora.", icone: "book", imagem: "", link: "#planos" },
+    ],
+  },
+
+  /* ------------------------------------------------------------------
+     WI-FI 6 — para esconder a seção, mude "ativo" para false
+     ------------------------------------------------------------------ */
+  wifi6: {
+    ativo: true,
+    titulo: "Conheça o poder do Wi-Fi 6 da Almeidas.Net",
+    texto: "Com o Wi-Fi 6 sua casa ou empresa recebe o que há de mais moderno em conectividade: mais velocidade, mais estabilidade e muito mais eficiência para a sua internet do dia a dia.",
+    botao: "Fale conosco",
+    itens: [
+      "Mais velocidade real na banda contratada",
+      "Menos interferência entre redes vizinhas",
+      "Mais aparelhos conectados ao mesmo tempo",
+    ],
+  },
+
+  /* ------------------------------------------------------------------
+     DEPOIMENTOS — SUBSTITUA pelos depoimentos reais dos seus clientes
+     (os de baixo são apenas exemplos de layout)
+     ------------------------------------------------------------------ */
+  depoimentos: [
+    { nome: "Marina Costa", perfil: "Cliente residencial", texto: "Depois que contratei a Almeidas.Net, minha conexão ficou muito mais estável." },
+    { nome: "Rodrigo Silva", perfil: "Home office", texto: "Uso para trabalhar e assistir streaming ao mesmo tempo e funciona muito bem." },
+    { nome: "Lucas Pereira", perfil: "Cliente gamer", texto: "Para jogar online, a estabilidade fez bastante diferença." },
+    { nome: "Ana Ribeiro", perfil: "Cliente residencial", texto: "Atendimento rápido e instalação sem complicação." },
+  ],
+
+  /* ------------------------------------------------------------------
+     MENU RÁPIDO FLUTUANTE — painel do botão de lista (canto inferior
+     direito). "link" aceita: âncora ("#planos"), URL externa ou
+     "whatsapp:mensagem".
      ------------------------------------------------------------------ */
   menuRapido: [
-    { texto: "Nossos Planos", link: "#planos" },
-    { texto: "Sua Fatura", link: "https://ixc.almeidasnet.com.br" },
-    { texto: "Quem Somos", link: "#depoimentos" },
-    { texto: "Entretenimento", link: "#entretenimento" },
-    { texto: "Nossas Lojas", link: "#onde-estamos" },
-    { texto: "Fale Conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet." },
-    { texto: "Teste de Velocidade", link: "#" },
+    { texto: "Nossos planos", link: "#planos", icone: "wifi" },
+    { texto: "Sua fatura", link: "https://ixc.almeidasnet.com.br", icone: "file" },
+    { texto: "Quem somos", link: "#quem-somos", icone: "users" },
+    { texto: "Entretenimento", link: "#entretenimento", icone: "film" },
+    { texto: "Onde estamos", link: "#onde-estamos", icone: "pin" },
+    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a Almeidas.Net.", icone: "chat" },
+    { texto: "Teste de velocidade", link: "https://www.speedtest.net/", icone: "gauge" },
   ],
 
   /* ------------------------------------------------------------------
      POPUP "INDIQUE E GANHE" — aparece uma vez por visita, após alguns
-     segundos. Cada slide é uma imagem quadrada já com o criativo
-     pronto (texto/CTA desenhados nela); o clique abre "link".
-     Para desativar o popup, mude "ativo" para false.
+     segundos, e também ao clicar em "Indique e ganhe" no menu.
+     Para desativar o popup automático, mude "ativo" para false.
      ------------------------------------------------------------------ */
   popupIndiqueGanhe: {
     ativo: true,
     atrasoMs: 4000,
     slides: [
       {
-        imagem: "images/promo/promo-1.jpg",
-        alt: "Indique e ganhe AlmeidasNet",
-        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet.",
+        imagem: "",
+        titulo: "Indique e ganhe",
+        texto: "Indique amigos e familiares para a Almeidas.Net e ganhe benefícios.",
+        botao: "Quero indicar",
+        icone: "users",
+        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da Almeidas.Net.",
       },
       {
-        imagem: "images/promo/promo-2.jpg",
-        alt: "Promoção AlmeidasNet",
-        link: "whatsapp:Olá! Quero saber mais sobre as promoções da AlmeidasNet.",
-      },
-      {
-        imagem: "images/promo/promo-3.jpg",
-        alt: "Promoção AlmeidasNet",
-        link: "whatsapp:Olá! Quero saber mais sobre as promoções da AlmeidasNet.",
+        imagem: "",
+        titulo: "Instalação grátis",
+        texto: "Assine agora e a instalação não custa nada.",
+        botao: "Quero assinar",
+        icone: "check",
+        link: "whatsapp:Olá! Quero assinar com instalação grátis na Almeidas.Net.",
       },
     ],
   },
