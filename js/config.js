@@ -1,5 +1,5 @@
 /**
- * CONFIGURAÇÃO CENTRAL — ALMEIDAS.NET
+ * CONFIGURAÇÃO CENTRAL — ALMEIDASNET
  * -----------------------------------
  * Edite apenas este arquivo para atualizar links, textos, banners do
  * carrossel, o popup de indicação, planos, entretenimento e depoimentos.
@@ -27,12 +27,12 @@
  */
 
 window.ALMEIDASNET_CONFIG = {
-  marca: "Almeidas.Net",
+  marca: "AlmeidasNet",
 
   // WhatsApp (formato https://wa.me/55DDDNUMERO) e como o número aparece no site
   whatsapp: "https://wa.me/5571993812371",
   whatsappExibicao: "(71) 99381-2371",
-  whatsappMensagemPadrao: "Olá! Quero contratar um plano da Almeidas.Net.",
+  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet",
 
   // Botão de telefone flutuante e textos "ligue para"
   telefone: "(71) 99381-2371",
@@ -67,11 +67,11 @@ window.ALMEIDASNET_CONFIG = {
       titulo: ["que transforma", "a sua rotina"],
       texto: "Fibra óptica de alta velocidade para a sua casa, o trabalho e a diversão.",
       botaoTexto: "Assine já!",
-      botaoLink: "whatsapp:Olá! Quero assinar a Almeidas.Net.",
+      botaoLink: "whatsapp:Olá! Quero assinar a AlmeidasNet",
       mostrarTelefone: true,
       chips: ["play", "gamepad", "chat", "video"],
       foto: "",
-      alt: "Internet fibra óptica Almeidas.Net",
+      alt: "Internet fibra óptica AlmeidasNet",
     },
     {
       arte: "velocidade",
@@ -85,7 +85,7 @@ window.ALMEIDASNET_CONFIG = {
       mostrarTelefone: false,
       chips: ["video", "music", "chat", "wifi"],
       foto: "",
-      alt: "Instalação grátis Almeidas.Net",
+      alt: "Instalação grátis AlmeidasNet",
     },
     {
       arte: "gamepad",
@@ -97,7 +97,7 @@ window.ALMEIDASNET_CONFIG = {
       mostrarTelefone: false,
       chips: ["bolt", "star", "headset", "play"],
       foto: "",
-      alt: "Internet para jogos online Almeidas.Net",
+      alt: "Internet para jogos online AlmeidasNet",
     },
     {
       arte: "headset",
@@ -105,11 +105,11 @@ window.ALMEIDASNET_CONFIG = {
       titulo: ["humanizado de", "verdade"],
       texto: "Time próximo, pronto para resolver pelo WhatsApp, telefone ou pelo app.",
       botaoTexto: "Fale com a gente",
-      botaoLink: "whatsapp:Olá! Quero falar com a Almeidas.Net.",
+      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet",
       mostrarTelefone: true,
       chips: ["chat", "shield", "phone", "check"],
       foto: "",
-      alt: "Atendimento humanizado Almeidas.Net",
+      alt: "Atendimento humanizado AlmeidasNet",
     },
   ],
 
@@ -290,7 +290,7 @@ window.ALMEIDASNET_CONFIG = {
      600 x 720px) e "link" (âncora, URL ou "whatsapp:mensagem").
      ------------------------------------------------------------------ */
   entretenimento: {
-    titulo: "Na Almeidas.Net você encontra serviços de entretenimento",
+    titulo: "Na AlmeidasNet você encontra serviços de entretenimento",
     texto: "Velocidade de sobra para aproveitar tudo o que você gosta, sem travar.",
     cards: [
       { titulo: "Filmes e séries", texto: "Maratone sem interrupções, mesmo com a casa toda conectada.", icone: "film", imagem: "", link: "#planos" },
@@ -307,7 +307,7 @@ window.ALMEIDASNET_CONFIG = {
      ------------------------------------------------------------------ */
   wifi6: {
     ativo: true,
-    titulo: "Conheça o poder do Wi-Fi 6 da Almeidas.Net",
+    titulo: "Conheça o poder do Wi-Fi 6 da AlmeidasNet",
     texto: "Com o Wi-Fi 6 sua casa ou empresa recebe o que há de mais moderno em conectividade: mais velocidade, mais estabilidade e muito mais eficiência para a sua internet do dia a dia.",
     botao: "Fale conosco",
     itens: [
@@ -322,7 +322,7 @@ window.ALMEIDASNET_CONFIG = {
      (os de baixo são apenas exemplos de layout)
      ------------------------------------------------------------------ */
   depoimentos: [
-    { nome: "Marina Costa", perfil: "Cliente residencial", texto: "Depois que contratei a Almeidas.Net, minha conexão ficou muito mais estável." },
+    { nome: "Marina Costa", perfil: "Cliente residencial", texto: "Depois que contratei a AlmeidasNet, minha conexão ficou muito mais estável." },
     { nome: "Rodrigo Silva", perfil: "Home office", texto: "Uso para trabalhar e assistir streaming ao mesmo tempo e funciona muito bem." },
     { nome: "Lucas Pereira", perfil: "Cliente gamer", texto: "Para jogar online, a estabilidade fez bastante diferença." },
     { nome: "Ana Ribeiro", perfil: "Cliente residencial", texto: "Atendimento rápido e instalação sem complicação." },
@@ -339,7 +339,7 @@ window.ALMEIDASNET_CONFIG = {
     { texto: "Quem somos", link: "#quem-somos", icone: "users" },
     { texto: "Entretenimento", link: "#entretenimento", icone: "film" },
     { texto: "Onde estamos", link: "#onde-estamos", icone: "pin" },
-    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a Almeidas.Net.", icone: "chat" },
+    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet", icone: "chat" },
     { texto: "Teste de velocidade", link: "https://www.speedtest.net/", icone: "gauge" },
   ],
 
@@ -355,10 +355,10 @@ window.ALMEIDASNET_CONFIG = {
       {
         imagem: "",
         titulo: "Indique e ganhe",
-        texto: "Indique amigos e familiares para a Almeidas.Net e ganhe benefícios.",
+        texto: "Indique amigos e familiares para a AlmeidasNet e ganhe benefícios.",
         botao: "Quero indicar",
         icone: "users",
-        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da Almeidas.Net.",
+        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet",
       },
       {
         imagem: "",
@@ -366,7 +366,7 @@ window.ALMEIDASNET_CONFIG = {
         texto: "Assine agora e a instalação não custa nada.",
         botao: "Quero assinar",
         icone: "check",
-        link: "whatsapp:Olá! Quero assinar com instalação grátis na Almeidas.Net.",
+        link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet",
       },
     ],
   },

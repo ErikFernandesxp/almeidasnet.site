@@ -354,7 +354,7 @@
       '<p class="plan-card__price-label">Total no combo (com fidelidade)</p>' +
       '<div class="plan-card__price-row"><p class="plan-card__price-final"><small>R$</small>' + esc(p.precoFinal) + "</p>" +
       '<a class="btn btn--dark btn--sm" target="_blank" rel="noopener" href="' +
-      esc(waLink("Olá! Tenho interesse no " + p.combo + " (" + p.velocidade + " " + p.unidade + ") da Almeidas.Net.")) +
+      esc(waLink("Olá! Tenho interesse no " + p.combo + " (" + p.velocidade + " " + p.unidade + ") da AlmeidasNet")) +
       '">Assine já</a></div></div></article>'
     );
   }
@@ -557,7 +557,7 @@
 
     var slidesHTML = cfg.slides.map(function (s, i) {
       var inner = s.imagem
-        ? '<a ' + linkAttrs(s.link) + '><img src="' + esc(s.imagem) + '" alt="' + esc(s.titulo || "Promoção Almeidas.Net") + '"></a>'
+        ? '<a ' + linkAttrs(s.link) + '><img src="' + esc(s.imagem) + '" alt="' + esc(s.titulo || "Promoção AlmeidasNet") + '"></a>'
         : '<a class="promo-art" ' + linkAttrs(s.link) + ">" +
           '<span class="promo-art__icon">' + icon(s.icone || "users") + "</span>" +
           "<h3>" + esc(s.titulo) + "</h3><p>" + esc(s.texto) + "</p>" +
@@ -688,7 +688,7 @@
       e.preventDefault();
       var v = function (id) { return $(id, form).value.trim(); };
       var msg =
-        "Olá! Quero consultar cobertura da Almeidas.Net.\n" +
+        "Olá! Quero consultar cobertura da AlmeidasNet\n" +
         "Nome: " + v("#cf-nome") + "\n" +
         "Rua/Av: " + v("#cf-rua") + "\n" +
         "Bairro: " + v("#cf-bairro") + "\n" +

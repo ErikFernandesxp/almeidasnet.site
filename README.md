@@ -1,7 +1,7 @@
-# Almeidas.Net Telecom — Site institucional
+# AlmeidasNet Telecom — Site institucional
 
 Site estático (HTML + CSS + JS puro, sem build), pronto para publicar na Vercel via GitHub.
-Visual inspirado na estrutura do site da Nex Telecom, com as cores da Almeidas.Net
+Visual inspirado na estrutura do site da Nex Telecom, com as cores da AlmeidasNet
 (verde `#19B506`, verde neon `#5FFF00`, preto e o laranja do botão "Área do assinante").
 
 ## Estrutura
@@ -52,7 +52,7 @@ Flutuantes: menu rápido, telefone, WhatsApp, Instagram e voltar ao topo. Popup 
 
 1. Suba esta pasta para um repositório no GitHub:
    ```bash
-   git init && git add . && git commit -m "Almeidas.Net - site institucional"
+   git init && git add . && git commit -m "AlmeidasNet - site institucional"
    git branch -M main
    git remote add origin SEU_REPOSITORIO_AQUI
    git push -u origin main
