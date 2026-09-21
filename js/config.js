@@ -1,5 +1,5 @@
 /**
- * CONFIGURAÇÃO CENTRAL — ALMEIDASNET
+ * CONFIGURAÇÃO CENTRAL — ALMEIDAS.NET
  * -----------------------------------
  * Edite apenas este arquivo para atualizar links, textos, banners do
  * carrossel, o popup de indicação, planos, entretenimento e depoimentos.
@@ -32,7 +32,7 @@ window.ALMEIDASNET_CONFIG = {
   // WhatsApp (formato https://wa.me/55DDDNUMERO) e como o número aparece no site
   whatsapp: "https://wa.me/5571993812371",
   whatsappExibicao: "(71) 99381-2371",
-  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet",
+  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet.",
 
   // Botão de telefone flutuante e textos "ligue para"
   telefone: "(71) 99381-2371",
@@ -67,7 +67,7 @@ window.ALMEIDASNET_CONFIG = {
       titulo: ["que transforma", "a sua rotina"],
       texto: "Fibra óptica de alta velocidade para a sua casa, o trabalho e a diversão.",
       botaoTexto: "Assine já!",
-      botaoLink: "whatsapp:Olá! Quero assinar a AlmeidasNet",
+      botaoLink: "whatsapp:Olá! Quero assinar a AlmeidasNet.",
       mostrarTelefone: true,
       chips: ["play", "gamepad", "chat", "video"],
       foto: "",
@@ -105,7 +105,7 @@ window.ALMEIDASNET_CONFIG = {
       titulo: ["humanizado de", "verdade"],
       texto: "Time próximo, pronto para resolver pelo WhatsApp, telefone ou pelo app.",
       botaoTexto: "Fale com a gente",
-      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet",
+      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet.",
       mostrarTelefone: true,
       chips: ["chat", "shield", "phone", "check"],
       foto: "",
@@ -121,16 +121,23 @@ window.ALMEIDASNET_CONFIG = {
   ],
 
   /* ------------------------------------------------------------------
-     PLANOS — cada plano tem 3 linhas (incluso / grátis / apps premium
-     com seletor), um botão "+ Adicionar no combo" e o preço.
+     PLANOS — para mudar os VALORES, edite só estes campos de cada plano:
+       velocidade            → número grande do card (ex.: "300")
+       precoFinal            → valor COM fidelidade (o total grande do card)
+       precoDe               → valor SEM fidelidade (o riscado, "DE: R$ ...")
+       premium.precoApartir  → valor de cada app premium
+     Use vírgula nos centavos e sem "R$": "89,90".
+     O total é recalculado sozinho quando o cliente marca apps premium
+     e adicionais (a soma entra nos dois valores) — não precisa mexer.
+     Os adicionais (Telefonia, IP, Mesh) ficam em "adicionais", mais abaixo.
      ATENÇÃO: valores, velocidades e apps abaixo são EXEMPLOS. Ajuste
      para os seus planos reais.
      ------------------------------------------------------------------ */
   planos: [
     {
       combo: "Combo Start",
-      velocidade: "300",
-      unidade: "mega",
+      velocidade: "400",
+      unidade: "megas",
       destaque: false,
       incluso: {
         legenda: "TV Plus 2 telas",
@@ -160,12 +167,12 @@ window.ALMEIDASNET_CONFIG = {
         ],
       },
       precoDe: "134,90",
-      precoFinal: "89,90",
+      precoFinal: "99,99",
     },
     {
       combo: "Combo Plus",
       velocidade: "500",
-      unidade: "mega",
+      unidade: "megas",
       destaque: true,
       incluso: {
         legenda: "TV Plus 4 telas",
@@ -195,12 +202,12 @@ window.ALMEIDASNET_CONFIG = {
         ],
       },
       precoDe: "149,90",
-      precoFinal: "99,90",
+      precoFinal: "129,99",
     },
     {
       combo: "Combo Turbo",
       velocidade: "700",
-      unidade: "mega",
+      unidade: "megas",
       destaque: false,
       incluso: {
         legenda: "TV Plus 6 telas",
@@ -230,12 +237,12 @@ window.ALMEIDASNET_CONFIG = {
         ],
       },
       precoDe: "194,90",
-      precoFinal: "129,90",
+      precoFinal: "159,99",
     },
     {
       combo: "Combo Premium",
       velocidade: "1000",
-      unidade: "mega",
+      unidade: "megas",
       destaque: false,
       incluso: {
         legenda: "TV Plus 8 telas",
@@ -265,8 +272,23 @@ window.ALMEIDASNET_CONFIG = {
         ],
       },
       precoDe: "239,90",
-      precoFinal: "169,90",
+      precoFinal: "169,99",
     },
+  ],
+
+  /* ------------------------------------------------------------------
+     ADICIONAIS ("Adicionar no combo") — aparecem em TODOS os planos e
+     entram na conta do total e na mensagem do WhatsApp.
+       tipo: "toggle"      → liga/desliga (ex.: telefonia fixa, IP público)
+       tipo: "quantidade"  → contador (ex.: AP Wi-Fi Mesh), "max" = limite
+     ATENÇÃO: nomes e valores abaixo são EXEMPLOS. Coloque os reais.
+     Para um plano ter adicionais diferentes, crie "adicionais: [...]"
+     dentro do próprio plano com a mesma estrutura.
+     ------------------------------------------------------------------ */
+  adicionais: [
+    { id: "telefonia", nome: "Telefonia Fixa", detalhe: "por R$ 24,90 mensais", preco: "24,90", tipo: "toggle" },
+    { id: "ip", nome: "IP Público", detalhe: "R$ 60,00 / mês", preco: "60,00", tipo: "toggle" },
+    { id: "mesh", nome: "AP Wi-Fi Mesh", detalhe: "opcional por R$ 29,90 cada", preco: "29,90", tipo: "quantidade", max: 5 },
   ],
 
   /* ------------------------------------------------------------------
@@ -291,6 +313,7 @@ window.ALMEIDASNET_CONFIG = {
      ------------------------------------------------------------------ */
   entretenimento: {
     titulo: "Na AlmeidasNet você encontra serviços de entretenimento",
+    velocidade: 45, // velocidade do movimento automático (px por segundo). 0 = parado
     texto: "Velocidade de sobra para aproveitar tudo o que você gosta, sem travar.",
     cards: [
       { titulo: "Filmes e séries", texto: "Maratone sem interrupções, mesmo com a casa toda conectada.", icone: "film", imagem: "", link: "#planos" },
@@ -339,7 +362,7 @@ window.ALMEIDASNET_CONFIG = {
     { texto: "Quem somos", link: "#quem-somos", icone: "users" },
     { texto: "Entretenimento", link: "#entretenimento", icone: "film" },
     { texto: "Onde estamos", link: "#onde-estamos", icone: "pin" },
-    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet", icone: "chat" },
+    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet.", icone: "chat" },
     { texto: "Teste de velocidade", link: "https://www.speedtest.net/", icone: "gauge" },
   ],
 
@@ -358,7 +381,7 @@ window.ALMEIDASNET_CONFIG = {
         texto: "Indique amigos e familiares para a AlmeidasNet e ganhe benefícios.",
         botao: "Quero indicar",
         icone: "users",
-        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet",
+        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet.",
       },
       {
         imagem: "",
@@ -366,7 +389,7 @@ window.ALMEIDASNET_CONFIG = {
         texto: "Assine agora e a instalação não custa nada.",
         botao: "Quero assinar",
         icone: "check",
-        link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet",
+        link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet.",
       },
     ],
   },

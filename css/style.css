@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ALMEIDASNET — TOKENS
+   ALMEIDAS.NET — TOKENS
    Paleta tirada do site atual: verde da faixa (#19B506), verde neon do
    título do banner (#5FFF00), preto do fundo e o laranja do botão
    "Área do assinante".
@@ -485,18 +485,54 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .stepper__btn:hover { border-color: var(--green); background: rgba(25, 181, 6, 0.1); transform: scale(1.1); }
 .stepper__value { font-family: var(--font-display); font-weight: 800; min-width: 18px; text-align: center; }
 
-.plan-card__combo-toggle { margin: 16px 24px 0; display: flex; align-items: center; gap: 8px; padding: 11px 14px; border-radius: 12px; border: 1.5px dashed var(--line); color: var(--muted); font-weight: 600; font-size: 0.9rem; transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; }
-.plan-card__combo-toggle .ico { width: 18px; height: 18px; transition: transform 0.3s var(--ease); }
-.plan-card__combo-toggle:hover { border-color: var(--green); color: var(--green-deep); }
-.plan-card__combo-toggle:hover .ico { transform: rotate(90deg); }
-.plan-card__combo-toggle.is-added { border-style: solid; border-color: var(--green); background: rgba(25, 181, 6, 0.12); color: var(--green-deep); }
 
-.plan-card__price { padding: 18px 24px 26px; }
+/* ícones de app selecionáveis (grátis) */
+.app-icon-row--pick { gap: 8px; }
+.app-icon--pick { position: relative; border-radius: 10px; cursor: pointer; }
+.app-icon--pick img { transition: box-shadow 0.25s ease, opacity 0.25s ease; }
+.app-icon--pick.is-selected img { box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--green); }
+.app-icon__check { position: absolute; right: -6px; top: -6px; width: 18px; height: 18px; border-radius: 50%; background: var(--green-deep); color: var(--white); display: grid; place-items: center; transform: scale(0); transition: transform 0.3s var(--ease); }
+.app-icon__check .ico { width: 11px; height: 11px; stroke-width: 3.2; }
+.app-icon--pick.is-selected .app-icon__check { transform: scale(1); }
+.plan-row__legend[data-free-count] { font-weight: 600; }
+
+/* adicionar no combo (recolhido; abre ao clicar) */
+.plan-extras { margin: 16px 14px 0; background: var(--paper); border: 1.5px solid var(--line); border-radius: 18px; transition: border-color 0.25s ease, box-shadow 0.25s ease; }
+.plan-extras.is-open { border-color: var(--green); box-shadow: 0 14px 28px -22px rgba(13, 138, 3, 0.9); }
+.plan-extras__toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 14px; border-radius: 18px; text-align: left; transition: background 0.2s ease; }
+.plan-extras__toggle:hover { background: rgba(25, 181, 6, 0.08); }
+.plan-extras__title { display: flex; align-items: center; gap: 10px; white-space: nowrap; font-family: var(--font-display); font-weight: 800; font-size: 0.92rem; }
+.plan-extras__plus { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--white); border: 1.5px solid var(--line); color: var(--green-deep); transition: transform 0.4s var(--ease), background 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
+.plan-extras__plus .ico { width: 15px; height: 15px; }
+.plan-extras.is-open .plan-extras__plus { transform: rotate(135deg); background: var(--green-deep); border-color: var(--green-deep); color: var(--white); }
+.plan-extras__badge { min-width: 24px; height: 24px; padding: 0 7px; display: grid; place-items: center; font-size: 0.78rem; font-weight: 800; color: var(--ink); background: var(--lime); border-radius: 999px; flex-shrink: 0; }
+.plan-extras__panel { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows 0.45s var(--ease), visibility 0s linear 0.45s; }
+.plan-extras.is-open .plan-extras__panel { grid-template-rows: 1fr; visibility: visible; transition-delay: 0s; }
+.plan-extras__inner { overflow: hidden; min-height: 0; }
+.plan-extras__list { display: flex; flex-direction: column; gap: 12px; padding: 4px 12px 14px; }
+.extra { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--white); border: 1.5px solid var(--line); border-radius: 13px; padding: 10px 10px; transition: border-color 0.25s ease, box-shadow 0.25s ease; }
+.extra.is-on { border-color: var(--green); box-shadow: 0 8px 18px -14px rgba(13, 138, 3, 0.9); }
+.extra__info { min-width: 0; }
+.extra .stepper__control { gap: 8px; }
+.extra .stepper__btn { width: 26px; height: 26px; }
+.extra__info strong { display: block; font-size: 0.88rem; font-weight: 600; line-height: 1.2; }
+.extra__info small { display: block; color: var(--muted); font-size: 0.74rem; margin-top: 2px; line-height: 1.25; }
+.stepper--inline { margin: 0; padding: 0; background: none; }
+.switch { position: relative; width: 46px; height: 26px; border-radius: 999px; background: #C3CEC0; flex-shrink: 0; transition: background 0.25s ease; }
+.switch span { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--white); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); transition: transform 0.3s var(--ease); }
+.switch[aria-checked="true"] { background: var(--green-deep); }
+.switch[aria-checked="true"] span { transform: translateX(20px); }
+.plan-card__adds { margin-top: 8px; font-size: 0.8rem; font-weight: 600; color: var(--green-deep); }
+.plan-card__price-final.is-bump { animation: bump 0.4s var(--ease); }
+@keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.09); color: var(--green-deep); } 100% { transform: scale(1); } }
+
+.plan-card__price { padding: 18px 20px 26px; }
 .plan-card__price-de { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
 .plan-card__price-de s { font-weight: 700; }
 .plan-card__price-label { font-size: 0.8rem; color: var(--muted); margin-top: 12px; }
-.plan-card__price-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 2px; flex-wrap: wrap; }
-.plan-card__price-final { font-family: var(--font-display); font-weight: 900; font-size: 1.9rem; letter-spacing: -0.03em; color: var(--ink); }
+.plan-card__price-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; }
+.plan-card__price-row .btn { padding: 11px 18px; flex-shrink: 0; }
+.plan-card__price-final { font-family: var(--font-display); font-weight: 900; font-size: 1.65rem; letter-spacing: -0.03em; color: var(--ink); }
 .plan-card__price-final small { font-size: 0.95rem; font-weight: 700; margin-right: 3px; }
 
 /* ==========================================================================
@@ -541,17 +577,17 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .round-btn:hover { background: var(--lime); color: var(--ink); border-color: var(--lime); transform: scale(1.1); }
 
 .entret__scroller {
-  display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
+  display: flex; gap: 22px; overflow-x: auto;
   --pad: max(28px, calc((100vw - var(--container)) / 2 + 28px));
-  padding: 10px var(--pad) 34px; scroll-padding-inline: var(--pad);
+  padding: 10px var(--pad) 34px;
   scrollbar-width: none; cursor: grab; user-select: none; -webkit-user-select: none;
   overscroll-behavior-x: contain;
 }
 .entret__scroller::-webkit-scrollbar { display: none; }
-.entret__scroller.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.entret__scroller.is-dragging { cursor: grabbing; }
 .entret__scroller.is-dragging a { pointer-events: none; }
 
-.ent-card { flex: 0 0 min(272px, 78vw); scroll-snap-align: start; border-radius: 30px; background: var(--ink); color: var(--white); padding: 14px 14px 22px; display: flex; flex-direction: column; transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease); }
+.ent-card { flex: 0 0 min(272px, 78vw); border-radius: 30px; background: var(--ink); color: var(--white); padding: 14px 14px 22px; display: flex; flex-direction: column; transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease); }
 .ent-card:nth-child(even) { background: var(--green); color: var(--ink); }
 .ent-card:hover { transform: translateY(-10px); box-shadow: 0 30px 50px -26px rgba(0, 0, 0, 0.8); }
 .ent-card__media { position: relative; overflow: hidden; height: 250px; border-radius: 22px; display: grid; place-items: center; color: var(--white); background: linear-gradient(150deg, var(--ink-3), var(--green-dark)); }

@@ -307,88 +307,253 @@
   /* ==========================================================================
      Planos
      ========================================================================== */
-  function moneyLabel(v) { return "R$ " + v; }
+  /* ---------- Preço (sempre em centavos, para não errar conta) ---------- */
+  function toCents(v) {
+    var s = String(v == null ? "0" : v).replace(/[^\d,.\-]/g, "");
+    if (s.indexOf(",") !== -1) s = s.replace(/\./g, "").replace(",", ".");
+    var n = parseFloat(s);
+    return isNaN(n) ? 0 : Math.round(n * 100);
+  }
+  function moneyParts(cents) {
+    var s = (Math.abs(cents) / 100).toFixed(2).split(".");
+    return s[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "," + s[1];
+  }
+  function money(cents) { return "R$ " + moneyParts(cents); }
 
+  function extrasFor(p) { return p.adicionais || CFG.adicionais || []; }
+  function appNome(a, i) { return (a.nome && a.nome.trim()) || "App " + (i + 1); }
+
+  /* Estado escolhido em cada card: apps grátis, apps premium e adicionais */
+  var planState = [];
+
+  /* ---------- HTML do card ---------- */
   function appIconRowHTML(apps) {
     var MAX = 5;
-    var shown = apps.slice(0, MAX);
-    var html = shown.map(function (a) {
-      var nome = a.nome && a.nome.trim();
-      return '<span class="app-icon" title="' + esc(nome || "") + '"><img src="' + esc(a.icone) + '" alt="' + esc(nome || "") + '" loading="lazy" width="36" height="36"></span>';
+    var html = apps.slice(0, MAX).map(function (a, i) {
+      return '<span class="app-icon" title="' + esc(appNome(a, i)) + '"><img src="' + esc(a.icone) + '" alt="' + esc(a.nome || "") + '" loading="lazy" width="36" height="36"></span>';
     }).join("");
     if (apps.length > MAX) html += '<span class="app-icon app-icon--more">+' + (apps.length - MAX) + "</span>";
     return '<div class="app-icon-row">' + html + "</div>";
   }
 
-  function planRowHTML(idx, key, opts) {
+  function pickIconRowHTML(apps) {
+    return '<div class="app-icon-row app-icon-row--pick">' + apps.map(function (a, i) {
+      return '<button type="button" class="app-icon app-icon--pick" data-app="' + i + '" aria-pressed="false" title="' + esc(appNome(a, i)) + '" aria-label="Escolher ' + esc(appNome(a, i)) + '">' +
+        '<img src="' + esc(a.icone) + '" alt="" loading="lazy" width="36" height="36"><span class="app-icon__check">' + icon("tick") + "</span></button>";
+    }).join("") + "</div>";
+  }
+
+  function stepperHTML(target, label) {
     return (
-      '<div class="plan-row">' +
+      '<div class="stepper__control">' +
+      '<button type="button" class="stepper__btn" data-target="' + target + '" data-step="-1" aria-label="Diminuir ' + esc(label) + '">' + icon("minus") + "</button>" +
+      '<span class="stepper__value" data-qty="' + target + '" aria-live="polite">0</span>' +
+      '<button type="button" class="stepper__btn" data-target="' + target + '" data-step="1" aria-label="Aumentar ' + esc(label) + '">' + icon("plus") + "</button></div>"
+    );
+  }
+
+  function planRowHTML(key, opts) {
+    return (
+      '<div class="plan-row plan-row--' + key + '">' +
       '<div class="plan-row__head"><span class="plan-row__title">' + icon(opts.icone) + esc(opts.titulo) + "</span>" +
-      '<button type="button" class="plan-row__more" data-plan="' + idx + '" data-row="' + key + '">Ver mais</button></div>' +
-      (opts.legenda ? '<p class="plan-row__legend">' + esc(opts.legenda) + "</p>" : "") +
-      appIconRowHTML(opts.apps) +
-      (opts.stepper
-        ? '<div class="stepper"><span class="stepper__label">Premium</span><div class="stepper__control">' +
-          '<button type="button" class="stepper__btn" data-step="-1" aria-label="Diminuir">' + icon("minus") + "</button>" +
-          '<span class="stepper__value" aria-live="polite">0</span>' +
-          '<button type="button" class="stepper__btn" data-step="1" aria-label="Aumentar">' + icon("plus") + "</button></div></div>"
-        : "") +
+      '<button type="button" class="plan-row__more" data-row="' + key + '">Ver mais</button></div>' +
+      (opts.legenda ? '<p class="plan-row__legend"' + (opts.legendaAttr || "") + ">" + esc(opts.legenda) + "</p>" : "") +
+      opts.icones +
+      (opts.stepper ? '<div class="stepper"><span class="stepper__label">' + esc(opts.stepper) + "</span>" + stepperHTML("premium", opts.stepper) + "</div>" : "") +
       "</div>"
+    );
+  }
+
+  function extrasHTML(p, idx) {
+    var list = extrasFor(p);
+    if (!list.length) return "";
+    var pid = "extras-" + idx;
+    return (
+      '<div class="plan-extras" data-extras>' +
+      '<button type="button" class="plan-extras__toggle" aria-expanded="false" aria-controls="' + pid + '">' +
+      '<span class="plan-extras__title"><span class="plan-extras__plus">' + icon("plus") + "</span>Adicionar no combo</span>" +
+      '<span class="plan-extras__badge" data-extras-badge hidden></span></button>' +
+      '<div class="plan-extras__panel" id="' + pid + '"><div class="plan-extras__inner"><div class="plan-extras__list">' +
+      list.map(function (x) {
+        var control = x.tipo === "quantidade"
+          ? '<div class="stepper stepper--inline">' + stepperHTML("extra:" + x.id, x.nome) + "</div>"
+          : '<button type="button" class="switch" role="switch" aria-checked="false" data-target="extra:' + esc(x.id) + '" aria-label="Adicionar ' + esc(x.nome) + '"><span></span></button>';
+        return (
+          '<div class="extra" data-extra="' + esc(x.id) + '"><div class="extra__info"><strong>' + esc(x.nome) + "</strong>" +
+          (x.detalhe ? "<small>" + esc(x.detalhe) + "</small>" : "") + "</div>" + control + "</div>"
+        );
+      }).join("") +
+      "</div></div></div></div>"
     );
   }
 
   function planoCardHTML(p, idx) {
     return (
-      '<article class="plan-card' + (p.destaque ? " plan-card--destaque" : "") + '">' +
+      '<article class="plan-card' + (p.destaque ? " plan-card--destaque" : "") + '" data-idx="' + idx + '">' +
       (p.destaque ? '<span class="plan-card__tag">Mais escolhido</span>' : "") +
       '<div class="plan-card__header"><p class="plan-card__combo">' + esc(p.combo) + "</p>" +
       '<p class="plan-card__speed"><strong>' + esc(p.velocidade) + "</strong><span>" + esc(p.unidade) + "</span></p></div>" +
       '<div class="plan-card__body">' +
-      planRowHTML(idx, "incluso", { icone: "check", titulo: "Incluso no combo", legenda: p.incluso.legenda, apps: p.incluso.apps }) +
-      planRowHTML(idx, "gratis", { icone: "star", titulo: "Grátis • escolha " + p.gratis.qtdEscolha + " app(s)/mês", apps: p.gratis.apps }) +
-      planRowHTML(idx, "premium", { icone: "bolt", titulo: "A partir de R$ " + p.premium.precoApartir + "/apps", apps: p.premium.apps, stepper: true }) +
+      planRowHTML("incluso", { icone: "check", titulo: "Incluso no combo", legenda: p.incluso.legenda, icones: appIconRowHTML(p.incluso.apps) }) +
+      planRowHTML("gratis", { icone: "star", titulo: "Grátis • escolha " + p.gratis.qtdEscolha + " app(s)/mês", legenda: "0 de " + p.gratis.qtdEscolha + " escolhido(s)", legendaAttr: " data-free-count", icones: pickIconRowHTML(p.gratis.apps) }) +
+      planRowHTML("premium", { icone: "bolt", titulo: "A partir de R$ " + p.premium.precoApartir + "/apps", icones: appIconRowHTML(p.premium.apps), stepper: "Apps premium" }) +
       "</div>" +
-      '<button type="button" class="plan-card__combo-toggle">' + icon("plus") + "<span>Adicionar no combo</span></button>" +
+      extrasHTML(p, idx) +
       '<div class="plan-card__price">' +
-      '<p class="plan-card__price-de">DE: <s>' + moneyLabel(esc(p.precoDe)) + "</s><br>Sem fidelidade*</p>" +
+      '<p class="plan-card__price-de">DE: <s data-de></s><br>Sem fidelidade*</p>' +
       '<p class="plan-card__price-label">Total no combo (com fidelidade)</p>' +
-      '<div class="plan-card__price-row"><p class="plan-card__price-final"><small>R$</small>' + esc(p.precoFinal) + "</p>" +
-      '<a class="btn btn--dark btn--sm" target="_blank" rel="noopener" href="' +
-      esc(waLink("Olá! Tenho interesse no " + p.combo + " (" + p.velocidade + " " + p.unidade + ") da AlmeidasNet")) +
-      '">Assine já</a></div></div></article>'
+      '<div class="plan-card__price-row"><p class="plan-card__price-final" data-total></p>' +
+      '<a class="btn btn--dark btn--sm" data-assinar target="_blank" rel="noopener" href="#">Assine já</a></div>' +
+      '<p class="plan-card__adds" data-adds hidden></p></div></article>'
     );
+  }
+
+  /* ---------- Mensagem do pedido para o WhatsApp ---------- */
+  function buildOrderMessage(p, st, extras, totalC, deC) {
+    var L = [];
+    L.push("Olá! Quero assinar a AlmeidasNet.", "");
+    L.push("*Plano:* " + p.combo + " — " + p.velocidade + " " + p.unidade);
+    if (p.incluso && p.incluso.legenda) L.push("*Incluso no combo:* " + p.incluso.legenda);
+    if (st.gratis.length) L.push("*Apps grátis:* " + st.gratis.map(function (i) { return appNome(p.gratis.apps[i], i); }).join(", "));
+    if (st.premium > 0) {
+      var unit = toCents(p.premium.precoApartir);
+      L.push("*Apps premium:* " + st.premium + "x (a partir de " + money(unit) + " cada) = " + money(unit * st.premium));
+    }
+    var chosen = extras.filter(function (x) { return (st.extras[x.id] || 0) > 0; });
+    if (chosen.length) {
+      L.push("*Adicionais:*");
+      chosen.forEach(function (x) {
+        var q = st.extras[x.id];
+        L.push("- " + x.nome + (q > 1 ? " (" + q + "x)" : "") + " — " + money(toCents(x.preco) * q));
+      });
+    }
+    L.push("", "*Total com fidelidade:* " + money(totalC) + "/mês", "*Sem fidelidade:* " + money(deC) + "/mês");
+    return L.join("\n");
+  }
+
+  /* ---------- Recalcula o card (preço, botões e link do WhatsApp) ---------- */
+  function updatePlan(idx) {
+    var card = $('.plan-card[data-idx="' + idx + '"]');
+    if (!card) return;
+    var p = CFG.planos[idx], st = planState[idx], extras = extrasFor(p);
+
+    var extrasC = 0;
+    extras.forEach(function (x) { extrasC += toCents(x.preco) * (st.extras[x.id] || 0); });
+    var premiumC = st.premium * toCents(p.premium.precoApartir);
+    var addC = extrasC + premiumC;
+    var totalC = toCents(p.precoFinal) + addC;
+    var deC = toCents(p.precoDe) + addC;
+
+    var totalEl = $("[data-total]", card);
+    var novo = "<small>R$</small>" + moneyParts(totalC);
+    if (totalEl.innerHTML !== novo) {
+      totalEl.innerHTML = novo;
+      totalEl.classList.remove("is-bump"); void totalEl.offsetWidth; totalEl.classList.add("is-bump");
+    }
+    $("[data-de]", card).textContent = money(deC);
+    var adds = $("[data-adds]", card);
+    adds.hidden = addC === 0;
+    if (addC > 0) adds.textContent = "Inclui " + money(addC) + " em adicionais";
+
+    // apps grátis
+    $$(".app-icon--pick", card).forEach(function (b) {
+      var on = st.gratis.indexOf(parseInt(b.getAttribute("data-app"), 10)) !== -1;
+      b.classList.toggle("is-selected", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    $("[data-free-count]", card).textContent = st.gratis.length + " de " + p.gratis.qtdEscolha + " escolhido(s)";
+
+    // apps premium + adicionais
+    var ativos = 0;
+    var pv = $('[data-qty="premium"]', card);
+    if (pv) pv.textContent = st.premium;
+    extras.forEach(function (x) {
+      var q = st.extras[x.id] || 0;
+      var row = $('.extra[data-extra="' + x.id + '"]', card);
+      if (!row) return;
+      if (q > 0) ativos++;
+      row.classList.toggle("is-on", q > 0);
+      var sw = $(".switch", row);
+      if (sw) sw.setAttribute("aria-checked", q > 0 ? "true" : "false");
+      var qv = $(".stepper__value", row);
+      if (qv) qv.textContent = q;
+    });
+
+    var badge = $("[data-extras-badge]", card);
+    if (badge) {
+      badge.hidden = ativos === 0;
+      badge.textContent = ativos;
+      badge.setAttribute("aria-label", ativos + (ativos === 1 ? " selecionado" : " selecionados"));
+      badge.title = ativos + (ativos === 1 ? " selecionado" : " selecionados");
+    }
+
+    $("[data-assinar]", card).href = waLink(buildOrderMessage(p, st, extras, totalC, deC));
   }
 
   function renderPlanos() {
     var wrap = $("#planos-grid");
-    if (wrap) wrap.innerHTML = CFG.planos.map(planoCardHTML).join("");
+    if (!wrap) return;
+    planState = CFG.planos.map(function () { return { gratis: [], premium: 0, extras: {} }; });
+    wrap.innerHTML = CFG.planos.map(planoCardHTML).join("");
+    CFG.planos.forEach(function (_, i) { updatePlan(i); });
   }
 
   function setupPlanInteractions() {
     var grid = $("#planos-grid");
     if (!grid) return;
     grid.addEventListener("click", function (e) {
+      var card = e.target.closest(".plan-card");
+      if (!card) return;
+      var idx = parseInt(card.getAttribute("data-idx"), 10);
+      var p = CFG.planos[idx], st = planState[idx];
+
+      var tg = e.target.closest(".plan-extras__toggle");
+      if (tg) {
+        var box = tg.closest(".plan-extras");
+        var open = !box.classList.contains("is-open");
+        box.classList.toggle("is-open", open);
+        tg.setAttribute("aria-expanded", open ? "true" : "false");
+        return;
+      }
+
       var more = e.target.closest(".plan-row__more");
-      if (more) {
-        var p = CFG.planos[parseInt(more.getAttribute("data-plan"), 10)];
-        var key = more.getAttribute("data-row");
-        openAppsModal(p, key, more);
+      if (more) { openAppsModal(p, more.getAttribute("data-row")); return; }
+
+      var pick = e.target.closest(".app-icon--pick");
+      if (pick) {
+        var i = parseInt(pick.getAttribute("data-app"), 10);
+        var pos = st.gratis.indexOf(i);
+        if (pos !== -1) st.gratis.splice(pos, 1);
+        else {
+          st.gratis.push(i);
+          // passou do limite: sai o mais antigo, para a troca ser direta
+          while (st.gratis.length > p.gratis.qtdEscolha) st.gratis.shift();
+        }
+        updatePlan(idx);
         return;
       }
-      var add = e.target.closest(".plan-card__combo-toggle");
-      if (add) {
-        add.classList.toggle("is-added");
-        $("span", add).textContent = add.classList.contains("is-added") ? "Adicionado ao combo" : "Adicionar no combo";
+
+      var sw = e.target.closest(".switch");
+      if (sw) {
+        var id = sw.getAttribute("data-target").slice(6);
+        st.extras[id] = st.extras[id] ? 0 : 1;
+        updatePlan(idx);
         return;
       }
+
       var step = e.target.closest(".stepper__btn");
       if (step) {
-        var stepper = step.closest(".stepper");
-        var val = $(".stepper__value", stepper);
-        var row = step.closest(".plan-row");
-        var max = $$(".app-icon", row).length;
-        var n = Math.min(Math.max((parseInt(val.textContent, 10) || 0) + parseInt(step.getAttribute("data-step"), 10), 0), max);
-        val.textContent = n;
+        var target = step.getAttribute("data-target");
+        var d = parseInt(step.getAttribute("data-step"), 10);
+        if (target === "premium") {
+          st.premium = Math.min(Math.max(st.premium + d, 0), p.premium.apps.length);
+        } else {
+          var xid = target.slice(6);
+          var def = extrasFor(p).filter(function (x) { return x.id === xid; })[0];
+          var max = (def && def.max) || 5;
+          st.extras[xid] = Math.min(Math.max((st.extras[xid] || 0) + d, 0), max);
+        }
+        updatePlan(idx);
       }
     });
   }
@@ -474,26 +639,92 @@
   /* ==========================================================================
      Entretenimento (faixa arrastável)
      ========================================================================== */
+  function entCardHTML(c, clone) {
+    var media = c.imagem ? '<img src="' + esc(c.imagem) + '" alt="" draggable="false" loading="lazy">' : icon(c.icone);
+    return (
+      '<article class="ent-card"' + (clone ? ' data-clone aria-hidden="true"' : "") + '><div class="ent-card__media">' + media + "</div>" +
+      "<h3>" + esc(c.titulo) + "</h3><p>" + esc(c.texto) + "</p>" +
+      "<a class=\"btn btn--sm\" " + linkAttrs(c.link) + ' draggable="false"' + (clone ? ' tabindex="-1"' : "") + ">Ver mais</a></article>"
+    );
+  }
+
   function renderEntretenimento() {
     var e = CFG.entretenimento, sc = $("#entret-scroller");
     if (!sc || !e) return;
     $("#entret-titulo").textContent = e.titulo;
     $("#entret-texto").textContent = e.texto;
-    sc.innerHTML = e.cards.map(function (c) {
-      var media = c.imagem ? '<img src="' + esc(c.imagem) + '" alt="" draggable="false" loading="lazy">' : icon(c.icone);
-      return (
-        '<article class="ent-card"><div class="ent-card__media">' + media + "</div>" +
-        "<h3>" + esc(c.titulo) + "</h3><p>" + esc(c.texto) + "</p>" +
-        "<a class=\"btn btn--sm\" " + linkAttrs(c.link) + " draggable=\"false\">Ver mais</a></article>"
-      );
-    }).join("");
+    // repete a lista para o movimento poder girar sem fim
+    var sets = e.cards.length > 1 ? Math.max(3, Math.ceil((window.innerWidth * 1.3) / (e.cards.length * 294)) + 2) : 1;
+    var html = e.cards.map(function (c) { return entCardHTML(c, false); }).join("");
+    for (var s = 1; s < sets; s++) html += e.cards.map(function (c) { return entCardHTML(c, true); }).join("");
+    sc.innerHTML = html;
   }
 
   function setupScroller() {
     var sc = $("#entret-scroller");
     if (!sc) return;
-    var down = false, startX = 0, startL = 0;
+    var n = CFG.entretenimento.cards.length;
+    var cards = $$(".ent-card", sc);
+    var loop = cards.length > n;
+    var SPEED = (CFG.entretenimento.velocidade || 45); // pixels por segundo
 
+    function setW() { return loop ? cards[n].offsetLeft - cards[0].offsetLeft : 0; }
+    function pitch() { return cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : 300; }
+    var W = setW();
+    function wrap(v) {
+      if (!loop || !W) return v;
+      while (v >= 2 * W) v -= W;
+      while (v < W) v += W;
+      return v;
+    }
+    if (loop) sc.scrollLeft = W;
+
+    /* ----- movimento automático ----- */
+    var hover = false, dragging = false, visible = true, holdUntil = 0;
+    var pos = sc.scrollLeft, lastSet = sc.scrollLeft, last = 0;
+    var canAuto = loop && !REDUCED;
+
+    function tick(t) {
+      requestAnimationFrame(tick);
+      var dt = last ? Math.min((t - last) / 1000, 0.1) : 0;
+      last = t;
+      if (!canAuto || hover || dragging || !visible || document.hidden || t < holdUntil) {
+        pos = sc.scrollLeft; lastSet = pos;
+        return;
+      }
+      if (Math.abs(sc.scrollLeft - lastSet) > 2) pos = sc.scrollLeft; // alguém mexeu na mão
+      W = setW() || W;
+      pos = wrap(pos + SPEED * dt);
+      sc.scrollLeft = pos;
+      lastSet = sc.scrollLeft;
+    }
+    if (canAuto) requestAnimationFrame(tick);
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }, { threshold: 0.05 }).observe(sc);
+    }
+    function hold(ms) { holdUntil = performance.now() + ms; }
+    sc.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") hover = true; });
+    sc.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") hover = false; });
+    sc.addEventListener("focusin", function () { hover = true; });
+    sc.addEventListener("focusout", function () { hover = false; });
+    sc.addEventListener("touchstart", function () { holdUntil = Infinity; }, { passive: true });
+    sc.addEventListener("touchend", function () { hold(2500); }, { passive: true });
+    sc.addEventListener("wheel", function () { hold(1500); }, { passive: true });
+
+    // ao parar de rolar (mão/toque), volta o scroll para a faixa do meio
+    var settle = 0;
+    sc.addEventListener("scroll", function () {
+      if (!loop) return;
+      clearTimeout(settle);
+      settle = setTimeout(function () {
+        var v = wrap(sc.scrollLeft);
+        if (Math.abs(v - sc.scrollLeft) > 1) { sc.scrollLeft = v; pos = v; lastSet = sc.scrollLeft; }
+      }, 160);
+    }, { passive: true });
+
+    /* ----- arrastar com o mouse ----- */
+    var down = false, startX = 0, startL = 0;
     sc.addEventListener("pointerdown", function (e) {
       if (e.pointerType === "touch") return;
       down = true; startX = e.clientX; startL = sc.scrollLeft;
@@ -501,19 +732,25 @@
     window.addEventListener("pointermove", function (e) {
       if (!down) return;
       var dx = e.clientX - startX;
-      if (Math.abs(dx) > 4) sc.classList.add("is-dragging");
-      sc.scrollLeft = startL - dx;
+      if (Math.abs(dx) > 4) { sc.classList.add("is-dragging"); dragging = true; }
+      var target = startL - dx;
+      if (loop && W) {
+        while (target >= 2 * W) { target -= W; startL -= W; }
+        while (target < W) { target += W; startL += W; }
+      }
+      sc.scrollLeft = target;
     });
     window.addEventListener("pointerup", function () {
       if (!down) return;
-      down = false;
+      down = false; dragging = false;
+      hold(1200);
       setTimeout(function () { sc.classList.remove("is-dragging"); }, 0);
     });
 
+    /* ----- setas e teclado ----- */
     function step(dir) {
-      var card = $(".ent-card", sc);
-      var w = card ? card.getBoundingClientRect().width + 22 : 300;
-      sc.scrollBy({ left: dir * w, behavior: "smooth" });
+      hold(1600);
+      sc.scrollBy({ left: dir * pitch(), behavior: "smooth" });
     }
     var prev = $("#entret-prev"), next = $("#entret-next");
     if (prev) prev.addEventListener("click", function () { step(-1); });
@@ -522,6 +759,7 @@
       if (e.key === "ArrowRight") { step(1); e.preventDefault(); }
       if (e.key === "ArrowLeft") { step(-1); e.preventDefault(); }
     });
+    window.addEventListener("resize", function () { W = setW() || W; });
   }
 
   /* ==========================================================================
@@ -688,7 +926,7 @@
       e.preventDefault();
       var v = function (id) { return $(id, form).value.trim(); };
       var msg =
-        "Olá! Quero consultar cobertura da AlmeidasNet\n" +
+        "Olá! Quero consultar cobertura da AlmeidasNet.\n" +
         "Nome: " + v("#cf-nome") + "\n" +
         "Rua/Av: " + v("#cf-rua") + "\n" +
         "Bairro: " + v("#cf-bairro") + "\n" +

@@ -34,7 +34,21 @@ Flutuantes: menu rápido, telefone, WhatsApp, Instagram e voltar ao topo. Popup 
 - **Teste de velocidade**: https://www.speedtest.net/
 - Endereço, CNPJ e Instagram (@almeidas_net) no rodapé
 
+## Planos: como funciona a conta
+
+- Cada card calcula o total na hora: preço do plano + adicionais marcados + apps premium.
+- O cliente escolhe os apps grátis (limite = `qtdEscolha`), liga/desliga adicionais e ajusta quantidades.
+- **"Assine já"** abre o WhatsApp com o pedido pronto: plano, apps escolhidos, adicionais e total
+  (com e sem fidelidade).
+- **Mudar valores:** em `planos` (config.js) edite `precoFinal` (com fidelidade), `precoDe` (sem fidelidade, riscado),
+  `velocidade` e `premium.precoApartir`. Use vírgula nos centavos (`"89,90"`). O resto se recalcula.
+- O "Adicionar no combo" fica recolhido e abre ao clicar; mostra uma bolinha com quantos itens estão marcados.
+- Os adicionais ficam em `adicionais` no `js/config.js` (valem para todos os planos; um plano pode ter os
+  próprios com `adicionais: [...]` dentro dele).
+
 ## O que editar antes de publicar (tudo em `js/config.js`)
+
+- `adicionais`: **nomes e valores são exemplos.** Coloque os reais
 
 - `planos`: **os valores, velocidades e apps são exemplos.** Ajuste para os planos reais
 - `depoimentos`: **são exemplos.** Troque por depoimentos reais de clientes
@@ -45,7 +59,8 @@ Flutuantes: menu rápido, telefone, WhatsApp, Instagram e voltar ao topo. Popup 
   pessoa (como na Nex), salve um PNG recortado (fundo transparente, ~900×1100px) em `images/hero/`
   e preencha `foto: "images/hero/pessoa-1.png"` no slide
 - `popupIndiqueGanhe`: textos do popup, ou `imagem` (900×900px) para usar uma arte pronta
-- `entretenimento.cards`: cada card aceita `imagem` (capa 600×720px) no lugar do ícone
+- `entretenimento.cards`: cada card aceita `imagem` (capa 600×720px) no lugar do ícone. A faixa anda sozinha em
+  loop; ajuste a velocidade em `entretenimento.velocidade` (px/segundo, `0` para parar). Pausa com o mouse em cima
 - Ícones dos apps dos planos: troque `icone` e preencha `nome` (48×48px, PNG transparente)
 
 ## Deploy — GitHub + Vercel
