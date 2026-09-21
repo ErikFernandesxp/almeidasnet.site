@@ -35,8 +35,8 @@ window.ALMEIDASNET_CONFIG = {
   whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet",
 
   // Botão de telefone flutuante e textos "ligue para"
-  telefone: "(71) 99381-2371",
-  telefoneLink: "tel:+5571993812371",
+  telefone: "(71) 3019-5811",
+  telefoneLink: "tel:30195811",
 
   endereco: "Tv. Domingos Silva, 35, Itapuã, Salvador - BA",
   enderecoMapa: "https://www.google.com/maps/search/?api=1&query=Tv.+Domingos+Silva,+35,+Itapu%C3%A3,+Salvador+-+BA",
