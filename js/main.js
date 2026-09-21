@@ -23,12 +23,14 @@
   // "#algo" -> âncora | "whatsapp:mensagem" -> WhatsApp | outro -> URL externa
   function resolveLink(link) {
     if (!link) return { href: "#", external: false };
+    if (link === "popup:") return { href: "#", external: false, popup: true };
     if (link.indexOf("whatsapp:") === 0) return { href: waLink(link.slice(9)), external: true };
     if (link.charAt(0) === "#") return { href: link, external: false };
     return { href: link, external: true };
   }
   function linkAttrs(link) {
     var l = resolveLink(link);
+    if (l.popup) return 'href="#" data-open-popup';
     return 'href="' + esc(l.href) + '"' + (l.external ? ' target="_blank" rel="noopener"' : "");
   }
 
@@ -119,6 +121,7 @@
     setupFloatingMenu();
     setupCoverageForm();
     setupBackToTop();
+    $$(".plans-grid, .testimonials").forEach(attachProgress);
     setupReveal();
     var y = $("#current-year");
     if (y) y.textContent = new Date().getFullYear();
@@ -139,6 +142,8 @@
     each("[data-teste-velocidade]", function (el) { el.href = CFG.testeDeVelocidade; });
     each("[data-segunda-via]", function (el) { el.href = CFG.segundaViaFatura; });
     each("[data-mapa]", function (el) { el.href = CFG.enderecoMapa; });
+    each("[data-downdetector]", function (el) { el.href = CFG.downdetector || "https://downdetector.com.br/"; });
+    each("[data-contrato]", function (el) { if (CFG.contratoServico) { el.href = CFG.contratoServico; el.hidden = false; } });
     each("[data-ig]", function (el) { el.href = CFG.redesSociais.instagram; });
     each("[data-fb]", function (el) { el.href = CFG.redesSociais.facebook; });
     each("[data-yt]", function (el) { el.href = CFG.redesSociais.youtube; });
@@ -770,16 +775,28 @@
     if (!panel) return;
     panel.innerHTML =
       '<div class="floating-menu__title">Menu</div>' +
-      CFG.menuRapido.map(function (item) {
-        return "<a role=\"menuitem\" " + linkAttrs(item.link) + ">" + icon(item.icone || "arrow") + "<span>" + esc(item.texto) + "</span></a>";
+      CFG.menuRapido.map(function (item, i) {
+        return "<a role=\"menuitem\" style=\"--i:" + i + "\" " + linkAttrs(item.link) + ">" + icon(item.icone || "arrow") + "<span>" + esc(item.texto) + "</span></a>";
       }).join("");
   }
 
   function setupFloatingMenu() {
     var btn = $("#floating-menu-btn"), panel = $("#floating-menu-panel");
     if (!btn || !panel) return;
+    var hint = $("#menu-hint"), hintTimer = 0;
+    function hideHint() { if (hint) hint.classList.remove("is-show"); }
     function close() { panel.classList.remove("is-open"); btn.setAttribute("aria-expanded", "false"); }
-    function open() { panel.classList.add("is-open"); btn.setAttribute("aria-expanded", "true"); }
+    function open() { panel.classList.add("is-open"); btn.setAttribute("aria-expanded", "true"); hideHint(); }
+    // selo "Menu" aparece de tempos em tempos para chamar atenção
+    if (hint && !REDUCED) {
+      var pulse = function () {
+        if (panel.classList.contains("is-open")) return;
+        hint.classList.add("is-show");
+        clearTimeout(hintTimer);
+        hintTimer = setTimeout(hideHint, 3200);
+      };
+      setTimeout(function () { pulse(); setInterval(pulse, 11000); }, 3800);
+    }
     btn.addEventListener("click", function (e) { e.stopPropagation(); panel.classList.contains("is-open") ? close() : open(); });
     panel.addEventListener("click", function (e) { if (e.target.closest("a")) close(); });
     document.addEventListener("click", function (e) { if (!panel.contains(e.target) && !btn.contains(e.target)) close(); });
@@ -842,7 +859,8 @@
 
     // botões "Indique e ganhe" abrem o popup quando quiser
     $$("[data-open-popup]").forEach(function (b) {
-      b.addEventListener("click", function () {
+      b.addEventListener("click", function (ev) {
+        ev.preventDefault();
         var panel = $("#nav-panel"); if (panel && panel.classList.contains("is-open")) { $("#nav-toggle").click(); }
         goTo(0); show();
       });
@@ -942,8 +960,36 @@
     btn.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
   }
 
+  /* Linha de progresso embaixo dos carrosséis de deslizar (celular) */
+  function attachProgress(sc) {
+    var bar = document.createElement("div");
+    bar.className = "snap-progress";
+    bar.setAttribute("aria-hidden", "true");
+    bar.innerHTML = "<span></span>";
+    sc.insertAdjacentElement("afterend", bar);
+    var thumb = $("span", bar);
+    function update() {
+      var max = sc.scrollWidth - sc.clientWidth;
+      if (max <= 2) { bar.style.visibility = "hidden"; return; }
+      bar.style.visibility = "";
+      var w = Math.max((sc.clientWidth / sc.scrollWidth) * 100, 22);
+      thumb.style.width = w + "%";
+      thumb.style.transform = "translateX(" + (sc.scrollLeft / max) * ((100 - w) / w) * 100 + "%)";
+    }
+    sc.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+    setTimeout(update, 600);
+  }
+
   function setupReveal() {
-    var targets = $$("[data-reveal]");
+    // grupos de cards entram um depois do outro
+    $$(".atender__grid, .plans-grid, .testimonials, .strip__grid, .cta-cards, .accordion, .footer-grid").forEach(function (g) {
+      g.removeAttribute("data-reveal");
+      g.classList.add("stagger");
+      Array.prototype.forEach.call(g.children, function (ch, i) { ch.style.setProperty("--i", i); });
+    });
+    var targets = $$("[data-reveal], .stagger");
     if (!("IntersectionObserver" in window) || !targets.length) {
       targets.forEach(function (t) { t.classList.add("is-visible"); });
       return;
