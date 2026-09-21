@@ -798,18 +798,19 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .modal__close:hover { background: var(--lime); color: var(--ink); transform: rotate(90deg); }
 .modal__close .ico { width: 20px; height: 20px; }
 
-.promo__card { width: min(400px, 100%); aspect-ratio: 1; border-radius: 32px; overflow: hidden; box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8); background: var(--ink); }
-.promo__track { position: relative; width: 100%; height: 100%; }
-.promo__slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s; }
+.promo__card { width: min(400px, 100%); min-height: 400px; display: flex; border-radius: 32px; overflow: hidden; box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8); background: var(--ink); }
+.promo__track { flex: 1; min-width: 0; display: grid; }
+.promo__slide { grid-area: 1 / 1; display: flex; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s; }
 .promo__slide.is-active { opacity: 1; visibility: visible; }
-.promo__slide > a { height: 100%; }
+.promo__slide > a { flex: 1; min-width: 0; }
 .promo__slide > a:not(.promo-art) { display: block; }
 .promo__slide img { width: 100%; height: 100%; object-fit: cover; }
-.promo-art { position: relative; height: 100%; padding: 34px 30px 60px; display: flex; flex-direction: column; justify-content: center; gap: 10px; overflow: hidden; background: radial-gradient(70% 60% at 85% 10%, rgba(95, 255, 0, 0.5), transparent 65%), linear-gradient(160deg, var(--green-deep), var(--ink) 75%); color: var(--white); }
+.promo-art { position: relative; padding: 34px 30px 64px; display: flex; flex-direction: column; justify-content: center; gap: 10px; overflow: hidden; background: radial-gradient(70% 60% at 85% 10%, rgba(95, 255, 0, 0.5), transparent 65%), linear-gradient(160deg, var(--green-deep), var(--ink) 75%); color: var(--white); }
 .promo-art::after { content: ""; position: absolute; width: 300px; height: 300px; right: -110px; bottom: -110px; border-radius: 50%; border: 3px dashed rgba(95, 255, 0, 0.5); animation: spin 40s linear infinite; }
 .promo-art__icon { width: 72px; height: 72px; border-radius: 22px; display: grid; place-items: center; background: var(--lime); color: var(--ink); margin-bottom: 8px; box-shadow: 0 0 40px rgba(95, 255, 0, 0.5); }
 .promo-art__icon .ico { width: 38px; height: 38px; }
 .promo-art h3 { font-size: clamp(2.2rem, 9vw, 2.9rem); font-weight: 900; line-height: 0.98; text-transform: uppercase; color: var(--lime); }
+.promo-art--long h3 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
 .promo-art p { font-size: 1.05rem; max-width: 24ch; }
 .promo-art .btn { align-self: flex-start; margin-top: 10px; position: relative; z-index: 1; }
 .promo__controls { position: absolute; left: 0; right: 0; bottom: 14px; z-index: 4; display: flex; justify-content: center; align-items: center; gap: 14px; }
