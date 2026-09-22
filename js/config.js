@@ -32,7 +32,7 @@ window.ALMEIDASNET_CONFIG = {
   // WhatsApp (formato https://wa.me/55DDDNUMERO) e como o número aparece no site
   whatsapp: "https://wa.me/5571993812371",
   whatsappExibicao: "(71) 99381-2371",
-  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet.",
+  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet",
 
   // Botão de telefone flutuante e textos "ligue para"
   telefone: "(71) 3019-5811",
@@ -69,7 +69,7 @@ window.ALMEIDASNET_CONFIG = {
       titulo: ["que transforma", "a sua rotina"],
       texto: "Fibra óptica de alta velocidade para a sua casa, o trabalho e a diversão.",
       botaoTexto: "Assine já!",
-      botaoLink: "whatsapp:Olá! Quero assinar a AlmeidasNet.",
+      botaoLink: "whatsapp:Olá! Quero assinar a AlmeidasNet",
       mostrarTelefone: true,
       chips: ["play", "gamepad", "chat", "video"],
       foto: "",
@@ -107,7 +107,7 @@ window.ALMEIDASNET_CONFIG = {
       titulo: ["humanizado de", "verdade"],
       texto: "Time próximo, pronto para resolver pelo WhatsApp, telefone ou pelo app.",
       botaoTexto: "Fale com a gente",
-      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet.",
+      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet",
       mostrarTelefone: true,
       chips: ["chat", "shield", "phone", "check"],
       foto: "",
@@ -364,7 +364,7 @@ window.ALMEIDASNET_CONFIG = {
     { texto: "Quem somos", link: "#quem-somos", icone: "users" },
     { texto: "Entretenimento", link: "#entretenimento", icone: "film" },
     { texto: "Onde estamos", link: "#onde-estamos", icone: "pin" },
-    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet.", icone: "chat" },
+    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet", icone: "chat" },
     { texto: "Teste de velocidade", link: "https://www.speedtest.net/", icone: "gauge" },
     { texto: "Área do assinante", link: "https://ixc.almeidasnet.com.br", icone: "users" },
     { texto: "Indique e ganhe", link: "popup:", icone: "star" }, // "popup:" abre o popup Indique e ganhe
@@ -385,7 +385,7 @@ window.ALMEIDASNET_CONFIG = {
         texto: "Indique amigos e familiares para a AlmeidasNet e ganhe benefícios.",
         botao: "Quero indicar",
         icone: "users",
-        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet.",
+        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet",
       },
       {
         imagem: "",
@@ -393,7 +393,7 @@ window.ALMEIDASNET_CONFIG = {
         texto: "Assine agora e a instalação não custa nada.",
         botao: "Quero assinar",
         icone: "check",
-        link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet.",
+        link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet",
       },
     ],
   },
