@@ -14,6 +14,7 @@
   --ink-3: #142014;
   --orange: #F08919;
   --paper: #F7F8F6;
+  --topbar-bg: #082B55; /* cor de fundo da barra superior (logo + contatos) */
   --white: #FFFFFF;
 
   --text: #0E1A0E;
@@ -125,7 +126,7 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 /* ==========================================================================
    BARRA SUPERIOR (logo grande + contatos, como na Nex)
    ========================================================================== */
-.topbar { background: var(--paper); border-bottom: 1px solid var(--line); }
+.topbar { background: var(--topbar-bg); border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
 .topbar__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 108px; }
 .logo { display: inline-flex; align-items: center; }
 .logo img { height: 74px; width: auto; transition: transform 0.4s var(--ease); }
@@ -134,15 +135,15 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .topbar__links { display: flex; align-items: center; gap: 26px; flex-wrap: nowrap; justify-content: flex-end; }
 .topbar__links a {
   position: relative; display: inline-flex; align-items: center; gap: 10px;
-  font-weight: 600; font-size: 0.98rem; color: var(--text); white-space: nowrap;
+  font-weight: 600; font-size: 0.98rem; color: var(--white); white-space: nowrap;
   padding: 6px 0;
 }
-.topbar__links .ico { width: 30px; height: 30px; color: var(--green-deep); transition: transform 0.35s var(--ease), color 0.2s ease; }
+.topbar__links .ico { width: 30px; height: 30px; color: var(--lime); transition: transform 0.35s var(--ease), color 0.2s ease; }
 .topbar__links a::after {
   content: ""; position: absolute; left: 40px; right: 0; bottom: 0; height: 2px;
   background: var(--green); transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease);
 }
-.topbar__links a:hover .ico { transform: translateY(-3px) rotate(-8deg) scale(1.1); color: var(--green); }
+.topbar__links a:hover .ico { transform: translateY(-3px) rotate(-8deg) scale(1.1); color: var(--lime); }
 .topbar__links a:hover::after { transform: scaleX(1); }
 
 @media (max-width: 1120px) {
