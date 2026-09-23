@@ -38,8 +38,11 @@ window.ALMEIDASNET_CONFIG = {
   telefone: "(71) 3019-5811",
   telefoneLink: "tel:30195811",
 
-  endereco: "Tv. Domingos Silva, 35, Itapuã, Salvador - BA",
+  endereco: "Itapuã, Salvador - BA",
   enderecoMapa: "https://maps.app.goo.gl/psBKHfRxLYWE3ven6",
+
+  // Bairros atendidos — aparecem como selos na seção "Consulte cobertura"
+  bairrosAtendidos: ["Itapuã", "Piatã", "Stella Maris", "São Cristóvão", "Cassange"],
 
   redesSociais: {
     instagram: "https://www.instagram.com/almeidas_net/",
@@ -396,5 +399,87 @@ window.ALMEIDASNET_CONFIG = {
         link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet",
       },
     ],
+  },
+  /* ------------------------------------------------------------------
+     PÁGINA "PARA SUA EMPRESA" (empresas.html) — planos, benefícios,
+     depoimentos e FAQ dessa página. O formulário de contato dela monta
+     a mensagem sozinho e manda pro WhatsApp, igual ao resto do site.
+     whatsapp: deixe "" para usar o mesmo WhatsApp do site; ou coloque
+     um número exclusivo do time comercial, ex. "https://wa.me/557..."
+     ------------------------------------------------------------------ */
+  paginaEmpresas: {
+    whatsapp: "",
+    whatsappExibicao: "", // se preencher "whatsapp" acima, preencha aqui o número formatado para exibição
+
+    hero: {
+      titulo: "Internet dedicada para a sua empresa nunca parar",
+      texto: "Link estável, suporte prioritário e um time comercial que entende do seu negócio. Da loja de bairro ao escritório com vários pontos.",
+      itens: [
+        "IP fixo dedicado incluso",
+        "Suporte prioritário 24/7",
+        "Instalação expressa para empresas",
+      ],
+      botao: "Falar com um consultor",
+    },
+
+    // Faixa de confiança logo abaixo do herói — EXEMPLO, ajuste os números
+    confianca: [
+      { icone: "gauge", texto: "SLA de atendimento em até 4h" },
+      { icone: "shield", texto: "Rede monitorada 24 horas" },
+      { icone: "users", texto: "Gerente de conta dedicado" },
+    ],
+
+    /* ATENÇÃO: planos, recursos e "a partir de" abaixo são EXEMPLOS.
+       Ajuste para os planos empresariais reais. Deixe "precoApartir"
+       vazio ("") para o card mostrar "Sob consulta" no lugar do preço. */
+    planos: [
+      {
+        nome: "Empresarial Start",
+        velocidade: "300 mega",
+        indicado: "Pequenos negócios e escritórios com poucos pontos",
+        recursos: ["IP fixo dedicado", "Suporte em horário comercial", "Instalação em até 48h"],
+        precoApartir: "249,90",
+      },
+      {
+        nome: "Empresarial Pro",
+        velocidade: "600 mega",
+        indicado: "Empresas com vários dispositivos e uso constante",
+        recursos: ["IP fixo dedicado", "Suporte prioritário 24/7", "Link com redundância", "Gerente de conta"],
+        precoApartir: "459,90",
+        destaque: true,
+      },
+      {
+        nome: "Empresarial Corporate",
+        velocidade: "1000 mega",
+        indicado: "Operações críticas, filiais e múltiplos pontos",
+        recursos: ["Link dedicado simétrico", "SLA personalizado", "Suporte prioritário 24/7", "Gerente de conta"],
+        precoApartir: "",
+      },
+    ],
+
+    // "Por que a AlmeidasNet" — EXEMPLO, ajuste textos se quiser
+    beneficios: [
+      { icone: "bolt", titulo: "Link estável", texto: "Rede dimensionada para uso intenso, sem quedas em horário de pico." },
+      { icone: "headset", titulo: "Suporte prioritário", texto: "Atendimento empresarial com fila própria, sem esperar como cliente comum." },
+      { icone: "file", titulo: "Contrato flexível", texto: "Planos que acompanham o crescimento da sua empresa, sem burocracia." },
+      { icone: "check", titulo: "Instalação expressa", texto: "Equipe própria para colocar sua empresa online o quanto antes." },
+    ],
+
+    // Depoimentos de empresas — SUBSTITUA pelos depoimentos reais
+    depoimentos: [
+      { nome: "Fernanda Dias", perfil: "Clínica odontológica", texto: "Migramos para a AlmeidasNet e o atendimento prioritário fez toda a diferença no dia a dia da clínica." },
+      { nome: "Marcos Vinícius", perfil: "Escritório de contabilidade", texto: "Nunca mais tivemos queda de link em horário de fechamento de balanço." },
+      { nome: "Patrícia Nunes", perfil: "Loja de conveniência", texto: "O gerente de conta resolve tudo direto pelo WhatsApp, sem enrolação." },
+    ],
+
+    faq: [
+      { pergunta: "Atendem empresas em qualquer bairro?", resposta: "Atendemos toda a área de cobertura da AlmeidasNet Fale com um consultor informando o endereço para confirmarmos a disponibilidade." },
+      { pergunta: "O IP fixo já vem incluso?", resposta: "Sim, todos os planos empresariais incluem IP fixo dedicado, sem custo adicional." },
+      { pergunta: "Como funciona o suporte prioritário?", resposta: "Clientes empresariais têm uma fila de atendimento própria, com SLA de resposta combinado no contrato." },
+      { pergunta: "Consigo migrar de outro provedor sem perder e-mail e sistemas?", resposta: "Sim. Nosso time acompanha a migração e planeja a troca para não impactar o funcionamento da empresa." },
+    ],
+
+    formTitulo: "Fale com o nosso time comercial",
+    formTexto: "Conte um pouco sobre a sua empresa e retornamos com uma proposta.",
   },
 };

@@ -61,6 +61,7 @@
     star: '<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1z"/>',
     home: '<path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"/>',
     briefcase: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5V7M3 13h18"/>',
+    office: '<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h.01M9 12h.01M9 16h.01M15 8h.01M15 12h.01M15 16h.01"/><path d="M9 21v-3.5h6V21"/>',
     help: '<circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.4 2.3c-.9.4-1.4 1-1.4 2M12 17h.01"/>',
     pin: '<path d="M12 21s7-6.5 7-11.5a7 7 0 1 0-14 0C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -103,6 +104,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     injectConfigLinks();
     renderStrip();
+    renderBairros();
     renderHero();
     renderPlanos();
     renderGamer();
@@ -126,6 +128,9 @@
     var y = $("#current-year");
     if (y) y.textContent = new Date().getFullYear();
   });
+
+  // Helpers reaproveitados por outras páginas do site (ex.: empresas.html)
+  window.AlmeidasNetUI = { icon: icon, esc: esc, waLink: waLink, resolveLink: resolveLink, linkAttrs: linkAttrs, hydrateIcons: hydrateIcons };
 
   /* ==========================================================================
      Links vindos do config
@@ -158,6 +163,12 @@
     wrap.innerHTML = CFG.beneficiosFaixa.map(function (b) {
       return '<div class="strip-item"><span class="strip-item__icon">' + icon(b.icone) + "</span><span>" + esc(b.texto) + "</span></div>";
     }).join("");
+  }
+
+  function renderBairros() {
+    var wrap = $("#coverage-bairros");
+    if (!wrap || !CFG.bairrosAtendidos) return;
+    wrap.innerHTML = CFG.bairrosAtendidos.map(function (b) { return "<span>" + icon("pin") + esc(b) + "</span>"; }).join("");
   }
 
   /* ==========================================================================

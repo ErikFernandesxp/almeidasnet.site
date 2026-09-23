@@ -8,10 +8,12 @@ Visual inspirado na estrutura do site da Nex Telecom, com as cores da AlmeidasNe
 
 ```
 almeidasnet/
-├── index.html
-├── css/style.css       → cores e tamanhos no topo (variáveis :root)
+├── index.html          → site residencial
+├── empresas.html        → página "Para sua empresa" (planos B2B + formulário de contato)
+├── css/style.css       → cores e tamanhos no topo (variáveis :root), compartilhado pelas 2 páginas
 ├── js/config.js        → TODOS os textos, links, planos e banners editáveis
-├── js/main.js          → interações (carrossel, menu, planos, popup, formulário)
+├── js/main.js          → interações do site residencial (compartilhado pelas 2 páginas)
+├── js/empresas.js      → interações exclusivas da página empresas.html
 └── images/
     ├── logo/           → logo-colorido.png (topo), logo-claro.png (rodapé), marca.png, favicon.png
     ├── hero/           → (opcional) fotos recortadas para os banners
@@ -19,15 +21,27 @@ almeidasnet/
     └── promo/          → (opcional) arte pronta do popup "Indique e ganhe"
 ```
 
+## Página "Para sua empresa" (empresas.html)
+
+Página B2B separada, reaproveitando o visual do site: herói com os diferenciais, faixa de
+confiança, planos empresariais (cards com recursos e preço "a partir de" ou "Sob consulta"),
+"Por que escolher a AlmeidasNet", depoimentos de empresas, FAQ e um formulário de contato que
+monta a mensagem sozinha e manda pro WhatsApp — tudo editável em `paginaEmpresas`, dentro do
+`js/config.js`. O menu do site (nas duas páginas) tem um link "Para sua empresa" ↔ "Para sua
+casa" para ir e voltar entre as duas. Por padrão o WhatsApp é o mesmo do site; se o time
+comercial usar outro número, preencha `paginaEmpresas.whatsapp` e `whatsappExibicao`.
+
 ## O que tem na página (na ordem)
 
 Barra branca com logo grande e contatos → navbar verde fixa (com efeitos de hover, botões
 "Área do assinante", "Assine agora" e "Indique e ganhe") → carrossel animado → faixa verde de
 diferenciais → "Como podemos te atender hoje?" → Planos → Gamer → Entretenimento (faixa que se
-arrasta) → Wi-Fi 6 → Consulte cobertura → Quem somos + Depoimentos → FAQ → App → CTAs → Rodapé.
+arrasta) → Wi-Fi 6 → Consulte cobertura (com os bairros atendidos) → Quem somos + Depoimentos →
+FAQ → App → CTAs → Rodapé.
 Flutuantes: menu rápido, telefone, WhatsApp, Instagram e voltar ao topo. Popup "Indique e ganhe".
 
 ## Configurado com os seus dados
+
 
 - **WhatsApp**: (71) 99381-2371 (`whatsapp` e `whatsappExibicao` no config.js)
 - **Telefone flutuante**: aponta para o mesmo número. Se tiver um fixo, troque `telefone` e `telefoneLink`
@@ -62,6 +76,8 @@ Flutuantes: menu rápido, telefone, WhatsApp, Instagram e voltar ao topo. Popup 
 - `entretenimento.cards`: cada card aceita `imagem` (capa 600×720px) no lugar do ícone. A faixa anda sozinha em
   loop; ajuste a velocidade em `entretenimento.velocidade` (px/segundo, `0` para parar). Pausa com o mouse em cima
 - Ícones dos apps dos planos: troque `icone` e preencha `nome` (48×48px, PNG transparente)
+- `bairrosAtendidos`: lista de bairros exibida na seção "Consulte cobertura"
+- `paginaEmpresas`: **planos, benefícios e depoimentos são exemplos.** Ajuste para a oferta B2B real
 
 ## Deploy — GitHub + Vercel
 
@@ -82,4 +98,5 @@ Flutuantes: menu rápido, telefone, WhatsApp, Instagram e voltar ao topo. Popup 
 - [ ] Confirmar números do Gamer e o texto do Wi-Fi 6
 - [ ] Links de Facebook/YouTube (ou remover os ícones)
 - [ ] Foto de pessoa nos banners (opcional)
+- [ ] Bairros atendidos (`bairrosAtendidos`) e conteúdo da página "Para sua empresa" (`paginaEmpresas`)
 - [ ] Testar no celular
