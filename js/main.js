@@ -4,6 +4,7 @@
   var CFG = window.ALMEIDASNET_CONFIG;
   var REDUCED = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   var SLIDE_MS = 7000;
+  var promoAutoShow = function () {}; // renderPromoPopup() preenche isto; renderAudiencePopup() chama depois de fechar
 
   /* ==========================================================================
      Utilidades
@@ -62,6 +63,7 @@
     home: '<path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"/>',
     briefcase: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5V7M3 13h18"/>',
     office: '<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h.01M9 12h.01M9 16h.01M15 8h.01M15 12h.01M15 16h.01"/><path d="M9 21v-3.5h6V21"/>',
+    calendar: '<rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M8 2.5v4M16 2.5v4M3 9.5h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01"/>',
     help: '<circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.4 2.3c-.9.4-1.4 1-1.4 2M12 17h.01"/>',
     pin: '<path d="M12 21s7-6.5 7-11.5a7 7 0 1 0-14 0C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -113,6 +115,7 @@
     renderDepoimentos();
     renderFloatingMenu();
     renderPromoPopup();
+    renderAudiencePopup();
     hydrateIcons(document);
 
     setupNav();
@@ -427,7 +430,7 @@
   /* ---------- Mensagem do pedido para o WhatsApp ---------- */
   function buildOrderMessage(p, st, extras, totalC, deC) {
     var L = [];
-    L.push("Olá! Quero assinar a AlmeidasNet", "");
+    L.push("Olá! Quero assinar a AlmeidasNet.", "");
     L.push("*Plano:* " + p.combo + " — " + p.velocidade + " " + p.unidade);
     if (p.incluso && p.incluso.legenda) L.push("*Incluso no combo:* " + p.incluso.legenda);
     if (st.gratis.length) L.push("*Apps grátis:* " + st.gratis.map(function (i) { return appNome(p.gratis.apps[i], i); }).join(", "));
@@ -877,11 +880,68 @@
       });
     });
 
-    // abertura automática (uma vez por visita)
+    // abertura automática (uma vez por visita) — disparada pelo popup de
+    // entrada (residencial/evento) assim que ele for fechado; ver promoAutoShow
+    promoAutoShow = function () {
+      var seen = false;
+      try { seen = !!sessionStorage.getItem("almeidasnet_popup_visto"); } catch (err) {}
+      if (cfg.ativo && !seen) {
+        setTimeout(function () { if (!$(".modal.is-open")) show(); }, cfg.atrasoMs || 4000);
+      }
+    };
+  }
+
+  /* ==========================================================================
+     Popup de entrada — "para sua casa ou para um evento?"
+     Aparece antes do popup de indique e ganhe (uma vez por visita). Ao
+     escolher, ou ao fechar, libera o popup de indique e ganhe (se houver).
+     ========================================================================== */
+  function renderAudiencePopup() {
+    var cfg = CFG.popupPublico, root = $("#audience-popup");
+    if (!root || !cfg || !cfg.opcoes || !cfg.opcoes.length) { promoAutoShow(); return; }
+
+    root.innerHTML =
+      '<div class="modal__card gate__card" role="dialog" aria-modal="true" aria-label="' + esc(cfg.titulo) + '">' +
+      '<button type="button" class="modal__close" aria-label="Fechar">' + icon("x") + "</button>" +
+      '<div class="gate__head"><h3>' + esc(cfg.titulo) + "</h3><p>" + esc(cfg.texto) + "</p></div>" +
+      '<div class="gate__options">' +
+      cfg.opcoes.map(function (o) {
+        return (
+          '<a class="gate-option" ' + linkAttrs(o.link) + '><span class="gate-option__icon">' + icon(o.icone) + "</span>" +
+          "<strong>" + esc(o.texto) + '</strong><span class="gate-option__sub">' + esc(o.subtexto) + "</span>" +
+          '<span class="gate-option__go">Continuar' + icon("arrow") + "</span></a>"
+        );
+      }).join("") +
+      "</div></div>";
+
+    var closeBtn = $(".modal__close", root);
+    function dismiss() {
+      closeModal(root);
+      try { sessionStorage.setItem("almeidasnet_publico_escolhido", "1"); } catch (err) {}
+      promoAutoShow();
+    }
+    closeBtn.addEventListener("click", dismiss);
+    root.addEventListener("click", function (e) { if (e.target === root) dismiss(); });
+
+    // se a opção aponta pra página atual, só fecha o popup (evita recarregar à toa)
+    var here = (location.pathname.split("/").pop() || "index.html");
+    $$(".gate-option", root).forEach(function (a) {
+      var href = a.getAttribute("href");
+      if (href === here) {
+        a.addEventListener("click", function (e) { e.preventDefault(); dismiss(); });
+      } else {
+        a.addEventListener("click", function () {
+          try { sessionStorage.setItem("almeidasnet_publico_escolhido", "1"); } catch (err) {}
+        });
+      }
+    });
+
     var seen = false;
-    try { seen = !!sessionStorage.getItem("almeidasnet_popup_visto"); } catch (err) {}
+    try { seen = !!sessionStorage.getItem("almeidasnet_publico_escolhido"); } catch (err) {}
     if (cfg.ativo && !seen) {
-      setTimeout(function () { if (!$(".modal.is-open")) show(); }, cfg.atrasoMs || 4000);
+      setTimeout(function () { if (!$(".modal.is-open")) openModal(root, closeBtn); }, cfg.atrasoMs || 1200);
+    } else {
+      promoAutoShow();
     }
   }
 
@@ -955,7 +1015,7 @@
       e.preventDefault();
       var v = function (id) { return $(id, form).value.trim(); };
       var msg =
-        "Olá! Quero consultar cobertura da AlmeidasNet\n" +
+        "Olá! Quero consultar cobertura da AlmeidasNet.\n" +
         "Nome: " + v("#cf-nome") + "\n" +
         "Rua/Av: " + v("#cf-rua") + "\n" +
         "Bairro: " + v("#cf-bairro") + "\n" +

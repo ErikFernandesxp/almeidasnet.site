@@ -10,10 +10,12 @@ Visual inspirado na estrutura do site da Nex Telecom, com as cores da AlmeidasNe
 almeidasnet/
 ├── index.html          → site residencial
 ├── empresas.html        → página "Para sua empresa" (planos B2B + formulário de contato)
-├── css/style.css       → cores e tamanhos no topo (variáveis :root), compartilhado pelas 2 páginas
+├── eventos.html          → página "Internet para eventos" (pacotes avulsos + formulário)
+├── css/style.css       → cores e tamanhos no topo (variáveis :root), compartilhado pelas 3 páginas
 ├── js/config.js        → TODOS os textos, links, planos e banners editáveis
-├── js/main.js          → interações do site residencial (compartilhado pelas 2 páginas)
+├── js/main.js          → interações do site residencial + popup de entrada (compartilhado pelas 3 páginas)
 ├── js/empresas.js      → interações exclusivas da página empresas.html
+├── js/eventos.js        → interações exclusivas da página eventos.html
 └── images/
     ├── logo/           → logo-colorido.png (topo), logo-claro.png (rodapé), marca.png, favicon.png
     ├── hero/           → (opcional) fotos recortadas para os banners
@@ -21,15 +23,33 @@ almeidasnet/
     └── promo/          → (opcional) arte pronta do popup "Indique e ganhe"
 ```
 
-## Página "Para sua empresa" (empresas.html)
+## Três públicos: residencial, empresa e eventos
 
-Página B2B separada, reaproveitando o visual do site: herói com os diferenciais, faixa de
-confiança, planos empresariais (cards com recursos e preço "a partir de" ou "Sob consulta"),
-"Por que escolher a AlmeidasNet", depoimentos de empresas, FAQ e um formulário de contato que
-monta a mensagem sozinha e manda pro WhatsApp — tudo editável em `paginaEmpresas`, dentro do
-`js/config.js`. O menu do site (nas duas páginas) tem um link "Para sua empresa" ↔ "Para sua
-casa" para ir e voltar entre as duas. Por padrão o WhatsApp é o mesmo do site; se o time
+O site tem 3 páginas — `index.html` (residencial), `empresas.html` (planos B2B fixos) e
+`eventos.html` (internet avulsa para um evento de um dia, com montagem e desmontagem) — e um
+seletor "Residencial / Empresa / Eventos" (3 bolinhas com ícone) sempre visível no topo, tanto
+no desktop (barra superior) quanto no celular (cabeçalho compacto), com a página atual destacada
+em verde-limão. Assim que alguém entra no site pela primeira vez (em qualquer uma das 3 páginas),
+aparece um popup perguntando qual dos 3 ele procura — só uma vez por visita. Ele é configurado em
+`popupPublico`, no `js/config.js`, e sempre aparece antes do popup "Indique e ganhe" (que continua
+existindo, só no site residencial).
+
+### Página "Para sua empresa" (empresas.html)
+
+Herói com os diferenciais, faixa de confiança, planos empresariais (cards com recursos e preço
+"a partir de" ou "Sob consulta"), "Por que escolher a AlmeidasNet", depoimentos de empresas, FAQ
+e um formulário de contato que monta a mensagem sozinha e manda pro WhatsApp — tudo editável em
+`paginaEmpresas`, dentro do `js/config.js`. Por padrão o WhatsApp é o mesmo do site; se o time
 comercial usar outro número, preencha `paginaEmpresas.whatsapp` e `whatsappExibicao`.
+
+### Página "Internet para eventos" (eventos.html)
+
+Mesma estrutura da página de empresas, mas para internet avulsa de um dia (feiras, shows,
+casamentos, congressos): pacotes por duração/porte do evento em vez de plano mensal, e o
+formulário de contato pede tipo de evento, data e público estimado em vez de dados de empresa.
+Tudo editável em `paginaEventos`, no `js/config.js` — **os pacotes, preços e depoimentos são
+exemplos**, ajuste para o serviço real. Por padrão usa o mesmo WhatsApp do site; para um número
+exclusivo de orçamentos de evento, preencha `paginaEventos.whatsapp` e `whatsappExibicao`.
 
 ## O que tem na página (na ordem)
 
@@ -78,6 +98,8 @@ Flutuantes: menu rápido, telefone, WhatsApp, Instagram e voltar ao topo. Popup 
 - Ícones dos apps dos planos: troque `icone` e preencha `nome` (48×48px, PNG transparente)
 - `bairrosAtendidos`: lista de bairros exibida na seção "Consulte cobertura"
 - `paginaEmpresas`: **planos, benefícios e depoimentos são exemplos.** Ajuste para a oferta B2B real
+- `paginaEventos`: **pacotes, benefícios e depoimentos são exemplos.** Ajuste para o serviço de eventos real
+- `popupPublico`: textos do popup de entrada (residencial/empresa/evento)
 
 ## Deploy — GitHub + Vercel
 
@@ -98,5 +120,5 @@ Flutuantes: menu rápido, telefone, WhatsApp, Instagram e voltar ao topo. Popup 
 - [ ] Confirmar números do Gamer e o texto do Wi-Fi 6
 - [ ] Links de Facebook/YouTube (ou remover os ícones)
 - [ ] Foto de pessoa nos banners (opcional)
-- [ ] Bairros atendidos (`bairrosAtendidos`) e conteúdo da página "Para sua empresa" (`paginaEmpresas`)
+- [ ] Bairros atendidos (`bairrosAtendidos`) e conteúdo das páginas "Para sua empresa" (`paginaEmpresas`) e "Internet para eventos" (`paginaEventos`)
 - [ ] Testar no celular

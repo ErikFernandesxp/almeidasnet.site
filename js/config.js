@@ -32,17 +32,17 @@ window.ALMEIDASNET_CONFIG = {
   // WhatsApp (formato https://wa.me/55DDDNUMERO) e como o número aparece no site
   whatsapp: "https://wa.me/5571993812371",
   whatsappExibicao: "(71) 99381-2371",
-  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet",
+  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet.",
 
   // Botão de telefone flutuante e textos "ligue para"
-  telefone: "(71) 3019-5811",
-  telefoneLink: "tel:30195811",
+  telefone: "(71) 99381-2371",
+  telefoneLink: "tel:+5571993812371",
 
-  endereco: "Itapuã, Salvador - BA",
+  endereco: "Tv. Domingos Silva, 35, Itapuã, Salvador - BA",
   enderecoMapa: "https://maps.app.goo.gl/psBKHfRxLYWE3ven6",
 
   // Bairros atendidos — aparecem como selos na seção "Consulte cobertura"
-  bairrosAtendidos: ["Itapuã", "Piatã", "Stella Maris", "São Cristóvão", "Cassange"],
+  bairrosAtendidos: ["Itapuã", "Piatã", "Stella Maris", "São Cristóvão"],
 
   redesSociais: {
     instagram: "https://www.instagram.com/almeidas_net/",
@@ -72,7 +72,7 @@ window.ALMEIDASNET_CONFIG = {
       titulo: ["que transforma", "a sua rotina"],
       texto: "Fibra óptica de alta velocidade para a sua casa, o trabalho e a diversão.",
       botaoTexto: "Assine já!",
-      botaoLink: "whatsapp:Olá! Quero assinar a AlmeidasNet",
+      botaoLink: "whatsapp:Olá! Quero assinar a AlmeidasNet.",
       mostrarTelefone: true,
       chips: ["play", "gamepad", "chat", "video"],
       foto: "",
@@ -110,7 +110,7 @@ window.ALMEIDASNET_CONFIG = {
       titulo: ["humanizado de", "verdade"],
       texto: "Time próximo, pronto para resolver pelo WhatsApp, telefone ou pelo app.",
       botaoTexto: "Fale com a gente",
-      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet",
+      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet.",
       mostrarTelefone: true,
       chips: ["chat", "shield", "phone", "check"],
       foto: "",
@@ -367,7 +367,7 @@ window.ALMEIDASNET_CONFIG = {
     { texto: "Quem somos", link: "#quem-somos", icone: "users" },
     { texto: "Entretenimento", link: "#entretenimento", icone: "film" },
     { texto: "Onde estamos", link: "#onde-estamos", icone: "pin" },
-    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet", icone: "chat" },
+    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet.", icone: "chat" },
     { texto: "Teste de velocidade", link: "https://www.speedtest.net/", icone: "gauge" },
     { texto: "Área do assinante", link: "https://ixc.almeidasnet.com.br", icone: "users" },
     { texto: "Indique e ganhe", link: "popup:", icone: "star" }, // "popup:" abre o popup Indique e ganhe
@@ -388,7 +388,7 @@ window.ALMEIDASNET_CONFIG = {
         texto: "Indique amigos e familiares para a AlmeidasNet e ganhe benefícios.",
         botao: "Quero indicar",
         icone: "users",
-        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet",
+        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet.",
       },
       {
         imagem: "",
@@ -396,16 +396,51 @@ window.ALMEIDASNET_CONFIG = {
         texto: "Assine agora e a instalação não custa nada.",
         botao: "Quero assinar",
         icone: "check",
-        link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet",
+        link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet.",
       },
     ],
   },
+  /* ------------------------------------------------------------------
+     POPUP DE ENTRADA — "para sua casa ou para um evento?". Aparece uma
+     vez por visita, antes do popup "Indique e ganhe". Ao clicar numa
+     opção, vai para a página certa (index.html ou eventos.html).
+     Para desativar, mude "ativo" para false.
+     ------------------------------------------------------------------ */
+  popupPublico: {
+    ativo: true,
+    atrasoMs: 1200,
+    titulo: "Vamos direto ao que você precisa",
+    texto: "Escolha uma opção para ver o conteúdo certo.",
+    opcoes: [
+      {
+        texto: "Internet para minha casa",
+        subtexto: "Planos residenciais de fibra óptica",
+        icone: "home",
+        link: "index.html",
+      },
+      {
+        texto: "Internet para minha empresa",
+        subtexto: "Planos com IP fixo e suporte prioritário",
+        icone: "office",
+        link: "empresas.html",
+      },
+      {
+        texto: "Internet para um evento",
+        subtexto: "Estrutura temporária, com equipe no local",
+        icone: "calendar",
+        link: "eventos.html",
+      },
+    ],
+  },
+
   /* ------------------------------------------------------------------
      PÁGINA "PARA SUA EMPRESA" (empresas.html) — planos, benefícios,
      depoimentos e FAQ dessa página. O formulário de contato dela monta
      a mensagem sozinho e manda pro WhatsApp, igual ao resto do site.
      whatsapp: deixe "" para usar o mesmo WhatsApp do site; ou coloque
      um número exclusivo do time comercial, ex. "https://wa.me/557..."
+     ATENÇÃO: planos, textos e depoimentos abaixo são EXEMPLOS. Ajuste
+     para a oferta B2B real.
      ------------------------------------------------------------------ */
   paginaEmpresas: {
     whatsapp: "",
@@ -473,7 +508,7 @@ window.ALMEIDASNET_CONFIG = {
     ],
 
     faq: [
-      { pergunta: "Atendem empresas em qualquer bairro?", resposta: "Atendemos toda a área de cobertura da AlmeidasNet Fale com um consultor informando o endereço para confirmarmos a disponibilidade." },
+      { pergunta: "Atendem empresas em qualquer bairro?", resposta: "Atendemos toda a área de cobertura da AlmeidasNet. Fale com um consultor informando o endereço para confirmarmos a disponibilidade." },
       { pergunta: "O IP fixo já vem incluso?", resposta: "Sim, todos os planos empresariais incluem IP fixo dedicado, sem custo adicional." },
       { pergunta: "Como funciona o suporte prioritário?", resposta: "Clientes empresariais têm uma fila de atendimento própria, com SLA de resposta combinado no contrato." },
       { pergunta: "Consigo migrar de outro provedor sem perder e-mail e sistemas?", resposta: "Sim. Nosso time acompanha a migração e planeja a troca para não impactar o funcionamento da empresa." },
@@ -481,5 +516,91 @@ window.ALMEIDASNET_CONFIG = {
 
     formTitulo: "Fale com o nosso time comercial",
     formTexto: "Conte um pouco sobre a sua empresa e retornamos com uma proposta.",
+  },
+
+  /* ------------------------------------------------------------------
+     PÁGINA "INTERNET PARA EVENTOS" (eventos.html) — pacotes, benefícios,
+     depoimentos e FAQ dessa página. O formulário de contato dela monta
+     a mensagem sozinho e manda pro WhatsApp, igual ao resto do site.
+     whatsapp: deixe "" para usar o mesmo WhatsApp do site; ou coloque
+     um número exclusivo para orçamentos de evento, ex. "https://wa.me/557..."
+     ATENÇÃO: pacotes, textos e depoimentos abaixo são EXEMPLOS. Ajuste
+     para o serviço de eventos real de vocês.
+     ------------------------------------------------------------------ */
+  paginaEventos: {
+    whatsapp: "",
+    whatsappExibicao: "", // se preencher "whatsapp" acima, preencha aqui o número formatado para exibição
+
+    hero: {
+      titulo: "Internet montada para o seu evento, do início ao fim",
+      texto: "Shows, feiras, congressos, casamentos e festas de um dia: levamos toda a estrutura de internet até o local, damos suporte durante o evento e desmontamos no final.",
+      itens: [
+        "Montagem e desmontagem no mesmo dia",
+        "Equipe técnica presente durante todo o evento",
+        "Link de backup, para nunca ficar sem conexão",
+      ],
+      botao: "Orçar meu evento",
+    },
+
+    // Faixa de confiança logo abaixo do herói — EXEMPLO, ajuste se quiser
+    confianca: [
+      { icone: "bolt", texto: "Montagem expressa no dia do evento" },
+      { icone: "shield", texto: "Link de backup, sem depender de uma única conexão" },
+      { icone: "headset", texto: "Equipe técnica acompanhando o evento" },
+    ],
+
+    /* ATENÇÃO: pacotes, recursos e "a partir de" abaixo são EXEMPLOS.
+       Ajuste para os pacotes de evento reais. Deixe "precoApartir" vazio
+       ("") para o card mostrar "Sob orçamento" no lugar do preço. */
+    pacotes: [
+      {
+        nome: "Evento Express",
+        duracao: "Até 6 horas · eventos pequenos",
+        indicado: "Feiras de bairro, lançamentos e confraternizações",
+        recursos: ["Wi-Fi para o público", "1 ponto de rede para pagamento/som", "Montagem e desmontagem incluídas"],
+        precoApartir: "",
+      },
+      {
+        nome: "Evento Completo",
+        duracao: "Diária completa · até 12h",
+        indicado: "Feiras, congressos e festas de médio porte",
+        recursos: ["Wi-Fi dedicado de alta capacidade", "Pontos de rede para equipamentos", "Equipe técnica no local o dia todo", "Link de backup 4G"],
+        precoApartir: "",
+        destaque: true,
+      },
+      {
+        nome: "Grande Porte",
+        duracao: "Vários dias ou grande público",
+        indicado: "Shows, congressos grandes e eventos com vários dias",
+        recursos: ["Estrutura redundante", "Suporte técnico em tempo integral", "Projeto sob medida para o espaço", "Equipamento reaproveitado a cada evento"],
+        precoApartir: "",
+      },
+    ],
+
+    // "Por que a AlmeidasNet" — EXEMPLO, ajuste textos se quiser
+    beneficios: [
+      { icone: "bolt", titulo: "Equipamento próprio", texto: "Não dependemos de terceiros: toda a estrutura é nossa, pronta para reaproveitar em cada evento." },
+      { icone: "check", titulo: "Setup rápido", texto: "Equipe treinada para montar e deixar tudo funcionando antes do seu evento começar." },
+      { icone: "headset", titulo: "Suporte durante o evento", texto: "Alguém da equipe acompanha para resolver qualquer imprevisto na hora." },
+      { icone: "file", titulo: "Sem burocracia", texto: "Orçamento sob medida para o porte do seu evento, sem contrato de fidelidade." },
+    ],
+
+    // Depoimentos de eventos atendidos — SUBSTITUA pelos depoimentos reais
+    depoimentos: [
+      { nome: "Rafael Souza", perfil: "Organizador de feira de negócios", texto: "A internet não caiu um minuto durante as 8 horas do evento, mesmo com mais de 300 pessoas conectadas." },
+      { nome: "Camila Ferreira", perfil: "Casamento na praia", texto: "Contratamos para o casamento e a equipe cuidou de tudo, discretamente, sem ninguém perceber os cabos." },
+      { nome: "Grupo Cultural Itapuã", perfil: "Festa junina do bairro", texto: "Chamamos praticamente em cima da hora e ainda assim conseguiram montar tudo a tempo." },
+    ],
+
+    faq: [
+      { pergunta: "Com quanto tempo de antecedência preciso contratar?", resposta: "O ideal é fechar com alguns dias de antecedência para garantir equipamento e equipe disponíveis, mas fale com a gente mesmo em cima da hora — muitas vezes conseguimos encaixar." },
+      { pergunta: "Vocês atendem eventos fora da área de cobertura?", resposta: "Sim, conseguimos levar a estrutura para fora da área normal de cobertura da AlmeidasNet; o orçamento considera o deslocamento da equipe." },
+      { pergunta: "Precisa de energia elétrica no local?", resposta: "Sim, os equipamentos precisam de energia. Se o local não tiver, conseguimos combinar um gerador junto com o orçamento." },
+      { pergunta: "Quantas pessoas conseguem ficar conectadas ao mesmo tempo?", resposta: "Depende do pacote escolhido — dimensionamos a estrutura de acordo com o público estimado do seu evento." },
+      { pergunta: "O que acontece com o equipamento depois do evento?", resposta: "Desmontamos tudo no mesmo dia (ou no dia seguinte, se combinado antes) e o equipamento fica pronto para o próximo evento." },
+    ],
+
+    formTitulo: "Conte sobre o seu evento",
+    formTexto: "Preencha os dados e te mandamos um orçamento sob medida.",
   },
 };

@@ -152,6 +152,13 @@ i[data-icon] { display: inline-flex; line-height: 0; }
   .logo img { height: 64px; }
 }
 
+.audience-switch { display: flex; align-items: center; gap: 6px; }
+.audience-switch a { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: rgba(255, 255, 255, 0.68); border: 1.5px solid rgba(255, 255, 255, 0.28); transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.3s var(--ease); }
+.audience-switch a .ico { width: 15px; height: 15px; }
+.audience-switch a:hover { color: var(--white); border-color: rgba(255, 255, 255, 0.55); transform: translateY(-2px); }
+.audience-switch a.is-current { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+.topbar .audience-switch { margin-right: 6px; }
+
 /* ==========================================================================
    NAVBAR (fixa, com efeitos)
    ========================================================================== */
@@ -200,7 +207,7 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .pill--outline { border-color: rgba(255, 255, 255, 0.85); color: var(--white); }
 .pill--outline:hover { background: var(--white); color: var(--green-deep); }
 
-.site-nav__logo, .site-nav__cta { display: none; }
+.site-nav__logo, .site-nav__cta, .site-nav__mobile-group { display: none; }
 .nav-toggle { display: none; width: 46px; height: 46px; position: relative; margin-left: auto; flex-shrink: 0; }
 .nav-toggle span { position: absolute; left: 10px; right: 10px; height: 2.5px; background: var(--white); border-radius: 2px; transition: transform 0.3s var(--ease), opacity 0.2s ease, top 0.3s var(--ease); }
 .nav-toggle span:nth-child(1) { top: 15px; }
@@ -897,16 +904,17 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 
   /* header: logo + Assinar, fixo no topo (a navegação fica no botão flutuante) */
   .topbar { display: none; }
-  .site-nav { background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--line); }
-  .site-nav--scrolled { background: var(--paper); box-shadow: 0 12px 26px -18px rgba(0, 0, 0, 0.55); }
+  .site-nav { background: var(--topbar-bg); color: var(--white); border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
+  .site-nav--scrolled { background: var(--topbar-bg); box-shadow: 0 12px 26px -18px rgba(0, 0, 0, 0.55); }
   .site-nav .container { padding: 0 16px; }
   .site-nav__inner { min-height: var(--nav-h); justify-content: space-between; }
   .site-nav__brand { max-width: none; opacity: 1; }
   .site-nav__mark, .site-nav__name { display: none; }
-  .site-nav__logo { display: block; height: 40px; width: auto; }
+  .site-nav__logo { display: block; height: 36px; width: auto; }
   .site-nav__panel, .nav-overlay, .nav-toggle { display: none !important; }
-  .site-nav__cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 999px; background: var(--green-deep); color: var(--white); font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; transition: transform 0.3s var(--ease), background 0.2s ease; }
-  .site-nav__cta .ico { width: 18px; height: 18px; }
+  .site-nav__mobile-group { display: flex; align-items: center; gap: 8px; }
+  .site-nav__cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: var(--lime); color: var(--ink); font-family: var(--font-display); font-weight: 700; font-size: 0.88rem; white-space: nowrap; transition: transform 0.3s var(--ease), background 0.2s ease; }
+  .site-nav__cta .ico { width: 17px; height: 17px; }
 
   /* hero: arte em cima, texto embaixo */
   .hero__track { min-height: 720px; }
@@ -988,7 +996,7 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .coverage__bairros span .ico { width: 15px; height: 15px; }
 
 /* ==========================================================================
-   PÁGINA "PARA SUA EMPRESA" — peças que não existem na home
+   PÁGINA "PARA SUA EMPRESA" (empresas.html) — peças que não existem na home
    ========================================================================== */
 .biz-trust { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 @media (max-width: 760px) { .biz-trust { grid-template-columns: 1fr; } }
@@ -1016,3 +1024,55 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .biz-benefits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 @media (max-width: 900px) { .biz-benefits { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .biz-benefits { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   PÁGINA "INTERNET PARA EVENTOS" (eventos.html) — peças que não existem
+   na home. Prefixo "evt-" para não confundir com as classes residenciais.
+   ========================================================================== */
+.evt-highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 760px) { .evt-highlights { grid-template-columns: 1fr; } }
+.evt-highlight { display: flex; align-items: center; gap: 14px; padding: 18px 20px; border-radius: 16px; background: var(--paper); }
+.evt-highlight__icon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--green); color: var(--ink); flex-shrink: 0; }
+.evt-highlight__icon .ico { width: 20px; height: 20px; }
+.evt-highlight span:last-child { font-weight: 700; font-size: 0.94rem; }
+
+.evt-plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 980px) { .evt-plans { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; } }
+.evt-plan { position: relative; background: var(--white); border-radius: 26px; padding: 30px 26px; box-shadow: 0 24px 50px -32px rgba(0, 40, 0, 0.5); border: 2px solid transparent; transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+.evt-plan:hover { transform: translateY(-8px); box-shadow: 0 34px 60px -30px rgba(0, 40, 0, 0.65); }
+.evt-plan--destaque { border-color: var(--green); }
+.evt-plan__tag { position: absolute; top: -14px; left: 26px; background: var(--lime); color: var(--ink); font-family: var(--font-display); font-weight: 800; font-size: 0.72rem; padding: 5px 14px; border-radius: 999px; }
+.evt-plan h3 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; }
+.evt-plan__duracao { margin-top: 4px; color: var(--green-deep); font-weight: 700; font-size: 0.95rem; }
+.evt-plan__indicado { margin-top: 10px; color: var(--muted); font-size: 0.9rem; }
+.evt-plan__list { margin: 20px 0 24px; display: flex; flex-direction: column; gap: 11px; }
+.evt-plan__list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.92rem; }
+.evt-plan__list .ico { width: 18px; height: 18px; color: var(--green-deep); flex-shrink: 0; margin-top: 1px; }
+.evt-plan__price { font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; margin-bottom: 16px; }
+.evt-plan__price small { font-size: 0.85rem; font-weight: 700; color: var(--muted); display: block; margin-bottom: 2px; }
+.evt-plan .btn { width: 100%; }
+
+.evt-benefits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+@media (max-width: 900px) { .evt-benefits { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .evt-benefits { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   POPUP DE ENTRADA — "residencial ou evento?" (aparece antes do popup de
+   indique e ganhe). Reaproveita .modal/.modal__close/.modal.is-open.
+   ========================================================================== */
+.gate__card { width: min(940px, 100%); border-radius: 30px; overflow: hidden; background: var(--white); box-shadow: 0 50px 90px -20px rgba(0, 0, 0, 0.6); }
+.gate__head { padding: 40px 34px 6px; text-align: center; }
+.gate__head h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; }
+.gate__head p { margin-top: 8px; color: var(--muted); }
+.gate__options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 26px 34px 34px; }
+@media (max-width: 860px) { .gate__options { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .gate__options { grid-template-columns: 1fr; } }
+.gate-option { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 26px 22px; border-radius: 22px; border: 2px solid var(--line); text-align: left; transition: transform 0.35s var(--ease), border-color 0.25s ease, box-shadow 0.35s ease; }
+.gate-option:hover { transform: translateY(-6px); border-color: var(--green); box-shadow: 0 24px 40px -22px rgba(13, 138, 3, 0.5); }
+.gate-option__icon { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: var(--paper); color: var(--green-deep); transition: background 0.25s ease, color 0.25s ease; }
+.gate-option:hover .gate-option__icon { background: var(--green-deep); color: var(--white); }
+.gate-option strong { font-family: var(--font-display); font-size: 1.15rem; }
+.gate-option__sub { color: var(--muted); font-size: 0.9rem; }
+.gate-option__go { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--green-deep); font-size: 0.9rem; }
+.gate-option__go .ico { width: 16px; height: 16px; transition: transform 0.3s var(--ease); }
+.gate-option:hover .gate-option__go .ico { transform: translateX(4px); }

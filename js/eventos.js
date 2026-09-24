@@ -3,23 +3,23 @@
 
   var CFG = window.ALMEIDASNET_CONFIG;
   var UI = window.AlmeidasNetUI;
-  if (!CFG || !UI || !CFG.paginaEmpresas) return;
-  var PE = CFG.paginaEmpresas;
+  if (!CFG || !UI || !CFG.paginaEventos) return;
+  var PE = CFG.paginaEventos;
 
   var icon = UI.icon, esc = UI.esc, hydrateIcons = UI.hydrateIcons;
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
 
-  function waLinkEmpresa(msg) {
+  function waLinkEvento(msg) {
     var num = PE.whatsapp || CFG.whatsapp;
-    return num + "?text=" + encodeURIComponent(msg || "Olá! Quero falar com o time comercial da AlmeidasNet.");
+    return num + "?text=" + encodeURIComponent(msg || "Olá! Quero orçar internet para um evento.");
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    setupEmpresaLinks();
+    setupEventoLinks();
     renderHero();
-    renderTrust();
-    renderPlans();
+    renderHighlights();
+    renderPacotes();
     renderBenefits();
     renderTestimonials();
     renderFaq();
@@ -27,49 +27,49 @@
     setupForm();
   });
 
-  function setupEmpresaLinks() {
-    var href = waLinkEmpresa();
-    $$("[data-wa-empresas]").forEach(function (el) { el.href = href; });
-    $$("[data-wa-empresas-text]").forEach(function (el) { el.textContent = PE.whatsappExibicao || CFG.whatsappExibicao; });
+  function setupEventoLinks() {
+    var href = waLinkEvento();
+    $$("[data-wa-evento]").forEach(function (el) { el.href = href; });
+    $$("[data-wa-evento-text]").forEach(function (el) { el.textContent = PE.whatsappExibicao || CFG.whatsappExibicao; });
   }
 
   function renderHero() {
     var h = PE.hero;
     if (!h) return;
-    $("#biz-hero-titulo").textContent = h.titulo;
-    $("#biz-hero-texto").textContent = h.texto;
-    $("#biz-hero-botao").textContent = h.botao;
-    $("#biz-hero-itens").innerHTML = (h.itens || []).map(function (t) {
+    $("#evt-hero-titulo").textContent = h.titulo;
+    $("#evt-hero-texto").textContent = h.texto;
+    $("#evt-hero-botao").textContent = h.botao;
+    $("#evt-hero-itens").innerHTML = (h.itens || []).map(function (t) {
       return "<li>" + icon("check") + "<span>" + esc(t) + "</span></li>";
     }).join("");
-    hydrateIcons($("#biz-hero-itens"));
+    hydrateIcons($("#evt-hero-itens"));
   }
 
-  function renderTrust() {
-    var wrap = $("#biz-trust");
+  function renderHighlights() {
+    var wrap = $("#evt-highlights");
     if (!wrap) return;
     wrap.innerHTML = (PE.confianca || []).map(function (c) {
-      return '<div class="biz-trust-item"><span class="biz-trust-item__icon">' + icon(c.icone) + "</span><span>" + esc(c.texto) + "</span></div>";
+      return '<div class="evt-highlight"><span class="evt-highlight__icon">' + icon(c.icone) + "</span><span>" + esc(c.texto) + "</span></div>";
     }).join("");
     hydrateIcons(wrap);
   }
 
-  function renderPlans() {
-    var wrap = $("#biz-plans");
+  function renderPacotes() {
+    var wrap = $("#evt-plans");
     if (!wrap) return;
-    wrap.innerHTML = (PE.planos || []).map(function (p) {
+    wrap.innerHTML = (PE.pacotes || []).map(function (p) {
       var preco = p.precoApartir
-        ? '<p class="biz-plan__price"><small>A partir de</small>R$ ' + esc(p.precoApartir) + "/mês</p>"
-        : '<p class="biz-plan__price"><small>Investimento</small>Sob consulta</p>';
-      var msg = "Olá! Quero falar sobre o plano " + p.nome + " (" + p.velocidade + ") para a minha empresa.";
+        ? '<p class="evt-plan__price"><small>A partir de</small>R$ ' + esc(p.precoApartir) + "</p>"
+        : '<p class="evt-plan__price"><small>Investimento</small>Sob orçamento</p>';
+      var msg = "Olá! Quero orçar o pacote " + p.nome + " (" + p.duracao + ") para o meu evento.";
       return (
-        '<article class="biz-plan' + (p.destaque ? " biz-plan--destaque" : "") + '">' +
-        (p.destaque ? '<span class="biz-plan__tag">Mais escolhido</span>' : "") +
-        "<h3>" + esc(p.nome) + '</h3><p class="biz-plan__speed">' + esc(p.velocidade) + "</p>" +
-        '<p class="biz-plan__indicado">' + esc(p.indicado) + "</p>" +
-        '<ul class="biz-plan__list">' + (p.recursos || []).map(function (r) { return "<li>" + icon("check") + "<span>" + esc(r) + "</span></li>"; }).join("") + "</ul>" +
+        '<article class="evt-plan' + (p.destaque ? " evt-plan--destaque" : "") + '">' +
+        (p.destaque ? '<span class="evt-plan__tag">Mais escolhido</span>' : "") +
+        "<h3>" + esc(p.nome) + '</h3><p class="evt-plan__duracao">' + esc(p.duracao) + "</p>" +
+        '<p class="evt-plan__indicado">' + esc(p.indicado) + "</p>" +
+        '<ul class="evt-plan__list">' + (p.recursos || []).map(function (r) { return "<li>" + icon("check") + "<span>" + esc(r) + "</span></li>"; }).join("") + "</ul>" +
         preco +
-        '<a class="btn btn--dark" href="' + esc(waLinkEmpresa(msg)) + '" target="_blank" rel="noopener">' + icon("whatsapp") + "Falar sobre este plano</a>" +
+        '<a class="btn btn--dark" href="' + esc(waLinkEvento(msg)) + '" target="_blank" rel="noopener">' + icon("whatsapp") + "Orçar este pacote</a>" +
         "</article>"
       );
     }).join("");
@@ -77,7 +77,7 @@
   }
 
   function renderBenefits() {
-    var wrap = $("#biz-benefits");
+    var wrap = $("#evt-benefits");
     if (!wrap) return;
     wrap.innerHTML = (PE.beneficios || []).map(function (b) {
       return (
@@ -89,7 +89,7 @@
   }
 
   function renderTestimonials() {
-    var wrap = $("#biz-depo-grid");
+    var wrap = $("#evt-depo-grid");
     if (!wrap) return;
     wrap.innerHTML = (PE.depoimentos || []).map(function (d) {
       var ini = d.nome.split(" ").map(function (p) { return p.charAt(0); }).slice(0, 2).join("").toUpperCase();
@@ -103,7 +103,7 @@
   }
 
   function renderFaq() {
-    var wrap = $("#biz-faq");
+    var wrap = $("#evt-faq");
     if (!wrap) return;
     wrap.innerHTML = (PE.faq || []).map(function (f) {
       return (
@@ -133,25 +133,26 @@
   }
 
   function renderFormIntro() {
-    var t = $("#biz-form-titulo"), p = $("#biz-form-texto");
+    var t = $("#evt-form-titulo"), p = $("#evt-form-texto");
     if (t) t.textContent = PE.formTitulo;
     if (p) p.textContent = PE.formTexto;
   }
 
   function setupForm() {
-    var form = $("#biz-form");
+    var form = $("#evt-form");
     if (!form) return;
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var v = function (id) { return $(id, form).value.trim(); };
       var msg =
-        "Olá! Quero falar sobre um plano empresarial da AlmeidasNet.\n" +
-        "Nome: " + v("#be-nome") + "\n" +
-        "Empresa: " + v("#be-empresa") + "\n" +
-        "WhatsApp: " + v("#be-whatsapp") +
-        (v("#be-porte") ? "\nPontos/funcionários: " + v("#be-porte") : "") +
-        (v("#be-mensagem") ? "\nMensagem: " + v("#be-mensagem") : "");
-      window.open(waLinkEmpresa(msg), "_blank", "noopener");
+        "Olá! Quero orçar internet para um evento.\n" +
+        "Nome: " + v("#ev-nome") + "\n" +
+        "Tipo de evento: " + v("#ev-tipo") + "\n" +
+        "WhatsApp: " + v("#ev-whatsapp") + "\n" +
+        "Data do evento: " + v("#ev-data") +
+        (v("#ev-publico") ? "\nPúblico estimado: " + v("#ev-publico") : "") +
+        (v("#ev-mensagem") ? "\nMensagem: " + v("#ev-mensagem") : "");
+      window.open(waLinkEvento(msg), "_blank", "noopener");
     });
   }
 })();
