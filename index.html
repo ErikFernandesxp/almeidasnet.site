@@ -50,6 +50,7 @@
     <a href="#inicio" class="logo" aria-label="AlmeidasNet Telecom — início">
       <img src="images/logo/logo-claro.png" alt="AlmeidasNet Telecom" width="1293" height="311" />
     </a>
+    <div class="audience-switch" role="group" aria-label="Tipo de atendimento"><a href="index.html" class="is-current" aria-label="Internet residencial" title="Residencial"><i data-icon="home"></i></a><a href="empresas.html" aria-label="Internet para empresas" title="Empresa"><i data-icon="office"></i></a><a href="eventos.html" aria-label="Internet para eventos" title="Eventos"><i data-icon="calendar"></i></a></div>
     <ul class="topbar__links">
       <li><a data-wa data-wa-msg="Olá! Preciso de ajuda com a AlmeidasNet" target="_blank" rel="noopener"><i data-icon="whatsapp"></i><span data-wa-text></span></a></li>
       <li><a data-segunda-via target="_blank" rel="noopener"><i data-icon="file"></i>2ª via da fatura</a></li>
@@ -65,7 +66,7 @@
     <a class="site-nav__brand" href="#inicio" aria-label="AlmeidasNet — início">
       <span class="site-nav__mark"><img src="images/logo/marca.png" alt="" width="257" height="257" /></span>
       <span class="site-nav__name">AlmeidasNet</span>
-      <img class="site-nav__logo" src="images/logo/logo-colorido.png" alt="AlmeidasNet Telecom" width="1293" height="311" />
+      <img class="site-nav__logo" src="images/logo/logo-claro.png" alt="AlmeidasNet Telecom" width="1293" height="311" />
     </a>
 
     <div class="site-nav__panel" id="nav-panel">
@@ -73,6 +74,7 @@
         <li><a href="#quem-somos"><i data-icon="users"></i>Quem somos</a></li>
         <li><a href="#planos"><i data-icon="home"></i>Para sua casa</a></li>
         <li><a href="empresas.html"><i data-icon="office"></i>Para sua empresa</a></li>
+        <li><a href="eventos.html"><i data-icon="calendar"></i>Internet para eventos</a></li>
         <li><a href="#entretenimento"><i data-icon="film"></i>Entretenimento</a></li>
         <li><a data-wa data-wa-msg="Olá! Quero falar com a AlmeidasNet" target="_blank" rel="noopener"><i data-icon="chat"></i>Fale conosco</a></li>
         <li><a data-wa data-wa-msg="Olá! Quero trabalhar na AlmeidasNet" target="_blank" rel="noopener"><i data-icon="briefcase"></i>Trabalhe conosco</a></li>
@@ -84,7 +86,10 @@
       </div>
     </div>
 
-    <a class="site-nav__cta" data-wa data-wa-msg="Olá! Quero assinar um plano da AlmeidasNet" target="_blank" rel="noopener"><i data-icon="whatsapp"></i>Assinar</a>
+    <div class="site-nav__mobile-group">
+      <div class="audience-switch" role="group" aria-label="Tipo de atendimento"><a href="index.html" class="is-current" aria-label="Internet residencial" title="Residencial"><i data-icon="home"></i></a><a href="empresas.html" aria-label="Internet para empresas" title="Empresa"><i data-icon="office"></i></a><a href="eventos.html" aria-label="Internet para eventos" title="Eventos"><i data-icon="calendar"></i></a></div>
+      <a class="site-nav__cta" data-wa data-wa-msg="Olá! Quero assinar um plano da AlmeidasNet" target="_blank" rel="noopener"><i data-icon="whatsapp"></i>Assinar</a>
+    </div>
 
     <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-panel">
       <span></span><span></span><span></span>
@@ -390,6 +395,7 @@
           <li><a data-wa data-wa-msg="Olá! Preciso de ajuda com a AlmeidasNet" target="_blank" rel="noopener">WhatsApp</a></li>
           <li><a data-wa data-wa-msg="Olá! Quero assinar um plano da AlmeidasNet" target="_blank" rel="noopener">Assinar um plano</a></li>
           <li><a href="empresas.html">Planos para empresa</a></li>
+          <li><a href="eventos.html">Internet para eventos</a></li>
           <li><a href="#faq">Perguntas frequentes</a></li>
           <li><a data-mapa target="_blank" rel="noopener">Onde estamos</a></li>
         </ul>
@@ -443,6 +449,7 @@
 </div>
 
 <!-- ============ MODAIS ============ -->
+<div id="audience-popup" class="modal" aria-hidden="true"></div>
 <div id="promo-popup" class="modal modal--popup" aria-hidden="true"></div>
 <div id="apps-modal" class="modal modal--apps" aria-hidden="true"></div>
 

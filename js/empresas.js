@@ -12,7 +12,7 @@
 
   function waLinkEmpresa(msg) {
     var num = PE.whatsapp || CFG.whatsapp;
-    return num + "?text=" + encodeURIComponent(msg || "Olá! Quero falar com o time comercial da AlmeidasNet.");
+    return num + "?text=" + encodeURIComponent(msg || "Olá! Quero falar com o time comercial da AlmeidasNet");
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -145,7 +145,7 @@
       e.preventDefault();
       var v = function (id) { return $(id, form).value.trim(); };
       var msg =
-        "Olá! Quero falar sobre um plano empresarial da AlmeidasNet.\n" +
+        "Olá! Quero falar sobre um plano empresarial da AlmeidasNet\n" +
         "Nome: " + v("#be-nome") + "\n" +
         "Empresa: " + v("#be-empresa") + "\n" +
         "WhatsApp: " + v("#be-whatsapp") +

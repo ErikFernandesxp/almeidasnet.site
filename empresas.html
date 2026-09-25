@@ -31,6 +31,7 @@
     <a href="index.html" class="logo" aria-label="AlmeidasNet Telecom — início">
       <img src="images/logo/logo-claro.png" alt="AlmeidasNet Telecom" width="1293" height="311" />
     </a>
+    <div class="audience-switch" role="group" aria-label="Tipo de atendimento"><a href="index.html" aria-label="Internet residencial" title="Residencial"><i data-icon="home"></i></a><a href="empresas.html" class="is-current" aria-label="Internet para empresas" title="Empresa"><i data-icon="office"></i></a><a href="eventos.html" aria-label="Internet para eventos" title="Eventos"><i data-icon="calendar"></i></a></div>
     <ul class="topbar__links">
       <li><a data-wa data-wa-msg="Olá! Preciso de ajuda com a AlmeidasNet" target="_blank" rel="noopener"><i data-icon="whatsapp"></i><span data-wa-text></span></a></li>
       <li><a data-segunda-via target="_blank" rel="noopener"><i data-icon="file"></i>2ª via da fatura</a></li>
@@ -46,12 +47,13 @@
     <a class="site-nav__brand" href="index.html" aria-label="AlmeidasNet — início">
       <span class="site-nav__mark"><img src="images/logo/marca.png" alt="" width="257" height="257" /></span>
       <span class="site-nav__name">AlmeidasNet</span>
-      <img class="site-nav__logo" src="images/logo/logo-colorido.png" alt="AlmeidasNet Telecom" width="1293" height="311" />
+      <img class="site-nav__logo" src="images/logo/logo-claro.png" alt="AlmeidasNet Telecom" width="1293" height="311" />
     </a>
 
     <div class="site-nav__panel" id="nav-panel">
       <ul class="site-nav__links">
         <li><a href="index.html"><i data-icon="home"></i>Para sua casa</a></li>
+        <li><a href="eventos.html"><i data-icon="calendar"></i>Internet para eventos</a></li>
         <li><a href="#planos"><i data-icon="office"></i>Planos empresariais</a></li>
         <li><a href="#beneficios"><i data-icon="shield"></i>Benefícios</a></li>
         <li><a href="#depoimentos"><i data-icon="users"></i>Depoimentos</a></li>
@@ -64,7 +66,10 @@
       </div>
     </div>
 
-    <a class="site-nav__cta" data-wa-empresas target="_blank" rel="noopener"><i data-icon="whatsapp"></i>Consultor</a>
+    <div class="site-nav__mobile-group">
+      <div class="audience-switch" role="group" aria-label="Tipo de atendimento"><a href="index.html" aria-label="Internet residencial" title="Residencial"><i data-icon="home"></i></a><a href="empresas.html" class="is-current" aria-label="Internet para empresas" title="Empresa"><i data-icon="office"></i></a><a href="eventos.html" aria-label="Internet para eventos" title="Eventos"><i data-icon="calendar"></i></a></div>
+      <a class="site-nav__cta" data-wa-empresas target="_blank" rel="noopener"><i data-icon="whatsapp"></i>Consultor</a>
+    </div>
 
     <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-panel">
       <span></span><span></span><span></span>
@@ -202,6 +207,7 @@
         <ul>
           <li><a data-wa-empresas target="_blank" rel="noopener">Falar com consultor</a></li>
           <li><a href="index.html">Planos residenciais</a></li>
+          <li><a href="eventos.html">Internet para eventos</a></li>
           <li><a href="#faq">Perguntas frequentes</a></li>
           <li><a data-mapa target="_blank" rel="noopener">Onde estamos</a></li>
         </ul>
@@ -246,6 +252,8 @@
   <a class="floating-btn floating-btn--whatsapp" data-wa-empresas target="_blank" rel="noopener" aria-label="Falar com um consultor"><i data-icon="whatsapp"></i></a>
   <a class="floating-btn floating-btn--phone" data-tel aria-label="Ligar para a AlmeidasNet"><i data-icon="phone"></i></a>
 </div>
+
+<div id="audience-popup" class="modal" aria-hidden="true"></div>
 
 <script src="js/config.js"></script>
 <script src="js/main.js"></script>

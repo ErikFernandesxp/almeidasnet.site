@@ -803,7 +803,7 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 /* ==========================================================================
    MODAIS (popup Indique e ganhe / apps do plano)
    ========================================================================== */
-.modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(3, 10, 3, 0.7); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(3, 10, 3, 0.7); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; overflow-y: auto; }
 .modal.is-open { opacity: 1; pointer-events: auto; }
 .modal__card { position: relative; transform: translateY(18px) scale(0.94); transition: transform 0.45s var(--ease); }
 .modal.is-open .modal__card { transform: none; }
@@ -1060,19 +1060,22 @@ i[data-icon] { display: inline-flex; line-height: 0; }
    POPUP DE ENTRADA — "residencial ou evento?" (aparece antes do popup de
    indique e ganhe). Reaproveita .modal/.modal__close/.modal.is-open.
    ========================================================================== */
-.gate__card { width: min(940px, 100%); border-radius: 30px; overflow: hidden; background: var(--white); box-shadow: 0 50px 90px -20px rgba(0, 0, 0, 0.6); }
-.gate__head { padding: 40px 34px 6px; text-align: center; }
-.gate__head h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; }
-.gate__head p { margin-top: 8px; color: var(--muted); }
-.gate__options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 26px 34px 34px; }
-@media (max-width: 860px) { .gate__options { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 560px) { .gate__options { grid-template-columns: 1fr; } }
-.gate-option { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 26px 22px; border-radius: 22px; border: 2px solid var(--line); text-align: left; transition: transform 0.35s var(--ease), border-color 0.25s ease, box-shadow 0.35s ease; }
-.gate-option:hover { transform: translateY(-6px); border-color: var(--green); box-shadow: 0 24px 40px -22px rgba(13, 138, 3, 0.5); }
-.gate-option__icon { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: var(--paper); color: var(--green-deep); transition: background 0.25s ease, color 0.25s ease; }
+.gate__card { width: min(760px, 100%); max-height: calc(100vh - 48px); overflow-y: auto; border-radius: 26px; background: var(--white); box-shadow: 0 50px 90px -20px rgba(0, 0, 0, 0.6); }
+.gate__head { padding: 34px 30px 4px; text-align: center; }
+.gate__head h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; }
+.gate__head p { margin-top: 6px; color: var(--muted); font-size: 0.94rem; }
+.gate__options { display: flex; flex-direction: column; gap: 10px; padding: 22px 22px 26px; }
+.gate-option { display: flex; align-items: center; gap: 16px; padding: 16px 18px; border-radius: 18px; border: 1.5px solid var(--line); text-align: left; transition: transform 0.3s var(--ease), border-color 0.25s ease, background 0.25s ease; }
+.gate-option:hover { transform: translateX(4px); border-color: var(--green); background: var(--paper); }
+.gate-option__icon { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; background: var(--paper); color: var(--green-deep); flex-shrink: 0; transition: background 0.25s ease, color 0.25s ease; }
 .gate-option:hover .gate-option__icon { background: var(--green-deep); color: var(--white); }
-.gate-option strong { font-family: var(--font-display); font-size: 1.15rem; }
-.gate-option__sub { color: var(--muted); font-size: 0.9rem; }
-.gate-option__go { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--green-deep); font-size: 0.9rem; }
-.gate-option__go .ico { width: 16px; height: 16px; transition: transform 0.3s var(--ease); }
+.gate-option__text { flex: 1; min-width: 0; }
+.gate-option strong { display: block; font-family: var(--font-display); font-size: 1.05rem; }
+.gate-option__sub { color: var(--muted); font-size: 0.86rem; }
+.gate-option__go { flex-shrink: 0; display: inline-flex; color: var(--green-deep); }
+.gate-option__go .ico { width: 18px; height: 18px; transition: transform 0.3s var(--ease); }
 .gate-option:hover .gate-option__go .ico { transform: translateX(4px); }
+@media (max-width: 420px) {
+  .gate-option__sub { display: none; }
+  .gate-option { padding: 14px 16px; }
+}
