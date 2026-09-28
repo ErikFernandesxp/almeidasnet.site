@@ -444,7 +444,7 @@
   /* ---------- Mensagem do pedido para o WhatsApp ---------- */
   function buildOrderMessage(p, st, extras, totalC, deC) {
     var L = [];
-    L.push("Olá! Quero assinar a AlmeidasNet.", "");
+    L.push("Olá! Quero assinar a AlmeidasNet", "");
     L.push("*Plano:* " + p.combo + " — " + p.velocidade + " " + p.unidade);
     if (p.incluso && p.incluso.legenda) L.push("*Incluso no combo:* " + p.incluso.legenda);
     if (st.gratis.length) L.push("*Apps grátis:* " + st.gratis.map(function (i) { return appNome(p.gratis.apps[i], i); }).join(", "));
@@ -1042,7 +1042,7 @@
       e.preventDefault();
       var v = function (id) { return $(id, form).value.trim(); };
       var msg =
-        "Olá! Quero consultar cobertura da AlmeidasNet.\n" +
+        "Olá! Quero consultar cobertura da AlmeidasNet\n" +
         "Nome: " + v("#cf-nome") + "\n" +
         "Rua/Av: " + v("#cf-rua") + "\n" +
         "Bairro: " + v("#cf-bairro") + "\n" +
