@@ -6,6 +6,20 @@
   var SLIDE_MS = 7000;
   var promoAutoShow = function () {}; // renderPromoPopup() preenche isto; renderAudiencePopup() chama depois de fechar
 
+  function currentPage() {
+    return location.pathname.split("/").pop() || "index.html";
+  }
+
+  // Aplica as cores de tema/sazonais do config.js (topbar + popup de entrada)
+  function applyTema() {
+    var t = CFG.tema;
+    if (!t) return;
+    var root = document.documentElement.style;
+    if (t.topbarBg) root.setProperty("--topbar-bg", t.topbarBg);
+    if (t.popupAccent) root.setProperty("--gate-accent", t.popupAccent);
+  }
+  applyTema(); // roda assim que o script carrega, antes do DOMContentLoaded, pra não piscar a cor padrão
+
   /* ==========================================================================
      Utilidades
      ========================================================================== */
@@ -430,7 +444,7 @@
   /* ---------- Mensagem do pedido para o WhatsApp ---------- */
   function buildOrderMessage(p, st, extras, totalC, deC) {
     var L = [];
-    L.push("Olá! Quero assinar a AlmeidasNet", "");
+    L.push("Olá! Quero assinar a AlmeidasNet.", "");
     L.push("*Plano:* " + p.combo + " — " + p.velocidade + " " + p.unidade);
     if (p.incluso && p.incluso.legenda) L.push("*Incluso no combo:* " + p.incluso.legenda);
     if (st.gratis.length) L.push("*Apps grátis:* " + st.gratis.map(function (i) { return appNome(p.gratis.apps[i], i); }).join(", "));
@@ -787,9 +801,13 @@
   function renderFloatingMenu() {
     var panel = $("#floating-menu-panel");
     if (!panel) return;
+    var here = currentPage();
+    var lista = here === "empresas.html" ? CFG.menuRapidoEmpresas
+      : here === "eventos.html" ? CFG.menuRapidoEventos
+      : CFG.menuRapido;
     panel.innerHTML =
       '<div class="floating-menu__title">Menu</div>' +
-      CFG.menuRapido.map(function (item, i) {
+      (lista || []).map(function (item, i) {
         return "<a role=\"menuitem\" style=\"--i:" + i + "\" " + linkAttrs(item.link) + ">" + icon(item.icone || "arrow") + "<span>" + esc(item.texto) + "</span></a>";
       }).join("");
   }
@@ -914,30 +932,39 @@
       }).join("") +
       "</div></div>";
 
+    var STORE_KEY = "almeidasnet_publico_visto_em";
+    function markSeen() { try { localStorage.setItem(STORE_KEY, String(Date.now())); } catch (err) {} }
+
     var closeBtn = $(".modal__close", root);
     function dismiss() {
       closeModal(root);
-      try { sessionStorage.setItem("almeidasnet_publico_escolhido", "1"); } catch (err) {}
+      markSeen();
       promoAutoShow();
     }
     closeBtn.addEventListener("click", dismiss);
     root.addEventListener("click", function (e) { if (e.target === root) dismiss(); });
 
     // se a opção aponta pra página atual, só fecha o popup (evita recarregar à toa)
-    var here = (location.pathname.split("/").pop() || "index.html");
+    var here = currentPage();
     $$(".gate-option", root).forEach(function (a) {
       var href = a.getAttribute("href");
       if (href === here) {
         a.addEventListener("click", function (e) { e.preventDefault(); dismiss(); });
       } else {
-        a.addEventListener("click", function () {
-          try { sessionStorage.setItem("almeidasnet_publico_escolhido", "1"); } catch (err) {}
-        });
+        a.addEventListener("click", markSeen);
       }
     });
 
+    // "visto" expira depois de popupPublico.expiraHoras (padrão 24h) — assim quem
+    // volta a visitar o site depois de um tempo vê o popup de novo, mas quem só
+    // está navegando entre as páginas do site agora não vê ele se repetir
     var seen = false;
-    try { seen = !!sessionStorage.getItem("almeidasnet_publico_escolhido"); } catch (err) {}
+    try {
+      var last = parseInt(localStorage.getItem(STORE_KEY) || "0", 10);
+      var horas = (Date.now() - last) / 3600000;
+      seen = last > 0 && horas < (cfg.expiraHoras || 24);
+    } catch (err) {}
+
     if (cfg.ativo && !seen) {
       setTimeout(function () { if (!$(".modal.is-open")) openModal(root, closeBtn); }, cfg.atrasoMs || 1200);
     } else {
@@ -968,7 +995,7 @@
     toggle.addEventListener("click", function () { setOpen(!panel.classList.contains("is-open")); });
     overlay.addEventListener("click", function () { setOpen(false); });
     $$("a", panel).forEach(function (a) { a.addEventListener("click", function () { setOpen(false); }); });
-    window.addEventListener("resize", function () { if (window.innerWidth > 1320) setOpen(false); });
+    window.addEventListener("resize", function () { if (window.innerWidth > 1460) setOpen(false); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && panel.classList.contains("is-open")) setOpen(false); });
 
     // destaca o item do menu da seção que está na tela
@@ -1015,7 +1042,7 @@
       e.preventDefault();
       var v = function (id) { return $(id, form).value.trim(); };
       var msg =
-        "Olá! Quero consultar cobertura da AlmeidasNet\n" +
+        "Olá! Quero consultar cobertura da AlmeidasNet.\n" +
         "Nome: " + v("#cf-nome") + "\n" +
         "Rua/Av: " + v("#cf-rua") + "\n" +
         "Bairro: " + v("#cf-bairro") + "\n" +

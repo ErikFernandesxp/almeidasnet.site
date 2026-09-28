@@ -29,14 +29,30 @@
 window.ALMEIDASNET_CONFIG = {
   marca: "AlmeidasNet",
 
+  /* ------------------------------------------------------------------
+     TEMA SAZONAL — troque essas duas cores para uma campanha (São João,
+     Natal, Ano Novo, Páscoa, Dia das Mães...) sem mexer em nenhum CSS.
+     Vale para as 3 páginas do site ao mesmo tempo.
+       topbarBg     → cor de fundo da barra superior (desktop) e do
+                      cabeçalho compacto no celular
+       popupAccent  → cor de destaque do popup de entrada (ícones e
+                      efeito ao passar o mouse)
+     Use códigos no formato "#RRGGBB". Para voltar ao padrão da marca,
+     deixe topbarBg como "#082B55" e popupAccent como "" (vazio).
+     ------------------------------------------------------------------ */
+  tema: {
+    topbarBg: "#082B55",
+    popupAccent: "", // vazio = usa o verde padrão do site
+  },
+
   // WhatsApp (formato https://wa.me/55DDDNUMERO) e como o número aparece no site
   whatsapp: "https://wa.me/5571993812371",
   whatsappExibicao: "(71) 99381-2371",
-  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet",
+  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet.",
 
   // Botão de telefone flutuante e textos "ligue para"
   telefone: "(71) 99381-2371",
-  telefoneLink: "tel:30195811",
+  telefoneLink: "tel:+5571993812371",
 
   endereco: "Tv. Domingos Silva, 35, Itapuã, Salvador - BA",
   enderecoMapa: "https://maps.app.goo.gl/psBKHfRxLYWE3ven6",
@@ -72,7 +88,7 @@ window.ALMEIDASNET_CONFIG = {
       titulo: ["que transforma", "a sua rotina"],
       texto: "Fibra óptica de alta velocidade para a sua casa, o trabalho e a diversão.",
       botaoTexto: "Assine já!",
-      botaoLink: "whatsapp:Olá! Quero assinar a AlmeidasNet",
+      botaoLink: "whatsapp:Olá! Quero assinar a AlmeidasNet.",
       mostrarTelefone: true,
       chips: ["play", "gamepad", "chat", "video"],
       foto: "",
@@ -110,7 +126,7 @@ window.ALMEIDASNET_CONFIG = {
       titulo: ["humanizado de", "verdade"],
       texto: "Time próximo, pronto para resolver pelo WhatsApp, telefone ou pelo app.",
       botaoTexto: "Fale com a gente",
-      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet",
+      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet.",
       mostrarTelefone: true,
       chips: ["chat", "shield", "phone", "check"],
       foto: "",
@@ -367,11 +383,34 @@ window.ALMEIDASNET_CONFIG = {
     { texto: "Quem somos", link: "#quem-somos", icone: "users" },
     { texto: "Entretenimento", link: "#entretenimento", icone: "film" },
     { texto: "Onde estamos", link: "#onde-estamos", icone: "pin" },
-    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet", icone: "chat" },
+    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet.", icone: "chat" },
     { texto: "Teste de velocidade", link: "https://www.speedtest.net/", icone: "gauge" },
     { texto: "Área do assinante", link: "https://ixc.almeidasnet.com.br", icone: "users" },
     { texto: "Indique e ganhe", link: "popup:", icone: "star" }, // "popup:" abre o popup Indique e ganhe
+    { texto: "Para sua empresa", link: "empresas.html", icone: "office" },
+    { texto: "Internet para eventos", link: "eventos.html", icone: "calendar" },
   ],
+
+  // Mesmo menu flutuante, só que para quem está na página empresas.html
+  menuRapidoEmpresas: [
+    { texto: "Planos empresariais", link: "#planos", icone: "office" },
+    { texto: "Benefícios", link: "#beneficios", icone: "shield" },
+    { texto: "Depoimentos", link: "#depoimentos", icone: "users" },
+    { texto: "Falar com consultor", link: "whatsapp:Olá! Quero falar com um consultor da AlmeidasNet.", icone: "chat" },
+    { texto: "Para sua casa", link: "index.html", icone: "home" },
+    { texto: "Internet para eventos", link: "eventos.html", icone: "calendar" },
+  ],
+
+  // Mesmo menu flutuante, só que para quem está na página eventos.html
+  menuRapidoEventos: [
+    { texto: "Pacotes para eventos", link: "#pacotes", icone: "calendar" },
+    { texto: "Benefícios", link: "#beneficios", icone: "shield" },
+    { texto: "Depoimentos", link: "#depoimentos", icone: "users" },
+    { texto: "Orçar meu evento", link: "#contato", icone: "chat" },
+    { texto: "Para sua casa", link: "index.html", icone: "home" },
+    { texto: "Para sua empresa", link: "empresas.html", icone: "office" },
+  ],
+
 
   /* ------------------------------------------------------------------
      POPUP "INDIQUE E GANHE" — aparece uma vez por visita, após alguns
@@ -388,7 +427,7 @@ window.ALMEIDASNET_CONFIG = {
         texto: "Indique amigos e familiares para a AlmeidasNet e ganhe benefícios.",
         botao: "Quero indicar",
         icone: "users",
-        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet",
+        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet.",
       },
       {
         imagem: "",
@@ -396,19 +435,22 @@ window.ALMEIDASNET_CONFIG = {
         texto: "Assine agora e a instalação não custa nada.",
         botao: "Quero assinar",
         icone: "check",
-        link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet",
+        link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet.",
       },
     ],
   },
   /* ------------------------------------------------------------------
-     POPUP DE ENTRADA — "para sua casa ou para um evento?". Aparece uma
-     vez por visita, antes do popup "Indique e ganhe". Ao clicar numa
-     opção, vai para a página certa (index.html ou eventos.html).
-     Para desativar, mude "ativo" para false.
+     POPUP DE ENTRADA — "residencial, empresa ou evento?". Aparece uma
+     vez a cada visita, antes do popup "Indique e ganhe". Ao clicar numa
+     opção, vai para a página certa. "expiraHoras": depois de quantas
+     horas sem visitar o site ele volta a aparecer (24 = uma vez por dia,
+     mesmo se a pessoa navegar entre várias páginas do site nesse meio
+     tempo). Para desativar, mude "ativo" para false.
      ------------------------------------------------------------------ */
   popupPublico: {
     ativo: true,
     atrasoMs: 1200,
+    expiraHoras: 24,
     titulo: "Vamos direto ao que você precisa",
     texto: "Escolha uma opção para ver o conteúdo certo.",
     opcoes: [
@@ -508,7 +550,7 @@ window.ALMEIDASNET_CONFIG = {
     ],
 
     faq: [
-      { pergunta: "Atendem empresas em qualquer bairro?", resposta: "Atendemos toda a área de cobertura da AlmeidasNet Fale com um consultor informando o endereço para confirmarmos a disponibilidade." },
+      { pergunta: "Atendem empresas em qualquer bairro?", resposta: "Atendemos toda a área de cobertura da AlmeidasNet. Fale com um consultor informando o endereço para confirmarmos a disponibilidade." },
       { pergunta: "O IP fixo já vem incluso?", resposta: "Sim, todos os planos empresariais incluem IP fixo dedicado, sem custo adicional." },
       { pergunta: "Como funciona o suporte prioritário?", resposta: "Clientes empresariais têm uma fila de atendimento própria, com SLA de resposta combinado no contrato." },
       { pergunta: "Consigo migrar de outro provedor sem perder e-mail e sistemas?", resposta: "Sim. Nosso time acompanha a migração e planeja a troca para não impactar o funcionamento da empresa." },

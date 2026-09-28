@@ -37,7 +37,7 @@
       <a href="eventos.html" class="is-current" aria-label="Internet para eventos" title="Eventos"><i data-icon="calendar"></i></a>
     </div>
     <ul class="topbar__links">
-      <li><a data-wa data-wa-msg="Olá! Preciso de ajuda com a AlmeidasNet" target="_blank" rel="noopener"><i data-icon="whatsapp"></i><span data-wa-text></span></a></li>
+      <li><a data-wa data-wa-msg="Olá! Preciso de ajuda com a AlmeidasNet." target="_blank" rel="noopener"><i data-icon="whatsapp"></i><span data-wa-text></span></a></li>
       <li><a data-segunda-via target="_blank" rel="noopener"><i data-icon="file"></i>2ª via da fatura</a></li>
       <li><a href="#faq"><i data-icon="help"></i>Perguntas frequentes</a></li>
       <li><a data-mapa target="_blank" rel="noopener"><i data-icon="pin"></i>Onde estamos</a></li>
@@ -56,8 +56,6 @@
 
     <div class="site-nav__panel" id="nav-panel">
       <ul class="site-nav__links">
-        <li><a href="index.html"><i data-icon="home"></i>Para sua casa</a></li>
-        <li><a href="empresas.html"><i data-icon="office"></i>Para sua empresa</a></li>
         <li><a href="#pacotes"><i data-icon="calendar"></i>Pacotes para eventos</a></li>
         <li><a href="#beneficios"><i data-icon="shield"></i>Benefícios</a></li>
         <li><a href="#contato"><i data-icon="chat"></i>Orçar meu evento</a></li>
@@ -65,7 +63,6 @@
       <div class="site-nav__pills">
         <a class="pill pill--orange" data-central-assinante target="_blank" rel="noopener">Área do assinante</a>
         <a class="pill pill--dark" data-wa-evento target="_blank" rel="noopener">Orçar evento</a>
-        <a class="pill pill--outline" href="index.html">Sou cliente residencial</a>
       </div>
     </div>
 
@@ -226,7 +223,7 @@
         <h4>Empresa</h4>
         <ul>
           <li><a href="index.html#quem-somos">Quem somos</a></li>
-          <li><a data-wa data-wa-msg="Olá! Quero trabalhar na AlmeidasNet" target="_blank" rel="noopener">Trabalhe conosco</a></li>
+          <li><a data-wa data-wa-msg="Olá! Quero trabalhar na AlmeidasNet." target="_blank" rel="noopener">Trabalhe conosco</a></li>
           <li><a href="#">Política de privacidade</a></li>
           <li><a href="#">Termos de uso</a></li>
         </ul>
@@ -257,9 +254,16 @@
 <!-- ============ BOTÕES FLUTUANTES ============ -->
 <div class="floating-actions">
   <button class="floating-btn back-to-top" type="button" aria-label="Voltar ao topo"><i data-icon="arrow-up"></i></button>
+
   <a class="floating-btn floating-btn--instagram" data-ig target="_blank" rel="noopener" aria-label="Instagram da AlmeidasNet"><i data-icon="instagram"></i></a>
   <a class="floating-btn floating-btn--whatsapp" data-wa-evento target="_blank" rel="noopener" aria-label="Orçar um evento"><i data-icon="whatsapp"></i></a>
   <a class="floating-btn floating-btn--phone" data-tel aria-label="Ligar para a AlmeidasNet"><i data-icon="phone"></i></a>
+
+  <div class="floating-menu">
+    <div class="floating-menu__panel" id="floating-menu-panel" role="menu"></div>
+    <span class="floating-menu__hint" id="menu-hint" aria-hidden="true">Menu</span>
+    <button class="floating-btn floating-btn--menu" id="floating-menu-btn" type="button" aria-label="Abrir menu rápido" aria-expanded="false"><i data-icon="menu"></i></button>
+  </div>
 </div>
 
 <div id="audience-popup" class="modal" aria-hidden="true"></div>

@@ -5,7 +5,7 @@
 <script>document.documentElement.className += " js";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AlmeidasNet para Empresas | Internet dedicada com suporte prioritário</title>
-<meta name="description" content="Planos de internet dedicada para empresas, com IP fixo, suporte prioritário 24/7 e gerente de conta. Fale com um consultor da AlmeidasNet" />
+<meta name="description" content="Planos de internet dedicada para empresas, com IP fixo, suporte prioritário 24/7 e gerente de conta. Fale com um consultor da AlmeidasNet." />
 <meta name="theme-color" content="#0D8A03" />
 
 <meta property="og:type" content="website" />
@@ -33,7 +33,7 @@
     </a>
     <div class="audience-switch" role="group" aria-label="Tipo de atendimento"><a href="index.html" aria-label="Internet residencial" title="Residencial"><i data-icon="home"></i></a><a href="empresas.html" class="is-current" aria-label="Internet para empresas" title="Empresa"><i data-icon="office"></i></a><a href="eventos.html" aria-label="Internet para eventos" title="Eventos"><i data-icon="calendar"></i></a></div>
     <ul class="topbar__links">
-      <li><a data-wa data-wa-msg="Olá! Preciso de ajuda com a AlmeidasNet" target="_blank" rel="noopener"><i data-icon="whatsapp"></i><span data-wa-text></span></a></li>
+      <li><a data-wa data-wa-msg="Olá! Preciso de ajuda com a AlmeidasNet." target="_blank" rel="noopener"><i data-icon="whatsapp"></i><span data-wa-text></span></a></li>
       <li><a data-segunda-via target="_blank" rel="noopener"><i data-icon="file"></i>2ª via da fatura</a></li>
       <li><a href="#faq"><i data-icon="help"></i>Perguntas frequentes</a></li>
       <li><a data-mapa target="_blank" rel="noopener"><i data-icon="pin"></i>Onde estamos</a></li>
@@ -52,8 +52,6 @@
 
     <div class="site-nav__panel" id="nav-panel">
       <ul class="site-nav__links">
-        <li><a href="index.html"><i data-icon="home"></i>Para sua casa</a></li>
-        <li><a href="eventos.html"><i data-icon="calendar"></i>Internet para eventos</a></li>
         <li><a href="#planos"><i data-icon="office"></i>Planos empresariais</a></li>
         <li><a href="#beneficios"><i data-icon="shield"></i>Benefícios</a></li>
         <li><a href="#depoimentos"><i data-icon="users"></i>Depoimentos</a></li>
@@ -62,7 +60,6 @@
       <div class="site-nav__pills">
         <a class="pill pill--orange" data-central-assinante target="_blank" rel="noopener">Área do assinante</a>
         <a class="pill pill--dark" data-wa-empresas target="_blank" rel="noopener">Falar com consultor</a>
-        <a class="pill pill--outline" href="index.html">Sou cliente residencial</a>
       </div>
     </div>
 
@@ -216,7 +213,7 @@
         <h4>Empresa</h4>
         <ul>
           <li><a href="index.html#quem-somos">Quem somos</a></li>
-          <li><a data-wa data-wa-msg="Olá! Quero trabalhar na AlmeidasNet" target="_blank" rel="noopener">Trabalhe conosco</a></li>
+          <li><a data-wa data-wa-msg="Olá! Quero trabalhar na AlmeidasNet." target="_blank" rel="noopener">Trabalhe conosco</a></li>
           <li><a href="#">Política de privacidade</a></li>
           <li><a href="#">Termos de uso</a></li>
         </ul>
@@ -248,9 +245,16 @@
 <!-- ============ BOTÕES FLUTUANTES ============ -->
 <div class="floating-actions">
   <button class="floating-btn back-to-top" type="button" aria-label="Voltar ao topo"><i data-icon="arrow-up"></i></button>
+
   <a class="floating-btn floating-btn--instagram" data-ig target="_blank" rel="noopener" aria-label="Instagram da AlmeidasNet"><i data-icon="instagram"></i></a>
   <a class="floating-btn floating-btn--whatsapp" data-wa-empresas target="_blank" rel="noopener" aria-label="Falar com um consultor"><i data-icon="whatsapp"></i></a>
   <a class="floating-btn floating-btn--phone" data-tel aria-label="Ligar para a AlmeidasNet"><i data-icon="phone"></i></a>
+
+  <div class="floating-menu">
+    <div class="floating-menu__panel" id="floating-menu-panel" role="menu"></div>
+    <span class="floating-menu__hint" id="menu-hint" aria-hidden="true">Menu</span>
+    <button class="floating-btn floating-btn--menu" id="floating-menu-btn" type="button" aria-label="Abrir menu rápido" aria-expanded="false"><i data-icon="menu"></i></button>
+  </div>
 </div>
 
 <div id="audience-popup" class="modal" aria-hidden="true"></div>
