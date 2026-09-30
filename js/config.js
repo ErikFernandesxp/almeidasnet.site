@@ -157,11 +157,11 @@ window.ALMEIDASNET_CONFIG = {
   planos: [
     {
       combo: "Combo Start",
-      velocidade: "300",
-      unidade: "mega",
+      velocidade: "200",
+      unidade: "megas",
       destaque: false,
       incluso: {
-        legenda: "TV Plus 2 telas",
+        legenda: "TV",
         apps: [
           { nome: "", icone: "images/apps/icone-app.png" },
           { nome: "", icone: "images/apps/icone-app.png" },
@@ -188,15 +188,15 @@ window.ALMEIDASNET_CONFIG = {
         ],
       },
       precoDe: "134,90",
-      precoFinal: "89,90",
+      precoFinal: "80,00",
     },
     {
       combo: "Combo Plus",
-      velocidade: "500",
-      unidade: "mega",
+      velocidade: "400",
+      unidade: "megas",
       destaque: true,
       incluso: {
-        legenda: "TV Plus 4 telas",
+        legenda: "TV",
         apps: [
           { nome: "", icone: "images/apps/icone-app.png" },
           { nome: "", icone: "images/apps/icone-app.png" },
@@ -223,15 +223,15 @@ window.ALMEIDASNET_CONFIG = {
         ],
       },
       precoDe: "149,90",
-      precoFinal: "99,90",
+      precoFinal: "100,00",
     },
     {
       combo: "Combo Turbo",
       velocidade: "700",
-      unidade: "mega",
+      unidade: "megas",
       destaque: false,
       incluso: {
-        legenda: "TV Plus 6 telas",
+        legenda: "TV",
         apps: [
           { nome: "", icone: "images/apps/icone-app.png" },
           { nome: "", icone: "images/apps/icone-app.png" },
@@ -258,15 +258,15 @@ window.ALMEIDASNET_CONFIG = {
         ],
       },
       precoDe: "194,90",
-      precoFinal: "129,90",
+      precoFinal: "130,00",
     },
     {
       combo: "Combo Premium",
       velocidade: "1000",
-      unidade: "mega",
+      unidade: "megas",
       destaque: false,
       incluso: {
-        legenda: "TV Plus 8 telas",
+        legenda: "TV",
         apps: [
           { nome: "", icone: "images/apps/icone-app.png" },
           { nome: "", icone: "images/apps/icone-app.png" },
@@ -293,7 +293,7 @@ window.ALMEIDASNET_CONFIG = {
         ],
       },
       precoDe: "239,90",
-      precoFinal: "169,90",
+      precoFinal: "170,00",
     },
   ],
 
