@@ -1,7 +1,7 @@
-# AlmeidasNet Telecom — Site institucional
+# Almeida’S Telecom — Site institucional
 
 Site estático (HTML + CSS + JS puro, sem build), pronto para publicar na Vercel via GitHub.
-Visual inspirado na estrutura do site da Nex Telecom, com as cores da AlmeidasNet
+Visual inspirado na estrutura do site da Nex Telecom, com as cores da Almeida’S
 (verde `#19B506`, verde neon `#5FFF00`, preto e o laranja do botão "Área do assinante").
 
 ## Estrutura
@@ -37,7 +37,7 @@ existindo, só no site residencial).
 ### Página "Para sua empresa" (empresas.html)
 
 Herói com os diferenciais, faixa de confiança, planos empresariais (cards com recursos e preço
-"a partir de" ou "Sob consulta"), "Por que escolher a AlmeidasNet", depoimentos de empresas, FAQ
+"a partir de" ou "Sob consulta"), "Por que escolher a Almeida’S", depoimentos de empresas, FAQ
 e um formulário de contato que monta a mensagem sozinha e manda pro WhatsApp — tudo editável em
 `paginaEmpresas`, dentro do `js/config.js`. Por padrão o WhatsApp é o mesmo do site; se o time
 comercial usar outro número, preencha `paginaEmpresas.whatsapp` e `whatsappExibicao`.
@@ -105,7 +105,7 @@ Flutuantes: menu rápido, telefone, WhatsApp, Instagram e voltar ao topo. Popup 
 
 1. Suba esta pasta para um repositório no GitHub:
    ```bash
-   git init && git add . && git commit -m "AlmeidasNet - site institucional"
+   git init && git add . && git commit -m "Almeida’S - site institucional"
    git branch -M main
    git remote add origin SEU_REPOSITORIO_AQUI
    git push -u origin main
@@ -122,3 +122,16 @@ Flutuantes: menu rápido, telefone, WhatsApp, Instagram e voltar ao topo. Popup 
 - [ ] Foto de pessoa nos banners (opcional)
 - [ ] Bairros atendidos (`bairrosAtendidos`) e conteúdo das páginas "Para sua empresa" (`paginaEmpresas`) e "Internet para eventos" (`paginaEventos`)
 - [ ] Testar no celular
+
+## Consulta de cobertura por CEP
+
+O formulário "Consulte cobertura" (index.html) confere o CEP digitado com a base em `js/cobertura.js`
+e mostra na hora se o CEP está na área atendida. CEP que não está na base **não** vira "não atendemos":
+o site manda o cliente para o WhatsApp para a equipe confirmar.
+
+Para atualizar a base com novos clientes, exporte o CSV (colunas `CEP;Endereço;Bairro`) e rode, na pasta do site:
+
+    python3 scripts/gerar-cobertura.py caminho/do/arquivo.csv
+
+O script mantém só CEPs de Salvador, padroniza o nome do bairro e **não publica ruas nem dados de clientes**
+(só CEP agrupado por bairro). CEPs com erro de cadastro conhecido ficam na lista `EXCLUIR` dentro do script.

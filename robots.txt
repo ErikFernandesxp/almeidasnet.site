@@ -1,0 +1,6 @@
+# Se o domínio do site mudar (ex.: ao reaproveitar a estrutura para outra
+# empresa), atualize a linha "Sitemap" abaixo com o domínio novo.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.almeidasnet.com.br/sitemap.xml

@@ -4,15 +4,20 @@
 <meta charset="UTF-8" />
 <script>document.documentElement.className += " js";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AlmeidasNet para Eventos | Internet temporária com equipe no local</title>
+<title>Almeida’S para Eventos | Internet temporária com equipe no local</title>
 <meta name="description" content="Internet montada para o seu evento: Wi-Fi para o público, equipe técnica no local, montagem e desmontagem no mesmo dia. Orce pelo WhatsApp." />
 <meta name="theme-color" content="#0D8A03" />
 
 <meta property="og:type" content="website" />
-<meta property="og:title" content="AlmeidasNet para Eventos" />
+<meta property="og:title" content="Almeida’S para Eventos" />
 <meta property="og:description" content="Internet temporária para eventos, com equipe técnica no local e link de backup." />
 <meta property="og:locale" content="pt_BR" />
-<meta property="og:site_name" content="AlmeidasNet Telecom" />
+<meta property="og:site_name" content="Almeida’S Telecom" />
+
+<link rel="canonical" href="https://www.almeidasnet.com.br/eventos.html" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Almeida’S para Eventos" />
+<meta name="twitter:description" content="Internet temporária para eventos, com equipe técnica no local e link de backup." />
 
 <link rel="icon" type="image/png" href="images/logo/favicon.png" />
 
@@ -28,8 +33,8 @@
 <!-- ============ BARRA SUPERIOR (logo + contatos) ============ -->
 <div class="topbar">
   <div class="container topbar__inner">
-    <a href="index.html" class="logo" aria-label="AlmeidasNet Telecom — início">
-      <img src="images/logo/logo-claro.png" alt="AlmeidasNet Telecom" width="1293" height="311" />
+    <a href="index.html" class="logo" aria-label="Almeida’S Telecom — início">
+      <img src="images/logo/logo-claro.png" alt="Almeida’S Telecom" width="1165" height="299" />
     </a>
     <div class="audience-switch" role="group" aria-label="Tipo de atendimento">
       <a href="index.html" aria-label="Internet residencial" title="Residencial"><i data-icon="home"></i></a>
@@ -37,7 +42,7 @@
       <a href="eventos.html" class="is-current" aria-label="Internet para eventos" title="Eventos"><i data-icon="calendar"></i></a>
     </div>
     <ul class="topbar__links">
-      <li><a data-wa data-wa-msg="Olá! Preciso de ajuda com a AlmeidasNet" target="_blank" rel="noopener"><i data-icon="whatsapp"></i><span data-wa-text></span></a></li>
+      <li><a data-wa data-wa-msg="Olá! Preciso de ajuda com a Almeida’S" target="_blank" rel="noopener"><i data-icon="whatsapp"></i><span data-wa-text></span></a></li>
       <li><a data-segunda-via target="_blank" rel="noopener"><i data-icon="file"></i>2ª via da fatura</a></li>
       <li><a href="#faq"><i data-icon="help"></i>Perguntas frequentes</a></li>
       <li><a data-mapa target="_blank" rel="noopener"><i data-icon="pin"></i>Onde estamos</a></li>
@@ -48,10 +53,10 @@
 <!-- ============ NAVBAR (fixa ao rolar) ============ -->
 <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
   <div class="container site-nav__inner">
-    <a class="site-nav__brand" href="index.html" aria-label="AlmeidasNet — início">
-      <span class="site-nav__mark"><img src="images/logo/marca.png" alt="" width="257" height="257" /></span>
-      <span class="site-nav__name">AlmeidasNet</span>
-      <img class="site-nav__logo" src="images/logo/logo-claro.png" alt="AlmeidasNet Telecom" width="1293" height="311" />
+    <a class="site-nav__brand" href="index.html" aria-label="Almeida’S — início">
+      <span class="site-nav__mark"><img src="images/logo/marca.png" alt="" width="257" height="257" loading="lazy" /></span>
+      <span class="site-nav__name">Almeida’S</span>
+      <img class="site-nav__logo" src="images/logo/logo-claro.png" alt="Almeida’S Telecom" width="1165" height="299" />
     </a>
 
     <div class="site-nav__panel" id="nav-panel">
@@ -126,11 +131,49 @@
   </div>
 </section>
 
+<!-- ============ CONSULTE COBERTURA ============ -->
+<section id="cobertura" class="section coverage">
+  <div class="container">
+    <div class="coverage__head" data-reveal>
+      <h2>Consulte cobertura no local do seu evento</h2>
+      <p>Digite o CEP do local do evento e veja na hora se a Almeida’S já chega até lá.</p>
+    </div>
+    <div class="coverage__bairros" id="coverage-bairros" data-reveal></div>
+    <form class="coverage-form" id="coverage-form" data-assunto="Evento" data-reveal>
+      <div class="field">
+        <label for="cf-cep">CEP</label>
+        <input type="text" id="cf-cep" name="cep" placeholder="00000-000" inputmode="numeric" autocomplete="postal-code" maxlength="9" pattern="[0-9]{5}-[0-9]{3}" title="Digite o CEP completo, com 8 números" required>
+      </div>
+      <div class="field">
+        <label for="cf-nome">Nome</label>
+        <input type="text" id="cf-nome" name="nome" placeholder="Seu nome completo" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="cf-whatsapp">WhatsApp</label>
+        <input type="tel" id="cf-whatsapp" name="whatsapp" placeholder="(00) 00000-0000" autocomplete="tel" required>
+      </div>
+      <div class="field field--wide">
+        <label for="cf-rua">Nome da rua/av</label>
+        <input type="text" id="cf-rua" name="rua" placeholder="Nome da rua/av" autocomplete="street-address" required>
+      </div>
+      <div class="field">
+        <label for="cf-bairro">Bairro (opcional)</label>
+        <input type="text" id="cf-bairro" name="bairro" placeholder="Seu bairro">
+      </div>
+      <div class="coverage-form__submit">
+        <button type="submit" class="btn btn--dark"><i data-icon="wifi"></i>Consultar cobertura</button>
+      </div>
+    </form>
+    <div class="coverage-result" id="coverage-result" role="status" aria-live="polite" hidden></div>
+    <p class="coverage__note">A consulta é feita na nossa base de cobertura. Se o seu CEP ainda não aparecer, a equipe confirma o endereço pelo WhatsApp.</p>
+  </div>
+</section>
+
 <!-- ============ BENEFÍCIOS ============ -->
 <section id="beneficios" class="section">
   <div class="container">
     <div class="section-head section-head--center" data-reveal>
-      <h2>Por que contratar a AlmeidasNet para o seu evento</h2>
+      <h2>Por que contratar a Almeida’S para o seu evento</h2>
     </div>
     <div class="evt-benefits" id="evt-benefits" data-reveal></div>
   </div>
@@ -204,7 +247,7 @@
       <div class="footer-col">
         <h4>Links rápidos</h4>
         <ul>
-          <li><a data-app-android target="_blank" rel="noopener">App AlmeidasNet</a></li>
+          <li><a data-app-android target="_blank" rel="noopener">App Almeida’S</a></li>
           <li><a data-segunda-via target="_blank" rel="noopener">2ª via da fatura</a></li>
           <li><a data-teste-velocidade target="_blank" rel="noopener">Teste de velocidade</a></li>
           <li><a data-central-assinante target="_blank" rel="noopener">Área do assinante</a></li>
@@ -223,14 +266,14 @@
         <h4>Empresa</h4>
         <ul>
           <li><a href="index.html#quem-somos">Quem somos</a></li>
-          <li><a data-wa data-wa-msg="Olá! Quero trabalhar na AlmeidasNet" target="_blank" rel="noopener">Trabalhe conosco</a></li>
-          <li><a href="#">Política de privacidade</a></li>
+          <li><a data-wa data-wa-msg="Olá! Quero trabalhar na Almeida’S" target="_blank" rel="noopener">Trabalhe conosco</a></li>
+          <li><a href="privacidade.html">Política de privacidade</a></li>
           <li><a href="#">Termos de uso</a></li>
         </ul>
       </div>
       <div class="footer-brand">
-        <a href="index.html" class="logo" aria-label="AlmeidasNet Telecom — início">
-          <img src="images/logo/logo-claro.png" alt="AlmeidasNet Telecom" width="1293" height="311" />
+        <a href="index.html" class="logo" aria-label="Almeida’S Telecom — início">
+          <img src="images/logo/logo-claro.png" alt="Almeida’S Telecom" width="1165" height="299" loading="lazy" />
         </a>
         <div class="footer-social">
           <a data-ig target="_blank" rel="noopener" aria-label="Instagram"><i data-icon="instagram"></i></a>
@@ -246,7 +289,7 @@
   <div class="footer-bar">
     <div class="container footer-bar__inner">
       <span>ALMEIDAS SERVIÇO DE INFORMÁTICA LTDA — CNPJ 27.572.732/0001-02</span>
-      <span>© <span id="current-year"></span> AlmeidasNet Telecom</span>
+      <span>© <span id="current-year"></span> Almeida’S Telecom</span>
     </div>
   </div>
 </footer>
@@ -255,9 +298,9 @@
 <div class="floating-actions">
   <button class="floating-btn back-to-top" type="button" aria-label="Voltar ao topo"><i data-icon="arrow-up"></i></button>
 
-  <a class="floating-btn floating-btn--instagram" data-ig target="_blank" rel="noopener" aria-label="Instagram da AlmeidasNet"><i data-icon="instagram"></i></a>
+  <a class="floating-btn floating-btn--instagram" data-ig target="_blank" rel="noopener" aria-label="Instagram da Almeida’S"><i data-icon="instagram"></i></a>
   <a class="floating-btn floating-btn--whatsapp" data-wa-evento target="_blank" rel="noopener" aria-label="Orçar um evento"><i data-icon="whatsapp"></i></a>
-  <a class="floating-btn floating-btn--phone" data-tel aria-label="Ligar para a AlmeidasNet"><i data-icon="phone"></i></a>
+  <a class="floating-btn floating-btn--phone" data-tel aria-label="Ligar para a Almeida’S"><i data-icon="phone"></i></a>
 
   <div class="floating-menu">
     <div class="floating-menu__panel" id="floating-menu-panel" role="menu"></div>
@@ -269,6 +312,7 @@
 <div id="audience-popup" class="modal" aria-hidden="true"></div>
 
 <script src="js/config.js"></script>
+<script src="js/cobertura.js"></script>
 <script src="js/main.js"></script>
 <script src="js/eventos.js"></script>
 </body>

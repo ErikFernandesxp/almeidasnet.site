@@ -1,6 +1,6 @@
 /* ==========================================================================
-   ALMEIDAS.NET — TOKENS
-   Paleta ajustada para bater com o material de marketing da AlmeidasNet
+   ALMEIDA’S TELECOM — TOKENS
+   Paleta ajustada para bater com o material de marketing da Almeida’S
    (verde mais "orgânico" + verde-limão puxado pro amarelo), preto do fundo
    e o laranja do botão "Área do assinante".
    ========================================================================== */
@@ -646,9 +646,10 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .coverage__head { max-width: 680px; margin: 0 auto 34px; text-align: center; }
 .coverage__head h2 { font-size: clamp(1.9rem, 3.6vw, 2.7rem); font-weight: 900; }
 .coverage__head p { margin-top: 12px; font-size: 1.08rem; color: rgba(5, 8, 5, 0.85); }
-.coverage-form { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 1040px; margin: 0 auto; }
+.coverage-form { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1040px; margin: 0 auto; }
+.field--wide { grid-column: span 2; }
 @media (max-width: 900px) { .coverage-form { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 560px) { .coverage-form { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .coverage-form { grid-template-columns: 1fr; } .field--wide { grid-column: auto; } }
 .field { display: flex; flex-direction: column; gap: 7px; }
 .field label { font-size: 0.88rem; font-weight: 700; }
 .field input, .field textarea { border: 2px solid transparent; border-radius: 14px; padding: 15px 16px; font: inherit; font-size: 1rem; background: var(--white); color: var(--ink); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
@@ -657,6 +658,18 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .field input:focus, .field textarea:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 4px rgba(5, 8, 5, 0.16); }
 .field--full { grid-column: 1 / -1; }
 .coverage-form__submit { grid-column: 1 / -1; display: flex; justify-content: center; margin-top: 8px; }
+/* Resultado da consulta de CEP (aparece abaixo do formulário) */
+.coverage-result { display: flex; align-items: flex-start; gap: 18px; max-width: 760px; margin: 26px auto 0; padding: 24px 26px; border-radius: 22px; background: var(--white); color: var(--ink); box-shadow: var(--shadow-card); animation: coverage-pop 0.4s var(--ease); }
+.coverage-result[hidden] { display: none; }
+.coverage-result__ico { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; background: var(--lime); color: var(--ink); }
+.coverage-result__ico .ico { width: 26px; height: 26px; }
+.coverage-result--nao .coverage-result__ico { background: var(--paper); color: var(--green-deep); box-shadow: inset 0 0 0 2px var(--green-deep); }
+.coverage-result h3 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; line-height: 1.25; }
+.coverage-result p { margin-top: 8px; color: var(--muted); font-size: 0.98rem; }
+.coverage-result .btn { margin-top: 16px; }
+@media (max-width: 560px) { .coverage-result { flex-direction: column; padding: 22px 20px; } .coverage-result .btn { width: 100%; justify-content: center; } }
+@keyframes coverage-pop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .coverage-result { animation: none; } }
 .coverage__note { text-align: center; margin: 18px auto 0; max-width: 62ch; font-size: 0.86rem; color: rgba(5, 8, 5, 0.8); }
 
 /* ==========================================================================
@@ -911,9 +924,10 @@ i[data-icon] { display: inline-flex; line-height: 0; }
   .site-nav__inner { min-height: var(--nav-h); justify-content: space-between; }
   .site-nav__brand { max-width: none; opacity: 1; }
   .site-nav__mark, .site-nav__name { display: none; }
-  .site-nav__logo { display: block; height: 36px; width: auto; }
+  .site-nav__logo { display: block; height: 36px; width: auto; flex-shrink: 0; }
   .site-nav__panel, .nav-overlay, .nav-toggle { display: none !important; }
-  .site-nav__mobile-group { display: flex; align-items: center; gap: 8px; }
+  .site-nav__mobile-group { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .site-nav__brand { min-width: 0; }
   .site-nav__cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: var(--lime); color: var(--ink); font-family: var(--font-display); font-weight: 700; font-size: 0.88rem; white-space: nowrap; transition: transform 0.3s var(--ease), background 0.2s ease; }
   .site-nav__cta .ico { width: 17px; height: 17px; }
 
@@ -987,6 +1001,28 @@ i[data-icon] { display: inline-flex; line-height: 0; }
   .floating-btn { width: 46px; height: 46px; }
   .floating-btn .ico { width: 23px; height: 23px; }
   .floating-menu__panel { width: min(262px, calc(100vw - 96px)); }
+}
+
+/* Telas de celular mais estreitas (a maioria dos aparelhos): reduz logo,
+   ícones e botão para caber numa linha só sem cortar/espremer a logo
+   (era o bug da logo "quebrada" em vários tamanhos de tela). */
+@media (max-width: 480px) {
+  .site-nav .container { padding: 0 12px; }
+  .site-nav__inner { gap: 10px; }
+  .site-nav__logo { height: 28px; }
+  .site-nav__mobile-group { gap: 6px; }
+  .audience-switch { gap: 4px; }
+  .audience-switch a { width: 28px; height: 28px; }
+  .audience-switch a .ico { width: 13px; height: 13px; }
+  .site-nav__cta { padding: 8px 14px; font-size: 0.82rem; gap: 6px; }
+  .site-nav__cta .ico { width: 15px; height: 15px; }
+}
+@media (max-width: 360px) {
+  .site-nav__logo { height: 24px; }
+  .audience-switch { gap: 3px; }
+  .audience-switch a { width: 26px; height: 26px; }
+  .site-nav__cta { padding: 6px 12px; font-size: 0.78rem; gap: 5px; }
+  .site-nav__cta .ico { width: 14px; height: 14px; }
 }
 
 /* ==========================================================================

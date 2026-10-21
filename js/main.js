@@ -144,7 +144,113 @@
     setupReveal();
     var y = $("#current-year");
     if (y) y.textContent = new Date().getFullYear();
+
+    aplicarMarca(); // roda por último, depois de tudo já estar na tela
+    carregarAnalytics();
   });
+
+  /* ==========================================================================
+     Marca (nome, logos, favicon, meta tags) — lidos do config.js
+     Hoje não muda nada na tela (os valores em config.js são os mesmos que já
+     estavam no HTML). Quando "marca.curto"/"marca.completo" mudarem no
+     config.js, o site inteiro passa a usar o nome novo sem precisar editar
+     nenhum HTML.
+     ========================================================================== */
+  function aplicarMarca() {
+    var m = CFG.marca;
+    if (!m) return;
+    var completo = m.completo || "";
+    var curto = m.curto || "";
+
+    // Textos e atributos da página que citam o nome da marca — troca o nome
+    // MANTENDO o resto do texto (cada página tem título/descrição próprios
+    // para SEO, então não sobrescrevemos, só trocamos o nome dentro deles)
+    var ANTIGO_COMPLETO = "Almeida’S Telecom";
+    var ANTIGO_CURTO = "Almeida’S";
+    function trocar(txt) {
+      return txt.split(ANTIGO_COMPLETO).join(completo).split(ANTIGO_CURTO).join(curto);
+    }
+
+    if (document.title) document.title = trocar(document.title);
+    ['meta[name="description"]', 'meta[property="og:title"]', 'meta[property="og:description"]',
+      'meta[property="og:site_name"]', 'meta[name="twitter:title"]', 'meta[name="twitter:description"]'
+    ].forEach(function (sel) {
+      var el = $(sel);
+      if (el) { var v = el.getAttribute("content"); if (v) el.setAttribute("content", trocar(v)); }
+    });
+    if (CFG.tema && CFG.tema.topbarBg) {
+      var tc = $('meta[name="theme-color"]');
+      if (tc) tc.setAttribute("content", CFG.tema.topbarBg);
+    }
+
+    var favicon = $('link[rel="icon"]');
+    if (favicon && m.favicon) favicon.setAttribute("href", m.favicon);
+    var canonical = $('link[rel="canonical"]');
+    if (canonical && m.dominio) canonical.setAttribute("href", m.dominio.replace(/\/$/, "") + "/" + currentPage().replace(/^index\.html$/, ""));
+
+    if (m.logoClaro) $$('img[src$="images/logo/logo-claro.png"], img[src="images/logo/logo-claro.png"]').forEach(function (el) { el.src = m.logoClaro; });
+    if (m.logoColorido) $$('img[src$="images/logo/logo-colorido.png"], img[src="images/logo/logo-colorido.png"]').forEach(function (el) { el.src = m.logoColorido; });
+    if (m.marcaIcone) $$('img[src$="images/logo/marca.png"], img[src="images/logo/marca.png"]').forEach(function (el) { el.src = m.marcaIcone; });
+
+    ["alt", "aria-label", "data-wa-msg", "title"].forEach(function (attr) {
+      $$("[" + attr + "]").forEach(function (el) {
+        var v = el.getAttribute(attr);
+        if (v && (v.indexOf(ANTIGO_COMPLETO) !== -1 || v.indexOf(ANTIGO_CURTO) !== -1)) el.setAttribute(attr, trocar(v));
+      });
+    });
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    var node;
+    while ((node = walker.nextNode())) {
+      var tag = node.parentNode && node.parentNode.tagName;
+      if (tag === "SCRIPT" || tag === "STYLE") continue;
+      if (node.nodeValue.indexOf(ANTIGO_COMPLETO) !== -1 || node.nodeValue.indexOf(ANTIGO_CURTO) !== -1) {
+        node.nodeValue = trocar(node.nodeValue);
+      }
+    }
+
+    // JSON-LD (dados estruturados de SEO)
+    var ld = $('script[type="application/ld+json"]');
+    if (ld) {
+      try {
+        var data = JSON.parse(ld.textContent);
+        if (data.name) data.name = curto;
+        if (data.alternateName) data.alternateName = completo;
+        if (data.url && m.dominio) data.url = m.dominio;
+        ld.textContent = JSON.stringify(data);
+      } catch (err) {}
+    }
+  }
+
+  /* ==========================================================================
+     Analytics (opcional) — só carrega se um ID tiver sido preenchido no
+     config.js. Sem ID preenchido, esta função não faz nada.
+     ========================================================================== */
+  function carregarAnalytics() {
+    var a = CFG.analytics;
+    if (!a) return;
+    if (a.googleAnalyticsId) {
+      var s1 = document.createElement("script");
+      s1.async = true;
+      s1.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(a.googleAnalyticsId);
+      document.head.appendChild(s1);
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", a.googleAnalyticsId);
+    }
+    if (a.metaPixelId) {
+      /* eslint-disable */
+      (function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = true; n.version = "2.0"; n.queue = [];
+        t = b.createElement(e); t.async = true; t.src = v;
+        s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+      })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      window.fbq("init", a.metaPixelId);
+      window.fbq("track", "PageView");
+      /* eslint-enable */
+    }
+  }
 
   // Helpers reaproveitados por outras páginas do site (ex.: empresas.html)
   window.AlmeidasNetUI = { icon: icon, esc: esc, waLink: waLink, resolveLink: resolveLink, linkAttrs: linkAttrs, hydrateIcons: hydrateIcons };
@@ -444,7 +550,7 @@
   /* ---------- Mensagem do pedido para o WhatsApp ---------- */
   function buildOrderMessage(p, st, extras, totalC, deC) {
     var L = [];
-    L.push("Olá! Quero assinar a AlmeidasNet", "");
+    L.push("Olá! Quero assinar a Almeida’S", "");
     L.push("*Plano:* " + p.combo + " — " + p.velocidade + " " + p.unidade);
     if (p.incluso && p.incluso.legenda) L.push("*Incluso no combo:* " + p.incluso.legenda);
     if (st.gratis.length) L.push("*Apps grátis:* " + st.gratis.map(function (i) { return appNome(p.gratis.apps[i], i); }).join(", "));
@@ -844,7 +950,7 @@
 
     var slidesHTML = cfg.slides.map(function (s, i) {
       var inner = s.imagem
-        ? '<a ' + linkAttrs(s.link) + '><img src="' + esc(s.imagem) + '" alt="' + esc(s.titulo || "Promoção AlmeidasNet") + '"></a>'
+        ? '<a ' + linkAttrs(s.link) + '><img src="' + esc(s.imagem) + '" alt="' + esc(s.titulo || "Promoção Almeida’S") + '"></a>'
         : '<a class="promo-art' + ((s.titulo || "").length > 18 ? " promo-art--long" : "") + '" ' + linkAttrs(s.link) + ">" +
           '<span class="promo-art__icon">' + icon(s.icone || "users") + "</span>" +
           "<h3>" + esc(s.titulo) + "</h3><p>" + esc(s.texto) + "</p>" +
@@ -1035,19 +1141,76 @@
     });
   }
 
+  /* ==========================================================================
+     Consulta de cobertura por CEP
+     A base vem de js/cobertura.js (gerada por scripts/gerar-cobertura.py a partir
+     do CSV de clientes de Salvador). Só CEP exato conta como "cobertura confirmada";
+     CEP que não está na base NÃO diz que não atendemos — manda para o WhatsApp.
+     ========================================================================== */
+  function coverageIndex() {
+    var raw = window.ALMEIDAS_COBERTURA;
+    if (!raw) return null;
+    var idx = {};
+    Object.keys(raw).forEach(function (bairro) {
+      raw[bairro].forEach(function (cep) { idx[cep] = bairro; });
+    });
+    return idx;
+  }
+
   function setupCoverageForm() {
     var form = $("#coverage-form");
     if (!form) return;
+    var out = $("#coverage-result");
+    var idx = coverageIndex();
+    var cepInput = $("#cf-cep", form);
+
+    // máscara 00000-000 e limpa o resultado antigo quando o CEP muda
+    cepInput.addEventListener("input", function () {
+      var d = cepInput.value.replace(/\D/g, "").slice(0, 8);
+      cepInput.value = d.length > 5 ? d.slice(0, 5) + "-" + d.slice(5) : d;
+      if (out) out.hidden = true;
+    });
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var v = function (id) { return $(id, form).value.trim(); };
-      var msg =
-        "Olá! Quero consultar cobertura da AlmeidasNet\n" +
-        "Nome: " + v("#cf-nome") + "\n" +
-        "Rua/Av: " + v("#cf-rua") + "\n" +
-        "Bairro: " + v("#cf-bairro") + "\n" +
-        "Meu WhatsApp: " + v("#cf-whatsapp");
-      window.open(waLink(msg), "_blank", "noopener");
+      var digitos = v("#cf-cep").replace(/\D/g, "");
+      var cepFmt = digitos.slice(0, 5) + "-" + digitos.slice(5);
+      var achou = !!idx && Object.prototype.hasOwnProperty.call(idx, digitos);
+      var bairroBase = achou ? idx[digitos] : "";
+
+      var assunto = form.getAttribute("data-assunto");   // "Empresa" / "Evento" nas outras páginas
+      var linhas = [
+        "Olá! Quero consultar cobertura da Almeida’S" + (assunto ? " (" + assunto + ")" : ""),
+        "Nome: " + v("#cf-nome"),
+        "CEP: " + cepFmt + (idx ? (achou ? " (cobertura confirmada" + (bairroBase ? " - " + bairroBase : "") + ")" : " (não consta na base de cobertura)") : ""),
+        "Rua/Av: " + v("#cf-rua")
+      ];
+      var bairro = v("#cf-bairro") || bairroBase;
+      if (bairro) linhas.push("Bairro: " + bairro);
+      linhas.push("Meu WhatsApp: " + v("#cf-whatsapp"));
+      var link = waLink(linhas.join("\n"));
+
+      // sem a base carregada, mantém o comportamento antigo (abre o WhatsApp direto)
+      if (!idx || !out) { window.open(link, "_blank", "noopener"); return; }
+
+      var onde = bairroBase ? " (" + esc(bairroBase) + ")" : "";
+      var atendidos = (CFG.bairrosAtendidos || []).join(", ");
+      out.className = "coverage-result " + (achou ? "coverage-result--sim" : "coverage-result--nao");
+      out.innerHTML =
+        '<span class="coverage-result__ico">' + icon(achou ? "check" : "pin") + "</span>" +
+        "<div>" +
+          (achou
+            ? "<h3>Boa notícia! A gente chega no seu CEP.</h3>" +
+              "<p>O CEP " + esc(cepFmt) + " está na nossa área de cobertura" + onde + ". Fale com a equipe para escolher o plano e agendar a instalação.</p>"
+            : "<h3>Ainda não encontramos esse CEP na nossa base.</h3>" +
+              "<p>Isso não quer dizer que não chegamos até você: a equipe confirma o seu endereço pelo WhatsApp." +
+              (atendidos ? " Nossa cobertura inclui " + esc(atendidos) + "." : "") + "</p>") +
+          '<a class="btn btn--dark" href="' + esc(link) + '" target="_blank" rel="noopener">' + icon("whatsapp") +
+            (achou ? "Quero contratar pelo WhatsApp" : "Confirmar pelo WhatsApp") + "</a>" +
+        "</div>";
+      out.hidden = false;
+      out.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "nearest" });
     });
   }
 

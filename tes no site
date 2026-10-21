@@ -1,0 +1,267 @@
+warning: in the working copy of 'js/config.js', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/js/config.js b/js/config.js[m
+[1mindex b6e45cc..5074265 100644[m
+[1m--- a/js/config.js[m
+[1m+++ b/js/config.js[m
+[36m@@ -1,5 +1,5 @@[m
+ /**[m
+[31m- * CONFIGURAÇÃO CENTRAL — ALMEIDAS.NET[m
+[32m+[m[32m * CONFIGURAÇÃO CENTRAL — ALMEIDA’S TELECOM[m
+  * -----------------------------------[m
+  * Edite apenas este arquivo para atualizar links, textos, banners do[m
+  * carrossel, o popup de indicação, planos, entretenimento e depoimentos.[m
+[36m@@ -27,7 +27,38 @@[m
+  */[m
+ [m
+ window.ALMEIDASNET_CONFIG = {[m
+[31m-  marca: "AlmeidasNet",[m
+[32m+[m[32m  /* ------------------------------------------------------------------[m
+[32m+[m[32m     MARCA — troque tudo isso quando for reaproveitar o site para outra[m
+[32m+[m[32m     empresa. É o ÚNICO lugar que precisa mudar: o site troca sozinho o[m
+[32m+[m[32m     nome no título da aba, nos textos, no rodapé, nas mensagens de[m
+[32m+[m[32m     WhatsApp, no JSON-LD (SEO) e nas imagens de logo/favicon.[m
+[32m+[m[32m       curto        → nome curto (ex.: "Almeida’S")[m
+[32m+[m[32m       completo     → nome completo (ex.: "Almeida’S Telecom")[m
+[32m+[m[32m       logoClaro / logoColorido / marcaIcone / favicon → caminhos das[m
+[32m+[m[32m         imagens de logo. Troque o ARQUIVO em images/logo/ mantendo o[m
+[32m+[m[32m         mesmo nome, ou aponte para um arquivo novo aqui.[m
+[32m+[m[32m       dominio      → endereço do site, usado no link "canônico" (SEO).[m
+[32m+[m[32m         Lembre de atualizar também o robots.txt e o sitemap.xml se mudar.[m
+[32m+[m[32m     ------------------------------------------------------------------ */[m
+[32m+[m[32m  marca: {[m
+[32m+[m[32m    curto: "Almeida’S",[m
+[32m+[m[32m    completo: "Almeida’S Telecom",[m
+[32m+[m[32m    logoClaro: "images/logo/logo-claro.png",[m
+[32m+[m[32m    logoColorido: "images/logo/logo-colorido.png",[m
+[32m+[m[32m    marcaIcone: "images/logo/marca.png",[m
+[32m+[m[32m    favicon: "images/logo/favicon.png",[m
+[32m+[m[32m    dominio: "https://www.almeidasnet.com.br",[m
+[32m+[m[32m  },[m
+[32m+[m
+[32m+[m[32m  /* ------------------------------------------------------------------[m
+[32m+[m[32m     RASTREAMENTO (opcional) — cole aqui seu ID do Google Analytics (GA4,[m
+[32m+[m[32m     começa com "G-") e/ou do Meta Pixel quando for usar. Deixe em branco[m
+[32m+[m[32m     ("") para não carregar nada — é o padrão hoje, nada muda.[m
+[32m+[m[32m     ------------------------------------------------------------------ */[m
+[32m+[m[32m  analytics: {[m
+[32m+[m[32m    googleAnalyticsId: "",[m
+[32m+[m[32m    metaPixelId: "",[m
+[32m+[m[32m  },[m
+ [m
+   /* ------------------------------------------------------------------[m
+      TEMA SAZONAL — troque essas duas cores para uma campanha (São João,[m
+[36m@@ -48,7 +79,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+   // WhatsApp (formato https://wa.me/55DDDNUMERO) e como o número aparece no site[m
+   whatsapp: "https://wa.me/5571993812371",[m
+   whatsappExibicao: "(71) 99381-2371",[m
+[31m-  whatsappMensagemPadrao: "Olá! Quero contratar um plano da AlmeidasNet",[m
+[32m+[m[32m  whatsappMensagemPadrao: "Olá! Quero contratar um plano da Almeida’S",[m
+ [m
+   // Botão de telefone flutuante e textos "ligue para"[m
+   telefone: "(71) 99381-2371",[m
+[36m@@ -62,7 +93,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+ [m
+   redesSociais: {[m
+     instagram: "https://www.instagram.com/almeidas_net/",[m
+[31m-    facebook: "#",  // INSERIR LINK[m
+[32m+[m[32m    facebook: "https://www.facebook.com/almeidastelecom",[m
+     youtube: "#",   // INSERIR LINK[m
+   },[m
+ [m
+[36m@@ -88,11 +119,11 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+       titulo: ["que transforma", "a sua rotina"],[m
+       texto: "Fibra óptica de alta velocidade para a sua casa, o trabalho e a diversão.",[m
+       botaoTexto: "Assine já!",[m
+[31m-      botaoLink: "whatsapp:Olá! Quero assinar a AlmeidasNet",[m
+[32m+[m[32m      botaoLink: "whatsapp:Olá! Quero assinar a Almeida’S",[m
+       mostrarTelefone: true,[m
+       chips: ["play", "gamepad", "chat", "video"],[m
+       foto: "",[m
+[31m-      alt: "Internet fibra óptica AlmeidasNet",[m
+[32m+[m[32m      alt: "Internet fibra óptica Almeida’S",[m
+     },[m
+     {[m
+       arte: "velocidade",[m
+[36m@@ -106,7 +137,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+       mostrarTelefone: false,[m
+       chips: ["video", "music", "chat", "wifi"],[m
+       foto: "",[m
+[31m-      alt: "Instalação grátis AlmeidasNet",[m
+[32m+[m[32m      alt: "Instalação grátis Almeida’S",[m
+     },[m
+     {[m
+       arte: "gamepad",[m
+[36m@@ -118,7 +149,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+       mostrarTelefone: false,[m
+       chips: ["bolt", "star", "headset", "play"],[m
+       foto: "",[m
+[31m-      alt: "Internet para jogos online AlmeidasNet",[m
+[32m+[m[32m      alt: "Internet para jogos online Almeida’S",[m
+     },[m
+     {[m
+       arte: "headset",[m
+[36m@@ -126,11 +157,11 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+       titulo: ["humanizado de", "verdade"],[m
+       texto: "Time próximo, pronto para resolver pelo WhatsApp, telefone ou pelo app.",[m
+       botaoTexto: "Fale com a gente",[m
+[31m-      botaoLink: "whatsapp:Olá! Quero falar com a AlmeidasNet",[m
+[32m+[m[32m      botaoLink: "whatsapp:Olá! Quero falar com a Almeida’S",[m
+       mostrarTelefone: true,[m
+       chips: ["chat", "shield", "phone", "check"],[m
+       foto: "",[m
+[31m-      alt: "Atendimento humanizado AlmeidasNet",[m
+[32m+[m[32m      alt: "Atendimento humanizado Almeida’S",[m
+     },[m
+   ],[m
+ [m
+[36m@@ -266,7 +297,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+       unidade: "megas",[m
+       destaque: false,[m
+       incluso: {[m
+[31m-        legenda: "TV",[m
+[32m+[m[32m        legenda: "TV ",[m
+         apps: [[m
+           { nome: "", icone: "images/apps/icone-app.png" },[m
+           { nome: "", icone: "images/apps/icone-app.png" },[m
+[36m@@ -333,7 +364,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+      600 x 720px) e "link" (âncora, URL ou "whatsapp:mensagem").[m
+      ------------------------------------------------------------------ */[m
+   entretenimento: {[m
+[31m-    titulo: "Na AlmeidasNet você encontra serviços de entretenimento",[m
+[32m+[m[32m    titulo: "Na Almeida’S você encontra serviços de entretenimento",[m
+     velocidade: 45, // velocidade do movimento automático (px por segundo). 0 = parado[m
+     texto: "Velocidade de sobra para aproveitar tudo o que você gosta, sem travar.",[m
+     cards: [[m
+[36m@@ -351,7 +382,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+      ------------------------------------------------------------------ */[m
+   wifi6: {[m
+     ativo: true,[m
+[31m-    titulo: "Conheça o poder do Wi-Fi 6 da AlmeidasNet",[m
+[32m+[m[32m    titulo: "Conheça o poder do Wi-Fi 6 da Almeida’S",[m
+     texto: "Com o Wi-Fi 6 sua casa ou empresa recebe o que há de mais moderno em conectividade: mais velocidade, mais estabilidade e muito mais eficiência para a sua internet do dia a dia.",[m
+     botao: "Fale conosco",[m
+     itens: [[m
+[36m@@ -366,7 +397,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+      (os de baixo são apenas exemplos de layout)[m
+      ------------------------------------------------------------------ */[m
+   depoimentos: [[m
+[31m-    { nome: "Marina Costa", perfil: "Cliente residencial", texto: "Depois que contratei a AlmeidasNet, minha conexão ficou muito mais estável." },[m
+[32m+[m[32m    { nome: "Marina Costa", perfil: "Cliente residencial", texto: "Depois que contratei a Almeida’S, minha conexão ficou muito mais estável." },[m
+     { nome: "Rodrigo Silva", perfil: "Home office", texto: "Uso para trabalhar e assistir streaming ao mesmo tempo e funciona muito bem." },[m
+     { nome: "Lucas Pereira", perfil: "Cliente gamer", texto: "Para jogar online, a estabilidade fez bastante diferença." },[m
+     { nome: "Ana Ribeiro", perfil: "Cliente residencial", texto: "Atendimento rápido e instalação sem complicação." },[m
+[36m@@ -383,7 +414,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+     { texto: "Quem somos", link: "#quem-somos", icone: "users" },[m
+     { texto: "Entretenimento", link: "#entretenimento", icone: "film" },[m
+     { texto: "Onde estamos", link: "#onde-estamos", icone: "pin" },[m
+[31m-    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a AlmeidasNet", icone: "chat" },[m
+[32m+[m[32m    { texto: "Fale conosco", link: "whatsapp:Olá! Quero falar com a Almeida’S", icone: "chat" },[m
+     { texto: "Teste de velocidade", link: "https://www.speedtest.net/", icone: "gauge" },[m
+     { texto: "Área do assinante", link: "https://ixc.almeidasnet.com.br", icone: "users" },[m
+     { texto: "Indique e ganhe", link: "popup:", icone: "star" }, // "popup:" abre o popup Indique e ganhe[m
+[36m@@ -396,7 +427,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+     { texto: "Planos empresariais", link: "#planos", icone: "office" },[m
+     { texto: "Benefícios", link: "#beneficios", icone: "shield" },[m
+     { texto: "Depoimentos", link: "#depoimentos", icone: "users" },[m
+[31m-    { texto: "Falar com consultor", link: "whatsapp:Olá! Quero falar com um consultor da AlmeidasNet", icone: "chat" },[m
+[32m+[m[32m    { texto: "Falar com consultor", link: "whatsapp:Olá! Quero falar com um consultor da Almeida’S", icone: "chat" },[m
+     { texto: "Para sua casa", link: "index.html", icone: "home" },[m
+     { texto: "Internet para eventos", link: "eventos.html", icone: "calendar" },[m
+   ],[m
+[36m@@ -424,10 +455,10 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+       {[m
+         imagem: "",[m
+         titulo: "Indique e ganhe",[m
+[31m-        texto: "Indique amigos e familiares para a AlmeidasNet e ganhe benefícios.",[m
+[32m+[m[32m        texto: "Indique amigos e familiares para a Almeida’S e ganhe benefícios.",[m
+         botao: "Quero indicar",[m
+         icone: "users",[m
+[31m-        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da AlmeidasNet",[m
+[32m+[m[32m        link: "whatsapp:Olá! Quero saber como funciona o programa Indique e Ganhe da Almeida’S",[m
+       },[m
+       {[m
+         imagem: "",[m
+[36m@@ -435,7 +466,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+         texto: "Assine agora e a instalação não custa nada.",[m
+         botao: "Quero assinar",[m
+         icone: "check",[m
+[31m-        link: "whatsapp:Olá! Quero assinar com instalação grátis na AlmeidasNet",[m
+[32m+[m[32m        link: "whatsapp:Olá! Quero assinar com instalação grátis na Almeida’S",[m
+       },[m
+     ],[m
+   },[m
+[36m@@ -512,14 +543,14 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+     planos: [[m
+       {[m
+         nome: "Empresarial Start",[m
+[31m-        velocidade: "300 mega",[m
+[32m+[m[32m        velocidade: "400 megas",[m
+         indicado: "Pequenos negócios e escritórios com poucos pontos",[m
+         recursos: ["IP fixo dedicado", "Suporte em horário comercial", "Instalação em até 48h"],[m
+         precoApartir: "249,90",[m
+       },[m
+       {[m
+         nome: "Empresarial Pro",[m
+[31m-        velocidade: "600 mega",[m
+[32m+[m[32m        velocidade: "700 megas",[m
+         indicado: "Empresas com vários dispositivos e uso constante",[m
+         recursos: ["IP fixo dedicado", "Suporte prioritário 24/7", "Link com redundância", "Gerente de conta"],[m
+         precoApartir: "459,90",[m
+[36m@@ -527,14 +558,14 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+       },[m
+       {[m
+         nome: "Empresarial Corporate",[m
+[31m-        velocidade: "1000 mega",[m
+[32m+[m[32m        velocidade: "1000 megas",[m
+         indicado: "Operações críticas, filiais e múltiplos pontos",[m
+         recursos: ["Link dedicado simétrico", "SLA personalizado", "Suporte prioritário 24/7", "Gerente de conta"],[m
+         precoApartir: "",[m
+       },[m
+     ],[m
+ [m
+[31m-    // "Por que a AlmeidasNet" — EXEMPLO, ajuste textos se quiser[m
+[32m+[m[32m    // "Por que a Almeida’S" — EXEMPLO, ajuste textos se quiser[m
+     beneficios: [[m
+       { icone: "bolt", titulo: "Link estável", texto: "Rede dimensionada para uso intenso, sem quedas em horário de pico." },[m
+       { icone: "headset", titulo: "Suporte prioritário", texto: "Atendimento empresarial com fila própria, sem esperar como cliente comum." },[m
+[36m@@ -544,13 +575,13 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+ [m
+     // Depoimentos de empresas — SUBSTITUA pelos depoimentos reais[m
+     depoimentos: [[m
+[31m-      { nome: "Fernanda Dias", perfil: "Clínica odontológica", texto: "Migramos para a AlmeidasNet e o atendimento prioritário fez toda a diferença no dia a dia da clínica." },[m
+[32m+[m[32m      { nome: "Fernanda Dias", perfil: "Clínica odontológica", texto: "Migramos para a Almeida’S e o atendimento prioritário fez toda a diferença no dia a dia da clínica." },[m
+       { nome: "Marcos Vinícius", perfil: "Escritório de contabilidade", texto: "Nunca mais tivemos queda de link em horário de fechamento de balanço." },[m
+       { nome: "Patrícia Nunes", perfil: "Loja de conveniência", texto: "O gerente de conta resolve tudo direto pelo WhatsApp, sem enrolação." },[m
+     ],[m
+ [m
+     faq: [[m
+[31m-      { pergunta: "Atendem empresas em qualquer bairro?", resposta: "Atendemos toda a área de cobertura da AlmeidasNet Fale com um consultor informando o endereço para confirmarmos a disponibilidade." },[m
+[32m+[m[32m      { pergunta: "Atendem empresas em qualquer bairro?", resposta: "Atendemos toda a área de cobertura da Almeida’S Fale com um consultor informando o endereço para confirmarmos a disponibilidade." },[m
+       { pergunta: "O IP fixo já vem incluso?", resposta: "Sim, todos os planos empresariais incluem IP fixo dedicado, sem custo adicional." },[m
+       { pergunta: "Como funciona o suporte prioritário?", resposta: "Clientes empresariais têm uma fila de atendimento própria, com SLA de resposta combinado no contrato." },[m
+       { pergunta: "Consigo migrar de outro provedor sem perder e-mail e sistemas?", resposta: "Sim. Nosso time acompanha a migração e planeja a troca para não impactar o funcionamento da empresa." },[m
+[36m@@ -619,7 +650,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+       },[m
+     ],[m
+ [m
+[31m-    // "Por que a AlmeidasNet" — EXEMPLO, ajuste textos se quiser[m
+[32m+[m[32m    // "Por que a Almeida’S" — EXEMPLO, ajuste textos se quiser[m
+     beneficios: [[m
+       { icone: "bolt", titulo: "Equipamento próprio", texto: "Não dependemos de terceiros: toda a estrutura é nossa, pronta para reaproveitar em cada evento." },[m
+       { icone: "check", titulo: "Setup rápido", texto: "Equipe treinada para montar e deixar tudo funcionando antes do seu evento começar." },[m
+[36m@@ -636,7 +667,7 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+ [m
+     faq: [[m
+       { pergunta: "Com quanto tempo de antecedência preciso contratar?", resposta: "O ideal é fechar com alguns dias de antecedência para garantir equipamento e equipe disponíveis, mas fale com a gente mesmo em cima da hora — muitas vezes conseguimos encaixar." },[m
+[31m-      { pergunta: "Vocês atendem eventos fora da área de cobertura?", resposta: "Sim, conseguimos levar a estrutura para fora da área normal de cobertura da AlmeidasNet; o orçamento considera o deslocamento da equipe." },[m
+[32m+[m[32m      { pergunta: "Vocês atendem eventos fora da área de cobertura?", resposta: "Sim, conseguimos levar a estrutura para fora da área normal de cobertura da Almeida’S; o orçamento considera o deslocamento da equipe." },[m
+       { pergunta: "Precisa de energia elétrica no local?", resposta: "Sim, os equipamentos precisam de energia. Se o local não tiver, conseguimos combinar um gerador junto com o orçamento." },[m
+       { pergunta: "Quantas pessoas conseguem ficar conectadas ao mesmo tempo?", resposta: "Depende do pacote escolhido — dimensionamos a estrutura de acordo com o público estimado do seu evento." },[m
+       { pergunta: "O que acontece com o equipamento depois do evento?", resposta: "Desmontamos tudo no mesmo dia (ou no dia seguinte, se combinado antes) e o equipamento fica pronto para o próximo evento." },[m
+[36m@@ -645,4 +676,4 @@[m [mwindow.ALMEIDASNET_CONFIG = {[m
+     formTitulo: "Conte sobre o seu evento",[m
+     formTexto: "Preencha os dados e te mandamos um orçamento sob medida.",[m
+   },[m
+[31m-};[m
+[32m+[m[32m};[m
+\ No newline at end of file[m
