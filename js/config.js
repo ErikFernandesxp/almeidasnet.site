@@ -581,7 +581,7 @@ window.ALMEIDASNET_CONFIG = {
     ],
 
     faq: [
-      { pergunta: "Atendem empresas em qualquer bairro?", resposta: "Atendemos toda a área de cobertura da Almeida’S Fale com um consultor informando o endereço para confirmarmos a disponibilidade." },
+      { pergunta: "Atendem empresas em qualquer bairro?", resposta: "Atendemos toda a área de cobertura da Almeida’S. Fale com um consultor informando o endereço para confirmarmos a disponibilidade." },
       { pergunta: "O IP fixo já vem incluso?", resposta: "Sim, todos os planos empresariais incluem IP fixo dedicado, sem custo adicional." },
       { pergunta: "Como funciona o suporte prioritário?", resposta: "Clientes empresariais têm uma fila de atendimento própria, com SLA de resposta combinado no contrato." },
       { pergunta: "Consigo migrar de outro provedor sem perder e-mail e sistemas?", resposta: "Sim. Nosso time acompanha a migração e planeja a troca para não impactar o funcionamento da empresa." },
