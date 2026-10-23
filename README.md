@@ -135,3 +135,12 @@ Para atualizar a base com novos clientes, exporte o CSV (colunas `CEP;Endereço;
 
 O script mantém só CEPs de Salvador, padroniza o nome do bairro e **não publica ruas nem dados de clientes**
 (só CEP agrupado por bairro). CEPs com erro de cadastro conhecido ficam na lista `EXCLUIR` dentro do script.
+
+## CEP no "Assine já" (planos da home)
+
+Ao clicar em "Assine já", abre sempre a janela "Antes de assinar, confira se chegamos aí".
+O CEP consultado (nessa janela ou na seção de cobertura) fica guardado só durante a visita (`sessionStorage`,
+chave `almeidasnet_cep`); nos cliques seguintes a janela abre já com o CEP preenchido e o resultado à vista
+(dá para trocar o CEP e verificar de novo).
+A mensagem do pedido ganha a linha `*CEP:*` com o status (cobertura confirmada, não consta na base ou não informado).
+O pedido nunca é bloqueado: a base vem de clientes atuais, então um CEP fora dela pode ser atendido mesmo assim.

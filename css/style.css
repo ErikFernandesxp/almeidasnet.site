@@ -667,7 +667,9 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .coverage-result h3 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; line-height: 1.25; }
 .coverage-result p { margin-top: 8px; color: var(--muted); font-size: 0.98rem; }
 .coverage-result .btn { margin-top: 16px; }
-@media (max-width: 560px) { .coverage-result { flex-direction: column; padding: 22px 20px; } .coverage-result .btn { width: 100%; justify-content: center; } }
+.coverage-result > div { flex: 1; min-width: 0; }
+.coverage-result .btn { white-space: normal; text-align: center; }
+@media (max-width: 560px) { .coverage-result { flex-direction: column; align-items: stretch; padding: 22px 20px; } .coverage-result__ico { align-self: flex-start; } .coverage-result .btn { width: 100%; justify-content: center; } }
 @keyframes coverage-pop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .coverage-result { animation: none; } }
 .coverage__note { text-align: center; margin: 18px auto 0; max-width: 62ch; font-size: 0.86rem; color: rgba(5, 8, 5, 0.8); }
@@ -856,6 +858,26 @@ i[data-icon] { display: inline-flex; line-height: 0; }
 .apps__item img { width: 56px; height: 56px; border-radius: 15px; transition: transform 0.3s var(--ease); }
 .apps__item:hover img { transform: translateY(-4px) scale(1.08); }
 .apps__card .modal__close { background: var(--paper); color: var(--ink); }
+
+/* Janela "Antes de assinar, confira se chegamos aí" (CEP no Assine já) */
+.cep-modal__form { display: flex; gap: 10px; margin-top: 20px; }
+.cep-modal__form input { flex: 1; min-width: 0; border: 2px solid var(--line); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 1.05rem; background: var(--white); color: var(--ink); }
+.cep-modal__form input:focus { outline: none; border-color: var(--green-deep); box-shadow: 0 0 0 4px rgba(31, 108, 18, 0.16); }
+.cep-modal__erro { margin-top: 10px; font-size: 0.88rem; font-weight: 700; color: #B3261E; }
+.cep-modal__erro[hidden], .cep-modal__result[hidden] { display: none; }
+.cep-modal__result { display: flex; align-items: flex-start; gap: 14px; margin-top: 18px; padding: 16px 18px; border-radius: 18px; background: var(--paper); animation: coverage-pop 0.35s var(--ease); }
+.cep-modal__result > div { flex: 1; min-width: 0; }
+.cep-modal__result .coverage-result__ico { width: 38px; height: 38px; }
+.cep-modal__result .coverage-result__ico .ico { width: 22px; height: 22px; }
+.cep-modal__result--nao .coverage-result__ico { background: var(--white); color: var(--green-deep); box-shadow: inset 0 0 0 2px var(--green-deep); }
+.cep-modal__result h4 { font-family: var(--font-display); font-weight: 800; font-size: 1.02rem; line-height: 1.3; }
+.cep-modal__result p { margin-top: 4px; font-size: 0.9rem; color: var(--muted); }
+.cep-modal__result .btn { margin-top: 12px; width: 100%; justify-content: center; white-space: normal; text-align: center; }
+@media (max-width: 480px) { .cep-modal__result { flex-direction: column; gap: 10px; } }
+.cep-modal__skip { display: block; width: fit-content; margin: 16px auto 0; font-size: 0.86rem; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.cep-modal__skip:hover { color: var(--ink); }
+@media (max-width: 420px) { .cep-modal__form { flex-direction: column; } .cep-modal__form .btn { width: 100%; justify-content: center; } }
+@media (prefers-reduced-motion: reduce) { .cep-modal__result { animation: none; } }
 
 /* ==========================================================================
    REVEAL (uma entrada por bloco)

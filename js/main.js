@@ -464,6 +464,7 @@
 
   /* Estado escolhido em cada card: apps grátis, apps premium e adicionais */
   var planState = [];
+  var planOrder = [];   // dados do último cálculo de cada plano (usados pela janela de CEP)
 
   /* ---------- HTML do card ---------- */
   function appIconRowHTML(apps) {
@@ -548,9 +549,11 @@
   }
 
   /* ---------- Mensagem do pedido para o WhatsApp ---------- */
-  function buildOrderMessage(p, st, extras, totalC, deC) {
+  function buildOrderMessage(p, st, extras, totalC, deC, cep) {
     var L = [];
     L.push("Olá! Quero assinar a Almeida’S", "");
+    // cep: resultado da consulta, "skip" (pulou a consulta) ou nada (base indisponível)
+    if (cep) L.push("*CEP:* " + (cep === "skip" ? "não informado" : fmtCep(cep.cep) + " (" + cepStatus(cep) + ")"));
     L.push("*Plano:* " + p.combo + " — " + p.velocidade + " " + p.unidade);
     if (p.incluso && p.incluso.legenda) L.push("*Incluso no combo:* " + p.incluso.legenda);
     if (st.gratis.length) L.push("*Apps grátis:* " + st.gratis.map(function (i) { return appNome(p.gratis.apps[i], i); }).join(", "));
@@ -626,7 +629,8 @@
       badge.title = ativos + (ativos === 1 ? " selecionado" : " selecionados");
     }
 
-    $("[data-assinar]", card).href = waLink(buildOrderMessage(p, st, extras, totalC, deC));
+    planOrder[idx] = { p: p, st: st, extras: extras, totalC: totalC, deC: deC };
+    $("[data-assinar]", card).href = waLink(buildOrderMessage(p, st, extras, totalC, deC, getCep()));
   }
 
   function renderPlanos() {
@@ -645,6 +649,13 @@
       if (!card) return;
       var idx = parseInt(card.getAttribute("data-idx"), 10);
       var p = CFG.planos[idx], st = planState[idx];
+
+      // "Assine já": abre a janela do CEP (já preenchida se o CEP foi consultado nesta visita).
+      // Sem a base de cobertura carregada, segue direto para o WhatsApp como antes.
+      if (e.target.closest("[data-assinar]")) {
+        if (coverageIndex()) { e.preventDefault(); openCepModal(idx); }
+        return;
+      }
 
       var tg = e.target.closest(".plan-extras__toggle");
       if (tg) {
@@ -715,6 +726,71 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { var m = $(".modal.is-open"); if (m) closeModal(m); }
   });
+
+  function openCepModal(idx) {
+    var modal = $("#cep-modal"), o = planOrder[idx];
+    if (!modal || !o) return;
+    var p = o.p;
+    var orderLink = function (cep) { return waLink(buildOrderMessage(o.p, o.st, o.extras, o.totalC, o.deC, cep)); };
+    modal.innerHTML =
+      '<div class="modal__card apps__card cep-modal" role="dialog" aria-modal="true" aria-labelledby="cep-modal-titulo">' +
+      '<button type="button" class="modal__close" aria-label="Fechar">' + icon("x") + "</button>" +
+      '<h3 id="cep-modal-titulo">Antes de assinar, confira se chegamos aí</h3>' +
+      "<p>" + esc(p.combo) + " • " + esc(p.velocidade) + " " + esc(p.unidade) + ". Digite o CEP do endereço da instalação.</p>" +
+      '<form class="cep-modal__form" novalidate>' +
+        '<input type="text" id="cep-modal-input" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="00000-000" aria-label="CEP" required>' +
+        '<button type="submit" class="btn btn--dark">Verificar</button>' +
+      "</form>" +
+      '<p class="cep-modal__erro" role="alert" hidden>Digite o CEP completo, com 8 números.</p>' +
+      '<div class="cep-modal__result" role="status" aria-live="polite" hidden></div>' +
+      '<a class="cep-modal__skip" target="_blank" rel="noopener" href="' + esc(orderLink("skip")) + '">Pular e ir para o WhatsApp</a>' +
+      "</div>";
+
+    var form = $("form", modal), input = $("#cep-modal-input", modal), erro = $(".cep-modal__erro", modal), res = $(".cep-modal__result", modal);
+    var closeBtn = $(".modal__close", modal);
+    closeBtn.addEventListener("click", function () { closeModal(modal); });
+    modal.onclick = function (e) { if (e.target === modal) closeModal(modal); };
+    $(".cep-modal__skip", modal).addEventListener("click", function () { setTimeout(function () { closeModal(modal); }, 150); });
+
+    input.addEventListener("input", function () {
+      var d = input.value.replace(/\D/g, "").slice(0, 8);
+      input.value = d.length > 5 ? d.slice(0, 5) + "-" + d.slice(5) : d;
+      res.hidden = true; erro.hidden = true;
+    });
+
+    function mostrar(r) {
+      res.className = "cep-modal__result " + (r.achou ? "cep-modal__result--sim" : "cep-modal__result--nao");
+      res.innerHTML =
+        '<span class="coverage-result__ico">' + icon(r.achou ? "check" : "pin") + "</span>" +
+        "<div>" +
+          (r.achou
+            ? "<h4>Boa notícia! A gente chega no seu CEP" + (r.bairro ? " (" + esc(r.bairro) + ")" : "") + ".</h4>" +
+              "<p>Agora é só continuar no WhatsApp para finalizar o seu pedido.</p>"
+            : "<h4>Ainda não encontramos esse CEP na nossa base.</h4>" +
+              "<p>Isso não quer dizer que não chegamos até você: a equipe confirma o endereço pelo WhatsApp.</p>") +
+          '<a class="btn btn--dark" target="_blank" rel="noopener" href="' + esc(orderLink(r)) + '">' + icon("whatsapp") +
+            (r.achou ? "Continuar no WhatsApp" : "Continuar mesmo assim") + "</a>" +
+        "</div>";
+      res.hidden = false;
+      $(".btn", res).addEventListener("click", function () { setTimeout(function () { closeModal(modal); }, 150); });
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var d = input.value.replace(/\D/g, "");
+      if (d.length !== 8) { erro.hidden = false; input.focus(); return; }
+      var r = lookupCep(d);
+      saveCep(r);
+      refreshPlanLinks();
+      mostrar(r);
+    });
+
+    // CEP já consultado nesta visita: abre com ele preenchido e o resultado à vista (dá para trocar o CEP)
+    var lembrado = getCep();
+    if (lembrado) { input.value = fmtCep(lembrado.cep); mostrar(lookupCep(lembrado.cep)); }
+
+    openModal(modal, input);
+  }
 
   function openAppsModal(plano, key) {
     var modal = $("#apps-modal");
@@ -1147,14 +1223,44 @@
      do CSV de clientes de Salvador). Só CEP exato conta como "cobertura confirmada";
      CEP que não está na base NÃO diz que não atendemos — manda para o WhatsApp.
      ========================================================================== */
+  var covIdx;
   function coverageIndex() {
+    if (covIdx !== undefined) return covIdx;
     var raw = window.ALMEIDAS_COBERTURA;
-    if (!raw) return null;
+    if (!raw) { covIdx = null; return null; }
     var idx = {};
     Object.keys(raw).forEach(function (bairro) {
       raw[bairro].forEach(function (cep) { idx[cep] = bairro; });
     });
+    covIdx = idx;
     return idx;
+  }
+
+  // Confere um CEP (8 dígitos) na base. "achou" = CEP exato na lista de cobertura.
+  function lookupCep(digitos) {
+    var idx = coverageIndex();
+    var achou = !!idx && Object.prototype.hasOwnProperty.call(idx, digitos);
+    return { cep: digitos, achou: achou, bairro: achou ? idx[digitos] : "" };
+  }
+  function fmtCep(d) { return d.slice(0, 5) + "-" + d.slice(5); }
+  function cepStatus(r) {
+    return r.achou ? "cobertura confirmada" + (r.bairro ? " - " + r.bairro : "") : "não consta na base de cobertura";
+  }
+
+  // CEP consultado fica guardado só nesta visita (sessionStorage), para não pedir de novo no "Assine já"
+  var CEP_KEY = "almeidasnet_cep";
+  function saveCep(r) {
+    try { sessionStorage.setItem(CEP_KEY, JSON.stringify({ cep: r.cep, achou: r.achou, bairro: r.bairro })); } catch (err) {}
+  }
+  function getCep() {
+    try {
+      var r = JSON.parse(sessionStorage.getItem(CEP_KEY) || "null");
+      return r && /^\d{8}$/.test(r.cep) ? r : null;
+    } catch (err) { return null; }
+  }
+  // atualiza os links "Assine já" dos planos (se estiver na página com planos)
+  function refreshPlanLinks() {
+    if (planState.length) CFG.planos.forEach(function (_, i) { updatePlan(i); });
   }
 
   function setupCoverageForm() {
@@ -1176,8 +1282,10 @@
       var v = function (id) { return $(id, form).value.trim(); };
       var digitos = v("#cf-cep").replace(/\D/g, "");
       var cepFmt = digitos.slice(0, 5) + "-" + digitos.slice(5);
-      var achou = !!idx && Object.prototype.hasOwnProperty.call(idx, digitos);
-      var bairroBase = achou ? idx[digitos] : "";
+      var r = lookupCep(digitos);
+      var achou = r.achou;
+      var bairroBase = r.bairro;
+      if (idx) { saveCep(r); refreshPlanLinks(); }
 
       var assunto = form.getAttribute("data-assunto");   // "Empresa" / "Evento" nas outras páginas
       var linhas = [
